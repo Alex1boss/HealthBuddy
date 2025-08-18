@@ -1,0 +1,89 @@
+Build a clean, modern, and fully responsive **1-page health calculator website** called **"Daily Health Buddy"**.
+
+💡 Purpose:
+This site helps users calculate their recommended daily water intake and step goal based on their weight, and provides simple health tips. The site should be easy to use, attractive, mobile-friendly, and optimized for Google AdSense ads.
+
+---
+
+🎨 Design & Colors:
+- Color theme: 
+  - Primary: #1E90FF (blue – for water & health)
+  - Secondary: #32CD32 (green – for fitness/steps)
+  - Background: #F9FAFB (light grayish white)
+  - Text: #111827 (dark gray/black)
+- Font: Use Google Font **"Inter"** or **"Poppins"** (modern + clean).
+- Rounded corners (radius: 16px) for all input, button, and cards.
+- Shadow effect on cards and button (subtle, soft).
+- Layout should center content vertically and horizontally for clean look.
+
+---
+
+📱 Sections:
+1. **Header / Hero Section**
+   - Title: "Daily Health Buddy"
+   - Subtitle: "Calculate your daily water intake and steps goal in seconds."
+   - Centered on top with large font (H1: 36px desktop, 24px mobile).
+
+2. **Calculator Section**
+   - Input field:
+     - Label: "Enter your weight (kg)"
+     - Large text box (width: 80% on mobile, 40% on desktop).
+   - Button:
+     - Text: "Calculate My Health Goals"
+     - Color: Primary Blue (#1E90FF) with hover effect (slightly darker).
+   - Result card:
+     - Appears below button after calculation.
+     - Card background: White (#FFFFFF), subtle shadow, padding 24px.
+     - Text format:
+       - "Recommended Daily Water Intake: X liters"
+       - "Recommended Steps Goal: 10,000 steps"
+     - Animated fade-in effect when result appears.
+
+3. **Health Tips Section**
+   - Title: "Why Hydration & Walking Matter?"
+   - 3 simple tips with small icons (💧, 🚶, ❤️):
+     - "Drink enough water to stay energized."
+     - "Walking daily keeps your heart healthy."
+     - "Small steps daily make big changes."
+
+4. **AdSense Placeholder Sections**
+   - Top banner ad (728x90) below header.
+   - Side / inline ad (336x280) beside results (desktop only).
+   - Bottom ad (responsive) before footer.
+
+5. **Footer**
+   - Text: "Made with ❤️ by Atul Singh | Daily Health Buddy"
+   - Small links: Privacy Policy | Contact
+
+---
+
+⚙️ Functionality:
+- Formula:
+  - Water intake = weight (kg) × 0.033 liters
+  - Steps goal = 10,000 by default
+- Validate input: Only numbers allowed, show error if empty or <20kg.
+- Show results dynamically without refreshing the page.
+- Smooth scroll when results appear.
+
+---
+
+📱 Responsiveness:
+- Mobile-first design.
+- On mobile: Input + button full width (90%).
+- On desktop: Center aligned, input & button max 400px width.
+- Results & ads adapt to screen size.
+
+---
+
+SEO Optimized:
+- Title tag: "Daily Water Intake & Steps Calculator - Daily Health Buddy"
+- Meta description: "Free daily water intake calculator. Enter your weight and get recommended hydration and step goals instantly."
+- Alt text for icons and images.
+
+---
+
+Overall Aesthetic:
+- Clean, minimal, professional health app vibe.
+- Blue + green accents for positive wellness feel.
+- Subtle animations (button hover, result fade-in).
+- Simple navigation since it's a 1-page site.
