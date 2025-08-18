@@ -59,19 +59,7 @@ body {
     text-align: center;
 }
 
-.ad-banner-bottom {
-    background-color: #f0f0f0;
-    border: 2px dashed #ccc;
-    text-align: center;
-    padding: 20px 0;
-    margin: 40px 0 20px 0;
-}
 
-.ad-placeholder-bottom {
-    color: #666;
-    font-size: 14px;
-    font-weight: 500;
-}
 
 /* Hero Section */
 .hero-section {
