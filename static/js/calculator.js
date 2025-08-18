@@ -59,8 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
             waterResult.textContent = `${waterIntake} liters`;
             stepsResult.textContent = `${stepsGoal.toLocaleString()} steps`;
             
+            // Generate personalized tips
+            generatePersonalizedTips(weight, waterIntake);
+            
             // Show results with animation
             showResults();
+            showPersonalizedTips();
             
             // Remove loading state
             calculateBtn.classList.remove('loading');
@@ -111,6 +115,102 @@ document.addEventListener('DOMContentLoaded', function() {
     function showResults() {
         resultsCard.style.display = 'block';
         resultsCard.classList.add('show', 'fade-in-up');
+    }
+
+    function showPersonalizedTips() {
+        const tipsCard = document.getElementById('personalized-tips');
+        setTimeout(() => {
+            tipsCard.style.display = 'block';
+            tipsCard.classList.add('show');
+        }, 400);
+    }
+
+    function generatePersonalizedTips(weight, waterIntake) {
+        const tipsContent = document.getElementById('tips-content');
+        const tips = [];
+
+        // Calculate BMI category (assuming average height for recommendations)
+        const avgHeight = 1.7; // 170cm average
+        const bmi = weight / (avgHeight * avgHeight);
+        
+        // Water intake tips
+        if (parseFloat(waterIntake) < 2.0) {
+            tips.push({
+                icon: 'fas fa-tint',
+                title: 'Hydration Boost Needed',
+                content: `At ${weight}kg, you need <span class="highlight-number">${waterIntake}L</span> daily. Try drinking a glass every hour to stay hydrated.`
+            });
+        } else if (parseFloat(waterIntake) > 3.0) {
+            tips.push({
+                icon: 'fas fa-tint',
+                title: 'Stay Consistently Hydrated',
+                content: `Your <span class="highlight-number">${waterIntake}L</span> daily goal is substantial. Spread it throughout the day and drink before you feel thirsty.`
+            });
+        } else {
+            tips.push({
+                icon: 'fas fa-tint',
+                title: 'Perfect Hydration Goal',
+                content: `Your <span class="highlight-number">${waterIntake}L</span> daily water goal is ideal for your weight. Track your intake with a water bottle.`
+            });
+        }
+
+        // Weight-based activity tips
+        if (weight < 60) {
+            tips.push({
+                icon: 'fas fa-running',
+                title: 'Light & Agile Approach',
+                content: 'Your lighter frame is great for endurance activities. Consider yoga, pilates, or light jogging for optimal fitness.'
+            });
+        } else if (weight > 90) {
+            tips.push({
+                icon: 'fas fa-walking',
+                title: 'Build Up Gradually',
+                content: 'Start with 30-minute walks and gradually increase intensity. Swimming and cycling are excellent low-impact options.'
+            });
+        } else {
+            tips.push({
+                icon: 'fas fa-heartbeat',
+                title: 'Balanced Fitness Plan',
+                content: 'Your weight supports a variety of activities. Mix cardio, strength training, and flexibility exercises for best results.'
+            });
+        }
+
+        // Daily routine tips based on water intake
+        const glassesPerDay = Math.round(parseFloat(waterIntake) * 4); // Assuming 250ml glasses
+        tips.push({
+            icon: 'fas fa-clock',
+            title: 'Daily Hydration Schedule',
+            content: `Drink <span class="highlight-number">${glassesPerDay} glasses</span> throughout the day. Start with 2 glasses upon waking, then 1 glass every 2 hours.`
+        });
+
+        // Health monitoring tip
+        if (bmi < 18.5) {
+            tips.push({
+                icon: 'fas fa-user-md',
+                title: 'Health Monitoring',
+                content: 'Your BMI suggests you may be underweight. Focus on nutrient-dense foods and consult a healthcare provider for personalized advice.'
+            });
+        } else if (bmi > 30) {
+            tips.push({
+                icon: 'fas fa-user-md',
+                title: 'Health Focus',
+                content: 'Consider consulting a healthcare provider for a personalized weight management plan. Small, consistent changes yield the best results.'
+            });
+        } else {
+            tips.push({
+                icon: 'fas fa-check-circle',
+                title: 'Healthy Range',
+                content: 'Your weight appears to be in a healthy range. Maintain your current habits and stay active for continued wellness.'
+            });
+        }
+
+        // Generate HTML for tips
+        tipsContent.innerHTML = tips.map(tip => `
+            <div class="tip-item">
+                <h6><i class="${tip.icon}"></i>${tip.title}</h6>
+                <p>${tip.content}</p>
+            </div>
+        `).join('');
     }
 
     // Add smooth hover effects for tip cards
