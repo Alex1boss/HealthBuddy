@@ -1,0 +1,59 @@
+# replit.md
+
+## Overview
+
+Daily Health Buddy is a single-page health calculator web application built with Flask. The application helps users calculate their recommended daily water intake and step goals based on their weight, while providing helpful health tips. It features a clean, modern design with a blue and green color scheme, emphasizing hydration and fitness themes.
+
+## User Preferences
+
+Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+### Frontend Architecture
+- **Single-page application** design using server-side rendered HTML templates
+- **Bootstrap 5** framework for responsive grid system and components
+- **Custom CSS** with CSS variables for consistent theming and design system
+- **Vanilla JavaScript** for calculator functionality and user interactions
+- **Google Fonts (Inter)** for modern typography
+- **Font Awesome** icons for visual elements
+
+### Backend Architecture
+- **Flask** web framework with minimal configuration
+- **Template-based rendering** using Jinja2 templates
+- **Environment-based configuration** for session secrets
+- **Static file serving** for CSS, JavaScript, and potential assets
+
+### Design System
+- **Color scheme**: Primary blue (#1E90FF) for water/health, secondary green (#32CD32) for fitness
+- **Consistent styling**: 16px border radius, subtle shadows, and smooth transitions
+- **Responsive design**: Mobile-first approach with Bootstrap breakpoints
+- **Accessibility considerations**: Proper form labels and semantic HTML structure
+
+### Calculator Logic
+- **Client-side calculations** for immediate user feedback
+- **Input validation** for weight values with real-time error handling
+- **Animated results display** with fade-in effects for better user experience
+- **Health recommendations** based on weight input with standard formulas
+
+### Content Strategy
+- **SEO optimization** with proper meta tags and descriptions
+- **AdSense placeholder integration** for potential monetization
+- **Health tips section** providing educational value beyond the calculator
+
+## External Dependencies
+
+### Frontend Libraries
+- **Bootstrap 5.3.0** - Responsive CSS framework and components
+- **Font Awesome 6.4.0** - Icon library for visual elements
+- **Google Fonts (Inter)** - Typography and font rendering
+
+### Potential Integrations
+- **Google AdSense** - Advertisement placeholders implemented for monetization
+- **Analytics tracking** - Structure ready for Google Analytics integration
+
+### Development Dependencies
+- **Flask** - Python web framework for backend development
+- **Static file handling** - Built-in Flask static file serving for CSS/JS assets
+
+The application is designed as a lightweight, self-contained health calculator with minimal external dependencies, focusing on performance and user experience while maintaining scalability for future feature additions.
