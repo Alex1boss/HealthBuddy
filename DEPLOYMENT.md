@@ -41,7 +41,12 @@ git push -u origin main
 2. Sign up/Login with GitHub
 3. Click "New Project"
 4. Import your GitHub repository
-5. Vercel will auto-detect the Flask app
+5. Configure project settings:
+   - **Framework Preset**: Select "Other" 
+   - **Root Directory**: Leave as default (.)
+   - **Build Command**: Leave empty
+   - **Output Directory**: Leave empty
+   - **Install Command**: Leave empty (auto-detected)
 6. Click "Deploy"
 
 ### 6. Configuration
