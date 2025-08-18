@@ -57,3 +57,19 @@ Preferred communication style: Simple, everyday language.
 - **Static file handling** - Built-in Flask static file serving for CSS/JS assets
 
 The application is designed as a lightweight, self-contained health calculator with minimal external dependencies, focusing on performance and user experience while maintaining scalability for future feature additions.
+
+## Recent Changes
+
+### Personalized Health Tips Feature (August 18, 2025)
+- **Added dynamic personalized health tips** based on user weight input and calculated BMI
+- **Implemented weight-based recommendations** for hydration strategies and fitness activities
+- **Created daily hydration schedules** with specific glass counts for different water intake levels
+- **Added health monitoring guidance** with BMI-based suggestions for different weight categories
+- **Enhanced user experience** with animated tip cards and hover effects
+
+### Vercel Deployment Preparation (August 18, 2025)
+- **Created Vercel deployment configuration** with `vercel.json` for serverless deployment
+- **Added deployment entry point** with `index.py` for Vercel compatibility
+- **Prepared deployment documentation** with step-by-step Vercel deployment guide
+- **Optimized for static deployment** since the application uses client-side calculations
+- **Added deployment requirements** and ignore files for clean deployment
