@@ -33,6 +33,30 @@
                 <div class="col-lg-8 text-center">
                     <h1 class="hero-title">Daily Health Buddy</h1>
                     <p class="hero-subtitle">Calculate your daily water intake and steps goal in seconds.</p>
+                    
+                    <!-- Authentication Status -->
+                    <div class="auth-section mt-3">
+                        {% if user.is_authenticated %}
+                            <div class="user-info">
+                                <p class="welcome-text">Welcome back{% if user.first_name %}, {{ user.first_name }}{% endif %}!</p>
+                                <div class="auth-buttons">
+                                    <a href="{{ url_for('calculation_history') }}" class="btn btn-outline-primary me-2">
+                                        <i class="fas fa-history me-1"></i>View History
+                                    </a>
+                                    <a href="{{ url_for('replit_auth.logout') }}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-sign-out-alt me-1"></i>Logout
+                                    </a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="guest-info">
+                                <p class="info-text">Sign in to save your calculation history</p>
+                                <a href="{{ url_for('replit_auth.login') }}" class="btn btn-success">
+                                    <i class="fas fa-user me-1"></i>Sign In to Save Results
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,6 +100,14 @@
                                     <p id="steps-result" class="result-value">10,000 steps</p>
                                 </div>
                             </div>
+                            
+                            <!-- Save Status -->
+                            <div id="save-status" class="save-status" style="display: none;">
+                                <div class="alert alert-success" role="alert">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    Calculation saved to your history!
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -91,6 +123,38 @@
             </div>
         </div>
     </section>
+
+    <!-- Recent Calculations Section (for logged-in users) -->
+    {% if user.is_authenticated and recent_calculations %}
+    <section class="recent-calculations-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h3 class="section-subtitle text-center mb-4">Your Recent Calculations</h3>
+                    <div class="recent-calculations-card">
+                        {% for calc in recent_calculations %}
+                        <div class="recent-calc-item">
+                            <div class="calc-info">
+                                <span class="calc-weight">{{ calc.weight }}kg</span>
+                                <span class="calc-arrow">→</span>
+                                <span class="calc-water">{{ calc.water_intake }}L water</span>
+                            </div>
+                            <div class="calc-date">
+                                {{ calc.created_at.strftime('%b %d, %Y at %I:%M %p') }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="text-center mt-3">
+                            <a href="{{ url_for('calculation_history') }}" class="btn btn-outline-primary btn-sm">
+                                View All History <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
 
     <!-- Health Tips Section -->
     <section class="health-tips-section">

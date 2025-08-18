@@ -47,20 +47,33 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading state
         calculateBtn.classList.add('loading');
         
-        // Simulate calculation delay for better UX
-        setTimeout(() => {
-            // Calculate water intake: weight (kg) × 0.033 liters
-            const waterIntake = (weight * 0.033).toFixed(1);
-            
-            // Fixed steps goal
-            const stepsGoal = 10000;
+        // Send calculation to server
+        fetch('/calculate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ weight: weight })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                showError(data.error);
+                calculateBtn.classList.remove('loading');
+                return;
+            }
             
             // Update results
-            waterResult.textContent = `${waterIntake} liters`;
-            stepsResult.textContent = `${stepsGoal.toLocaleString()} steps`;
+            waterResult.textContent = `${data.water_intake} liters`;
+            stepsResult.textContent = `${data.steps_goal.toLocaleString()} steps`;
             
             // Show results with animation
             showResults();
+            
+            // Show save status if calculation was saved
+            if (data.saved) {
+                showSaveStatus();
+            }
             
             // Remove loading state
             calculateBtn.classList.remove('loading');
@@ -72,8 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     block: 'center'
                 });
             }, 300);
-            
-        }, 800);
+        })
+        .catch(error => {
+            console.error('Calculation error:', error);
+            showError('Calculation failed. Please try again.');
+            calculateBtn.classList.remove('loading');
+        });
     }
 
     function validateInput(weight) {
@@ -111,6 +128,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function showResults() {
         resultsCard.style.display = 'block';
         resultsCard.classList.add('show', 'fade-in-up');
+    }
+
+    function showSaveStatus() {
+        const saveStatus = document.getElementById('save-status');
+        if (saveStatus) {
+            saveStatus.style.display = 'block';
+            setTimeout(() => {
+                saveStatus.style.display = 'none';
+            }, 4000);
+        }
     }
 
     // Add smooth hover effects for tip cards

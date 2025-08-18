@@ -431,3 +431,259 @@ html {
 .fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
 }
+
+/* Authentication Section Styles */
+.auth-section {
+    margin-top: 1.5rem;
+}
+
+.welcome-text {
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.info-text {
+    color: #6B7280;
+    margin-bottom: 1rem;
+}
+
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Recent Calculations Section */
+.recent-calculations-section {
+    padding: 40px 0;
+    background-color: #F8FAFC;
+}
+
+.section-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.recent-calculations-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+}
+
+.recent-calc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.recent-calc-item:last-child {
+    border-bottom: none;
+}
+
+.calc-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+
+.calc-weight {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.calc-arrow {
+    color: #9CA3AF;
+    font-size: 1.2rem;
+}
+
+.calc-water {
+    color: var(--secondary-green);
+    font-weight: 600;
+}
+
+.calc-date {
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+
+/* Save Status */
+.save-status {
+    margin-top: 1rem;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* History Page Styles */
+.history-header {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-green));
+    color: var(--white);
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.history-controls {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.history-table-container {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #F8FAFC;
+    border-bottom: 2px solid #E5E7EB;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.date-info .fw-medium {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.weight-badge {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.water-info, .steps-info {
+    display: flex;
+    align-items: center;
+}
+
+.empty-state {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin: 2rem 0;
+}
+
+.empty-icon {
+    opacity: 0.3;
+}
+
+.empty-title {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.empty-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* Navbar Styles */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--text-dark) !important;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: var(--text-dark) !important;
+    transition: var(--transition);
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-blue) !important;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+    .auth-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .auth-buttons .btn {
+        margin-bottom: 0.5rem;
+    }
+    
+    .recent-calc-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .calc-info {
+        flex-wrap: wrap;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .history-controls .row {
+        text-align: center;
+    }
+    
+    .history-controls .col-md-6:last-child {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .recent-calculations-section {
+        padding: 30px 0;
+    }
+    
+    .section-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .recent-calculations-card {
+        padding: 1.25rem;
+    }
+    
+    .calc-info {
+        font-size: 0.9rem;
+    }
+    
+    .calc-date {
+        font-size: 0.8rem;
+    }
+}
