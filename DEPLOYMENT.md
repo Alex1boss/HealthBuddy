@@ -30,8 +30,8 @@ git commit -m "Initial commit - Daily Health Buddy"
 
 ### 4. Push to GitHub
 ```bash
-# Create a new repository on GitHub first, then:
-git remote add origin https://github.com/yourusername/daily-health-buddy.git
+# Your repository is already at Alex1boss/HealthBuddy, so use:
+git remote add origin https://github.com/Alex1boss/HealthBuddy.git
 git branch -M main
 git push -u origin main
 ```
