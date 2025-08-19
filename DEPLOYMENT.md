@@ -7,18 +7,27 @@
 ## Deployment Steps
 
 ### 1. Prepare Your Repository
-Your repository should contain:
-- `app.py` (main Flask application)
-- `index.py` (Vercel entry point)
+Your repository now has the correct structure:
+- `api/index.py` (Flask application for Vercel)
+- `app.py` (local development version)
 - `vercel.json` (Vercel configuration)
 - `templates/` folder with HTML templates
 - `static/` folder with CSS and JavaScript
-- `deploy_requirements.txt` (rename to `requirements.txt` for deployment)
+- `requirements.txt` (Python dependencies)
 
-### 2. Rename Requirements File
-Before pushing to your Git repository, rename `deploy_requirements.txt` to `requirements.txt`:
-```bash
-mv deploy_requirements.txt requirements.txt
+### 2. Project Structure (Fixed)
+```
+project-root/
+├── api/
+│   └── index.py          # Flask app for Vercel
+├── templates/
+│   └── index.html        # HTML template
+├── static/
+│   ├── css/
+│   └── js/
+├── requirements.txt      # Dependencies
+├── vercel.json          # Vercel config
+└── app.py               # Local development
 ```
 
 ### 3. Create Git Repository
@@ -47,6 +56,8 @@ git push -u origin main
    - **Build Command**: Leave empty
    - **Output Directory**: Leave empty
    - **Install Command**: Leave empty (auto-detected)
+   
+   **Note**: Vercel will now automatically detect the `api/index.py` structure!
 6. Click "Deploy"
 
 ### 6. Configuration
