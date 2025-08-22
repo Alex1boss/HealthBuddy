@@ -6,7 +6,27 @@ class HealthDashboard {
         this.timerSeconds = 0;
         this.achievements = [];
         
+        this.checkFirstTime();
         this.init();
+    }
+    
+    checkFirstTime() {
+        const isFirstTime = !localStorage.getItem('healthDashboard') || !this.data.profile.name;
+        if (isFirstTime) {
+            document.getElementById('setupModal').style.display = 'flex';
+        } else {
+            document.getElementById('setupModal').style.display = 'none';
+            this.updateWelcomeMessage();
+        }
+    }
+    
+    updateWelcomeMessage() {
+        if (this.data.profile.name) {
+            const subtitle = document.querySelector('.hero-subtitle');
+            if (subtitle) {
+                subtitle.textContent = `Hey ${this.data.profile.name}! 👋 Track your wellness journey with calculators, progress charts, and tips that actually work.`;
+            }
+        }
     }
 
     init() {
@@ -947,7 +967,7 @@ class HealthDashboard {
                     },
                     title: {
                         display: true,
-                        text: 'Weekly Progress Trend'
+                        text: 'Recent Progress'
                     }
                 },
                 scales: {
@@ -972,8 +992,8 @@ class HealthDashboard {
         const waterData = [];
         const stepsData = [];
         
-        // Get last 7 days including today
-        for (let i = 6; i >= 0; i--) {
+        // Get last 4 days including today for shorter chart
+        for (let i = 3; i >= 0; i--) {
             const date = new Date();
             date.setDate(date.getDate() - i);
             const dateStr = date.toDateString();
@@ -1029,6 +1049,70 @@ window.joinChallenge = (type) => healthDashboard.joinChallenge(type);
 window.shareProgress = () => healthDashboard.shareProgress();
 window.getNewDailyTip = () => healthDashboard.getNewDailyTip();
 window.getWeatherTips = () => healthDashboard.getWeatherTips();
+
+// Setup Flow Functions
+window.nextStep = (step) => {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(`step${step}`).classList.add('active');
+};
+
+window.prevStep = (step) => {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(`step${step}`).classList.add('active');
+};
+
+window.finishSetup = () => {
+    const name = document.getElementById('setup-name').value;
+    const age = parseInt(document.getElementById('setup-age').value);
+    const gender = document.getElementById('setup-gender').value;
+    const weight = parseFloat(document.getElementById('setup-weight').value);
+    const height = parseFloat(document.getElementById('setup-height').value);
+    const activity = parseFloat(document.getElementById('setup-activity').value);
+    const goal = document.getElementById('setup-goal').value;
+    const wakeup = document.getElementById('setup-wakeup').value;
+    const notifications = document.getElementById('setup-notifications').checked;
+    const darkMode = document.getElementById('setup-darkmode').checked;
+    
+    // Validate required fields
+    if (!name || !age || !gender || !weight || !height || !activity || !goal) {
+        alert('Please fill in all fields to continue!');
+        return;
+    }
+    
+    // Save user data
+    healthDashboard.data.profile = {
+        name, age, gender, weight, height, activityLevel: activity, goal, wakeup
+    };
+    
+    // Set preferences
+    healthDashboard.data.preferences.notifications = notifications;
+    healthDashboard.data.preferences.darkMode = darkMode;
+    
+    // Calculate personalized goals
+    const waterGoal = Math.max(2.0, weight * 0.035); // 35ml per kg
+    const stepsGoal = age < 30 ? 12000 : age < 50 ? 10000 : 8000;
+    
+    healthDashboard.data.daily.waterGoal = parseFloat(waterGoal.toFixed(1));
+    healthDashboard.data.daily.stepsGoal = stepsGoal;
+    
+    // Apply dark mode if selected
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+    }
+    
+    healthDashboard.saveData();
+    healthDashboard.updateWelcomeMessage();
+    healthDashboard.updateDashboardStats();
+    
+    // Hide setup modal
+    document.getElementById('setupModal').style.display = 'none';
+    
+    // Show success message
+    setTimeout(() => {
+        alert(`Welcome ${name}! 🎉 Your personalized dashboard is ready. Your daily water goal is ${waterGoal.toFixed(1)}L and steps goal is ${stepsGoal.toLocaleString()}!`);
+    }, 500);
+};
 
 // Initialize dashboard when page loads
 document.addEventListener('DOMContentLoaded', function() {
