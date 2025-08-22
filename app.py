@@ -3,8 +3,8 @@ from flask import Flask, render_template
 
 # create the app
 app = Flask(__name__, 
-           template_folder='../templates',
-           static_folder='../static')
+           template_folder='templates',
+           static_folder='static')
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 
 @app.route('/')
