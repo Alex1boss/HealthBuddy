@@ -1,13 +1,5 @@
-from flask import Flask, render_template, request
-import os
-
-app = Flask(__name__)
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    # Serve the main HTML for all routes
-    return '''<!DOCTYPE html>
+def handler(request):
+    html_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -573,7 +565,11 @@ def catch_all(path):
 
 </body>
 </html>'''
-
-# This is required for Vercel
-def handler(request):
-    return catch_all('')
+    
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'text/html',
+        },
+        'body': html_content
+    }
