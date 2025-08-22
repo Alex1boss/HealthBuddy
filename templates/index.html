@@ -38,7 +38,7 @@
                         </button>
                     </div>
                     <h1 class="hero-title">Daily Health Buddy</h1>
-                    <p class="hero-subtitle">Your complete wellness dashboard with health calculators, progress tracking, and personalized recommendations.</p>
+                    <p class="hero-subtitle">Hey there! 👋 Track your wellness journey with calculators, progress charts, and tips that actually work.</p>
                 </div>
             </div>
         </div>
@@ -144,25 +144,25 @@
                             <div class="row g-4 mt-3">
                                 <div class="col-lg-8">
                                     <div class="progress-card glow-hover">
-                                        <h4 class="card-title">Weekly Progress</h4>
+                                        <h4 class="card-title">Your Journey This Week 📈</h4>
                                         <canvas id="progressChart" width="400" height="200"></canvas>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="quick-actions-card glow-hover">
-                                        <h4 class="card-title">Quick Actions</h4>
+                                        <h4 class="card-title">Quick Wins ⚡</h4>
                                         <div class="quick-actions">
                                             <button class="btn btn-outline-primary mb-2 w-100" onclick="addWater(0.25)">
-                                                <i class="fas fa-plus me-2"></i>Add 250ml Water
+                                                💧 Just drank a cup!
                                             </button>
                                             <button class="btn btn-outline-success mb-2 w-100" onclick="addSteps(1000)">
-                                                <i class="fas fa-plus me-2"></i>Add 1000 Steps
+                                                🚶 Walked 1k steps
                                             </button>
                                             <button class="btn btn-outline-info mb-2 w-100" onclick="startWaterTimer()">
-                                                <i class="fas fa-clock me-2"></i>Start Water Timer
+                                                ⏰ Remind me to drink
                                             </button>
                                             <button class="btn btn-outline-warning w-100" onclick="shareProgress()">
-                                                <i class="fas fa-share me-2"></i>Share Progress
+                                                📱 Show off my progress
                                             </button>
                                         </div>
                                     </div>
@@ -177,15 +177,14 @@
                                 <div class="col-lg-6">
                                     <div class="calculator-card glow-hover">
                                         <h4 class="calculator-title">
-                                            <i class="fas fa-tint me-2 text-primary"></i>
-                                            Water & Steps Calculator
+                                            💧 How much should I drink?
                                         </h4>
                                         <div class="input-group mb-3">
                                             <label class="form-label">Weight (kg)</label>
                                             <input type="number" id="weight-input" class="form-control" placeholder="70" min="20" step="0.1">
                                         </div>
                                         <button class="btn btn-primary w-100 mb-3" onclick="calculateWaterSteps()">
-                                            <i class="fas fa-calculator me-2"></i>Calculate
+                                            ✨ Tell me my goals!
                                         </button>
                                         <div id="water-steps-result" class="result-display"></div>
                                     </div>
@@ -195,8 +194,7 @@
                                 <div class="col-lg-6">
                                     <div class="calculator-card glow-hover">
                                         <h4 class="calculator-title">
-                                            <i class="fas fa-weight me-2 text-success"></i>
-                                            BMI Calculator
+                                            📏 What's my BMI?
                                         </h4>
                                         <div class="input-group mb-3">
                                             <label class="form-label">Height (cm)</label>
@@ -207,7 +205,7 @@
                                             <input type="number" id="bmi-weight-input" class="form-control" placeholder="70" min="20" step="0.1">
                                         </div>
                                         <button class="btn btn-success w-100 mb-3" onclick="calculateBMI()">
-                                            <i class="fas fa-calculator me-2"></i>Calculate BMI
+                                            🎯 Check my BMI
                                         </button>
                                         <div id="bmi-result" class="result-display"></div>
                                     </div>
@@ -507,11 +505,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <p class="footer-text">Made with <span class="floating" style="animation-delay: 1s;">❤️</span> by <span class="gradient-text">Atul Singh</span> | Daily Health Buddy</p>
+                    <p class="footer-text">Built with <span class="floating" style="animation-delay: 1s;">❤️</span> and way too much coffee by <span class="gradient-text">Atul</span><br>
+                    <small>Just a guy who wanted to drink more water and ended up building this 😅</small></p>
                     <div class="footer-links">
-                        <a href="#" class="footer-link">Privacy Policy</a>
-                        <span class="separator">|</span>
-                        <a href="#" class="footer-link">Contact</a>
+                        <a href="#" class="footer-link">Privacy Stuff</a>
+                        <span class="separator">•</span>
+                        <a href="#" class="footer-link">Say Hi!</a>
+                        <span class="separator">•</span>
+                        <a href="#" class="footer-link">Found a bug? 🐛</a>
                     </div>
                 </div>
             </div>

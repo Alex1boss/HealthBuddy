@@ -148,7 +148,7 @@ class HealthDashboard {
     calculateWaterSteps() {
         const weight = parseFloat(document.getElementById('weight-input').value);
         if (!weight || weight < 20 || weight > 500) {
-            alert('Please enter a valid weight between 20-500 kg');
+            alert('Hmm, that weight seems a bit off. Mind double-checking? Should be between 20-500 kg 🤔');
             return;
         }
 
@@ -368,8 +368,22 @@ class HealthDashboard {
         clearInterval(this.timerInterval);
         this.timerInterval = null;
         
+        // Get a random fun water reminder
+        const waterReminders = [
+            'Your body is sending thirsty signals! 💧',
+            'Time for a water break! Your cells will thank you 😊',
+            'Hydration station time! Chug chug chug! 🚂💧',
+            'Your plants aren\'t the only thing that needs water 🌱',
+            'Quick water break! Your future self will high-five you 🙌',
+            'Drink up! Your kidneys are doing a happy dance 💃',
+            'Water time! Because you\'re not a cactus 🌵😄',
+            'Glug glug time! Stay awesome and hydrated! ✨'
+        ];
+        
+        const randomReminder = waterReminders[Math.floor(Math.random() * waterReminders.length)];
+        
         // Show notification
-        this.showNotification('💧 Time to drink water!', 'Stay hydrated for better health');
+        this.showNotification('💧 Friendly Reminder!', randomReminder);
         
         // Reset timer
         this.resetWaterTimer();
@@ -386,7 +400,7 @@ class HealthDashboard {
         
         this.saveData();
         this.updateChallengeProgress();
-        alert(`You've joined the ${type} challenge! Good luck!`);
+        alert(`🎯 Challenge accepted! Let's do this ${type} thing together! You got this! 💪`);
     }
 
     updateChallengeProgress() {
@@ -477,8 +491,8 @@ class HealthDashboard {
         if (this.data.daily.water < waterGoal * 0.5) {
             tips.push({
                 icon: 'fas fa-tint',
-                title: 'Hydration Alert',
-                content: `You're only at ${((this.data.daily.water / waterGoal) * 100).toFixed(0)}% of your daily water goal. Try setting hourly reminders!`
+                title: 'Yo, you need more water! 💧',
+                content: `Dude, you're only at ${((this.data.daily.water / waterGoal) * 100).toFixed(0)}% of your goal. Your body is probably sending you thirsty signals right now!`
             });
         }
         
@@ -486,8 +500,8 @@ class HealthDashboard {
         if (this.data.daily.steps < stepsGoal * 0.5) {
             tips.push({
                 icon: 'fas fa-walking',
-                title: 'Get Moving',
-                content: 'Take the stairs, park farther away, or try a walking meeting to boost your daily steps.'
+                title: 'Time to move that body! 🏃‍♂️',
+                content: 'Your legs are probably getting restless. Maybe dance to your favorite song, take a quick walk, or do some silly jumping jacks?'
             });
         }
         
@@ -559,25 +573,28 @@ class HealthDashboard {
 
     getNewDailyTip() {
         const tips = [
-            "Drink a glass of water first thing in the morning to kickstart your metabolism.",
-            "Take the stairs instead of the elevator to easily add steps to your day.",
-            "Set a timer to remind yourself to stand and stretch every hour.",
-            "Eat a rainbow of colorful fruits and vegetables for maximum nutrients.",
-            "Practice deep breathing for 5 minutes to reduce stress and improve focus.",
-            "Walk while talking on the phone to multitask your way to better health.",
-            "Keep healthy snacks visible and unhealthy ones out of sight.",
-            "Get 7-9 hours of quality sleep for optimal recovery and performance.",
-            "Do bodyweight exercises during TV commercial breaks.",
-            "Carry a water bottle with you to make hydration convenient.",
-            "Take short walks after meals to aid digestion and blood sugar control.",
-            "Practice gratitude daily to improve mental well-being.",
-            "Limit screen time before bed to improve sleep quality.",
-            "Choose whole grains over refined grains for sustained energy.",
-            "Listen to your body and rest when you need it."
+            "Start your day with a big glass of water - your body just went 8 hours without it! 💧",
+            "Stairs are free mini-workouts hiding everywhere. Your future self will thank you! 🏃‍♀️",
+            "Set a silly timer name like 'STRETCH TIME HUMAN' - it actually works better 😄",
+            "Eat like you're painting with food - the more colors, the prettier (and healthier) your plate! 🎨",
+            "5 minutes of deep breathing = instant zen mode. Works better than scrolling social media 🧘‍♂️",
+            "Phone calls + walking = secret productivity hack. You'll solve problems faster too! 📞👟",
+            "Hide the cookies, display the apples. Your brain falls for this trick every time 🍎",
+            "Sleep is when your body does its magic repair work. Don't skip the magic! ✨",
+            "Commercial breaks = mini workout time. Your couch won't judge your weird exercises 💪",
+            "Water bottle = best friend. Name it if you want - mine's called 'Hydro Helper' 🤝",
+            "Post-meal walks help your food digest and give you thinking time. Win-win! 🚶‍♂️",
+            "Gratitude is like vitamins for your brain. Take daily doses 🙏",
+            "Blue light before bed confuses your brain into thinking it's daytime. Not cool, phone! 📱",
+            "Whole grains = steady energy. Refined grains = energy rollercoaster 🎢",
+            "Your body whispers before it screams. Listen to the whispers 👂",
+            "Dance like nobody's watching, especially when nobody actually is! 💃",
+            "If you're reading this, you're already caring about your health. That's awesome! 🌟",
+            "Small progress is still progress. Celebrate the tiny wins! 🎉"
         ];
         
         const randomTip = tips[Math.floor(Math.random() * tips.length)];
-        document.getElementById('daily-tip-text').textContent = randomTip;
+        document.getElementById('daily-tip-text').innerHTML = randomTip;
     }
 
     // Weather-based tips (requires geolocation)
@@ -704,7 +721,7 @@ class HealthDashboard {
             'steps_challenge': 'Walking Warrior'
         };
         
-        this.showNotification('🏆 Achievement Unlocked!', achievementNames[achievementId] || 'New Achievement');
+        this.showInAppNotification('🏆 Woohoo!', (achievementNames[achievementId] || 'You just crushed a goal') + '! You\'re absolutely killing it! 🎉');
     }
 
     // Utility Functions
@@ -776,24 +793,114 @@ class HealthDashboard {
 
     requestNotificationPermission() {
         if ('Notification' in window && Notification.permission === 'default') {
-            Notification.requestPermission().then(permission => {
-                this.data.preferences.notifications = permission === 'granted';
-                this.saveData();
-            });
+            // Ask nicely first
+            const userWants = confirm('Hey! 👋 Want me to send you friendly reminders to drink water and stay healthy? I promise not to spam you!');
+            if (userWants) {
+                Notification.requestPermission().then(permission => {
+                    this.data.preferences.notifications = permission === 'granted';
+                    this.saveData();
+                    if (permission === 'granted') {
+                        this.showNotification('🎉 Awesome!', 'You\'ll get gentle reminders to stay hydrated. You can always turn these off later!');
+                    }
+                });
+            }
         }
     }
 
     showNotification(title, body) {
-        if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification(title, {
+        if ('Notification' in window && Notification.permission === 'granted' && this.data.preferences.notifications) {
+            const notification = new Notification(title, {
                 body: body,
-                icon: '/static/css/style.css', // You'd want to add a proper icon
-                badge: '/static/css/style.css'
+                icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzIiIGZpbGw9IiMxRTkwRkYiLz4KPHN2ZyB4PSIxNiIgeT0iMTYiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAyQzEzLjEgMiAxNCAyLjkgMTQgNFYxMkMxNCAxMy4xIDEzLjEgMTQgMTIgMTRDMTAuOSAxNCAxMCAxMy4xIDEwIDEyVjRDMTAgMi45IDEwLjkgMiAxMiAyWk0yMSA5VjdIMTlWOUgxN1YxMUgxOVYxM0gyMVYxMUgyM1Y5SDIxWk03IDlWN0g1VjlIM1YxMUg1VjEzSDdWMTFIOVY5SDdaIi8+Cjwvc3ZnPgo8L3N2Zz4K',
+                badge: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMzMkNEMzIiLz4KPC9zdmc+',
+                requireInteraction: false,
+                silent: false
             });
+            
+            // Auto-close after 5 seconds to be less annoying
+            setTimeout(() => {
+                notification.close();
+            }, 5000);
+        } else if (!this.data.preferences.notifications) {
+            // Show a gentle in-app notification instead
+            this.showInAppNotification(title, body);
         } else {
-            // Fallback to browser alert
-            alert(`${title}\n${body}`);
+            // Fallback alert, but make it less jarring
+            alert(`${title}\n\n${body}`);
         }
+    }
+
+    showInAppNotification(title, body) {
+        // Create a gentle notification toast
+        const toast = document.createElement('div');
+        toast.className = 'notification-toast';
+        toast.innerHTML = `
+            <div class="notification-content">
+                <strong>${title}</strong>
+                <p>${body}</p>
+                <button onclick="this.parentElement.parentElement.remove()" class="notification-close">Got it! ✌️</button>
+            </div>
+        `;
+        
+        // Add styles if not already added
+        if (!document.getElementById('notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .notification-toast {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                    z-index: 10000;
+                    animation: slideInRight 0.3s ease-out;
+                    max-width: 350px;
+                    backdrop-filter: blur(10px);
+                }
+                .notification-content strong {
+                    display: block;
+                    margin-bottom: 5px;
+                    font-size: 16px;
+                }
+                .notification-content p {
+                    margin: 5px 0;
+                    font-size: 14px;
+                    line-height: 1.4;
+                }
+                .notification-close {
+                    background: rgba(255,255,255,0.2);
+                    border: none;
+                    color: white;
+                    padding: 5px 12px;
+                    border-radius: 15px;
+                    cursor: pointer;
+                    margin-top: 8px;
+                    font-size: 12px;
+                    transition: background 0.2s;
+                }
+                .notification-close:hover {
+                    background: rgba(255,255,255,0.3);
+                }
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        document.body.appendChild(toast);
+        
+        // Auto-remove after 8 seconds
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 8000);
     }
 
     generateTips() {
