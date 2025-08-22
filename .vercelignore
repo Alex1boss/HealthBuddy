@@ -1,18 +1,18 @@
-# Ignore development files
+.local/
+attached_assets/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
-env/
-venv/
-.venv/
 .env
-.DS_Store
-*.log
+.venv
+venv/
 .git/
 .gitignore
 README.md
+DEPLOYMENT.md
 replit.md
-.replit
 uv.lock
+pyproject.toml
+main.py
