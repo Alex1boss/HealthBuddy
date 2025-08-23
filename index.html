@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Health & Wellness Dashboard - Daily Health Buddy</title>
-    <meta name="description" content="Comprehensive health calculators, tracking dashboard, and wellness tools. Calculate BMI, water intake, calories, sleep needs, and track your progress.">
+    <title>Daily Health Buddy - Free Water Intake & Health Calculator</title>
+    <meta name="description" content="Calculate your daily water intake, BMI, calories, and track health goals. Free personalized health dashboard with progress tracking and wellness tips.">
+    <meta name="keywords" content="water intake calculator, health tracker, BMI calculator, daily health goals, wellness dashboard">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Daily Health Buddy - Free Health Calculator">
+    <meta property="og:description" content="Calculate your daily water intake, BMI, calories, and track health goals with our free personalized dashboard.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daily Health Buddy - Free Health Calculator">
+    <meta name="twitter:description" content="Track your water intake, health goals, and wellness journey with our personalized dashboard.">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,14 +28,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/style-optimized.css">
 
     <!-- Chart.js for Progress Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7136012713043150"
-     crossorigin="anonymous"></script>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="static/css/style.css" as="style">
+    <link rel="preload" href="static/js/calculator-optimized.js" as="script">
 </head>
 <body>
     <!-- User Setup Modal -->
@@ -125,7 +137,7 @@
                         </button>
                     </div>
                     <h1 class="hero-title">Daily Health Buddy</h1>
-                    <p class="hero-subtitle">Hey there! 👋 Track your wellness journey with calculators, progress charts, and tips that actually work.</p>
+                    <p class="hero-subtitle">Calculate your daily water intake, track health goals, and improve your wellness with our simple tools.</p>
                 </div>
             </div>
         </div>
@@ -553,8 +565,8 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
-    <script src="static/js/calculator.js"></script>
+    <!-- Optimized JavaScript -->
+    <script src="static/js/calculator-optimized.js"></script>
 
 </body>
 </html>

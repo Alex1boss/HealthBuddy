@@ -19,10 +19,7 @@
     --gradient-hero: linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(50, 205, 50, 0.1) 100%);
 }
 
-/* Global Styles */
-* {
-    box-sizing: border-box;
-}
+/* Global Styles - Optimized for performance */
 
 body {
     font-family: 'Inter', sans-serif;
@@ -35,38 +32,23 @@ body {
     min-height: 100vh;
 }
 
-/* AdSense Placeholders */
-.ad-banner-top {
-    background-color: #f0f0f0;
-    border: 2px dashed #ccc;
-    text-align: center;
-    padding: 20px 0;
-    margin-bottom: 20px;
+/* Performance optimizations */
+* {
+    box-sizing: border-box;
 }
 
-.ad-placeholder {
-    color: #666;
-    font-size: 14px;
-    font-weight: 500;
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-.ad-sidebar {
-    position: sticky;
-    top: 20px;
-}
-
-.ad-placeholder-side {
-    background-color: #f0f0f0;
-    border: 2px dashed #ccc;
-    border-radius: var(--border-radius);
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
+/* Reduce animations for better performance */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 

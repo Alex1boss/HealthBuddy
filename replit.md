@@ -60,6 +60,17 @@ The application is designed as a lightweight, self-contained health calculator w
 
 ## Recent Changes
 
+### Website Optimization & Performance Boost (August 23, 2025)
+- **Fixed dark mode issue** - Website now properly loads in light mode for new users
+- **Comprehensive performance optimization** - Removed unnecessary features and complex animations
+- **Code cleanup** - Reduced JavaScript from 1036 lines to 400 lines (60% reduction)
+- **CSS optimization** - Streamlined styles and removed unused code for faster loading
+- **SEO improvements** - Added proper meta tags, Open Graph, and Twitter Cards
+- **Removed complex features** - Eliminated challenges, advanced tips, and sleep tracking for simplicity
+- **Enhanced user onboarding** - Improved setup flow with better validation
+- **Mobile optimization** - Better responsive design and touch interactions
+- **Security improvements** - Removed external dependencies and cleaned up code
+
 ### Personalized Health Tips Feature (August 18, 2025)
 - **Added dynamic personalized health tips** based on user weight input and calculated BMI
 - **Implemented weight-based recommendations** for hydration strategies and fitness activities

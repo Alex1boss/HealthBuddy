@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Health & Wellness Dashboard - Daily Health Buddy</title>
-    <meta name="description" content="Comprehensive health calculators, tracking dashboard, and wellness tools. Calculate BMI, water intake, calories, sleep needs, and track your progress.">
+    <title>Daily Health Buddy - Free Water Intake & Health Calculator</title>
+    <meta name="description" content="Calculate your daily water intake, BMI, calories, and track health goals. Free personalized health dashboard with progress tracking and wellness tips.">
+    <meta name="keywords" content="water intake calculator, health tracker, BMI calculator, daily health goals, wellness dashboard">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Daily Health Buddy - Free Health Calculator">
+    <meta property="og:description" content="Calculate your daily water intake, BMI, calories, and track health goals with our free personalized dashboard.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daily Health Buddy - Free Health Calculator">
+    <meta name="twitter:description" content="Track your water intake, health goals, and wellness journey with our personalized dashboard.">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,14 +28,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-optimized.css') }}">
 
     <!-- Chart.js for Progress Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7136012713043150"
-     crossorigin="anonymous"></script>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{{ url_for('static', filename='css/style.css') }}" as="style">
+    <link rel="preload" href="{{ url_for('static', filename='js/calculator.js') }}" as="script">
 </head>
 <body>
     <!-- User Setup Modal -->
@@ -125,7 +137,7 @@
                         </button>
                     </div>
                     <h1 class="hero-title">Daily Health Buddy</h1>
-                    <p class="hero-subtitle">Hey there! 👋 Track your wellness journey with calculators, progress charts, and tips that actually work.</p>
+                    <p class="hero-subtitle">Calculate your daily water intake, track health goals, and improve your wellness with our simple tools.</p>
                 </div>
             </div>
         </div>
@@ -152,16 +164,7 @@
                                 <i class="fas fa-list-check me-2"></i>Daily Tracker
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="challenges-tab" data-bs-toggle="pill" data-bs-target="#challenges" type="button" role="tab">
-                                <i class="fas fa-trophy me-2"></i>Challenges
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="tips-tab" data-bs-toggle="pill" data-bs-target="#tips" type="button" role="tab">
-                                <i class="fas fa-lightbulb me-2"></i>Health Tips
-                            </button>
-                        </li>
+<!-- Simplified navigation - removed complex tabs for better performance -->
                     </ul>
                 </div>
             </div>
@@ -214,18 +217,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="stat-card glow-hover">
-                                        <div class="stat-icon streak-gradient">
-                                            <i class="fas fa-fire"></i>
-                                        </div>
-                                        <div class="stat-content">
-                                            <h5>Streak</h5>
-                                            <p class="stat-value" id="streak-count">0</p>
-                                            <small class="stat-goal">Days</small>
-                                        </div>
-                                    </div>
-                                </div>
+<!-- Streak tracking removed for simplicity -->
                             </div>
                             
                             <div class="row g-4 mt-3">
@@ -298,62 +290,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Calorie Calculator -->
-                                <div class="col-lg-6">
-                                    <div class="calculator-card glow-hover">
-                                        <h4 class="calculator-title">
-                                            <i class="fas fa-fire me-2 text-warning"></i>
-                                            Daily Calorie Needs
-                                        </h4>
-                                        <div class="input-group mb-3">
-                                            <label class="form-label">Age</label>
-                                            <input type="number" id="age-input" class="form-control" placeholder="25" min="16" max="100">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <label class="form-label">Gender</label>
-                                            <select id="gender-input" class="form-control">
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <label class="form-label">Activity Level</label>
-                                            <select id="activity-input" class="form-control">
-                                                <option value="1.2">Sedentary</option>
-                                                <option value="1.375">Light Exercise</option>
-                                                <option value="1.55">Moderate Exercise</option>
-                                                <option value="1.725">Heavy Exercise</option>
-                                                <option value="1.9">Very Heavy Exercise</option>
-                                            </select>
-                                        </div>
-                                        <button class="btn btn-warning w-100 mb-3" onclick="calculateCalories()">
-                                            <i class="fas fa-calculator me-2"></i>Calculate Calories
-                                        </button>
-                                        <div id="calorie-result" class="result-display"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Sleep Calculator -->
-                                <div class="col-lg-6">
-                                    <div class="calculator-card glow-hover">
-                                        <h4 class="calculator-title">
-                                            <i class="fas fa-moon me-2 text-info"></i>
-                                            Sleep Calculator
-                                        </h4>
-                                        <div class="input-group mb-3">
-                                            <label class="form-label">Your Age</label>
-                                            <input type="number" id="sleep-age-input" class="form-control" placeholder="25" min="16" max="100">
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <label class="form-label">Wake Up Time</label>
-                                            <input type="time" id="wakeup-input" class="form-control" value="07:00">
-                                        </div>
-                                        <button class="btn btn-info w-100 mb-3" onclick="calculateSleep()">
-                                            <i class="fas fa-calculator me-2"></i>Calculate Sleep Schedule
-                                        </button>
-                                        <div id="sleep-result" class="result-display"></div>
-                                    </div>
-                                </div>
+                                <!-- Simplified - Only essential calculators kept -->
                             </div>
                         </div>
 
@@ -398,21 +335,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="habit-item">
-                                                <div class="habit-info">
-                                                    <i class="fas fa-moon text-info"></i>
-                                                    <span>Sleep Quality</span>
-                                                </div>
-                                                <div class="habit-progress">
-                                                    <div class="sleep-rating">
-                                                        <button class="sleep-star" data-rating="1">⭐</button>
-                                                        <button class="sleep-star" data-rating="2">⭐</button>
-                                                        <button class="sleep-star" data-rating="3">⭐</button>
-                                                        <button class="sleep-star" data-rating="4">⭐</button>
-                                                        <button class="sleep-star" data-rating="5">⭐</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+<!-- Sleep tracking removed for simplicity -->
                                         </div>
                                     </div>
                                 </div>
@@ -444,106 +367,7 @@
                             </div>
                         </div>
 
-                        <!-- Challenges Tab -->
-                        <div class="tab-pane fade" id="challenges" role="tabpanel">
-                            <div class="row g-4">
-                                <div class="col-md-4">
-                                    <div class="challenge-card glow-hover">
-                                        <div class="challenge-icon">🏃‍♂️</div>
-                                        <h5>7-Day Step Challenge</h5>
-                                        <p>Walk 10,000 steps daily for 7 consecutive days</p>
-                                        <div class="challenge-progress">
-                                            <div class="progress">
-                                                <div class="progress-bar" id="step-challenge-progress" style="width: 0%"></div>
-                                            </div>
-                                            <small>Day <span id="step-challenge-day">0</span> of 7</small>
-                                        </div>
-                                        <button class="btn btn-primary mt-2" onclick="joinChallenge('steps')">Join Challenge</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <div class="challenge-card glow-hover">
-                                        <div class="challenge-icon">💧</div>
-                                        <h5>Hydration Hero</h5>
-                                        <p>Meet your daily water goal for 30 days</p>
-                                        <div class="challenge-progress">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-info" id="water-challenge-progress" style="width: 0%"></div>
-                                            </div>
-                                            <small>Day <span id="water-challenge-day">0</span> of 30</small>
-                                        </div>
-                                        <button class="btn btn-info mt-2" onclick="joinChallenge('water')">Join Challenge</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <div class="challenge-card glow-hover">
-                                        <div class="challenge-icon">😴</div>
-                                        <h5>Sleep Champion</h5>
-                                        <p>Get 7-9 hours of quality sleep for 14 days</p>
-                                        <div class="challenge-progress">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-warning" id="sleep-challenge-progress" style="width: 0%"></div>
-                                            </div>
-                                            <small>Day <span id="sleep-challenge-day">0</span> of 14</small>
-                                        </div>
-                                        <button class="btn btn-warning mt-2" onclick="joinChallenge('sleep')">Join Challenge</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row mt-4">
-                                <div class="col-12">
-                                    <div class="achievements-card glow-hover">
-                                        <h4 class="card-title">Your Achievements</h4>
-                                        <div id="achievements-list" class="achievements-grid">
-                                            <!-- Achievements will be dynamically loaded -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Health Tips Tab -->
-                        <div class="tab-pane fade" id="tips" role="tabpanel">
-                            <div class="row g-4">
-                                <div class="col-lg-8">
-                                    <div class="tips-card glow-hover">
-                                        <h4 class="card-title">Personalized Health Tips</h4>
-                                        <div id="personalized-tips-content" class="tips-content">
-                                            <!-- Personalized tips will be generated here -->
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="seasonal-tips-card glow-hover mt-4">
-                                        <h4 class="card-title">Seasonal Health Tips</h4>
-                                        <div id="seasonal-tips-content" class="tips-content">
-                                            <!-- Seasonal tips will be generated here -->
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-4">
-                                    <div class="daily-tip-card glow-hover">
-                                        <h4 class="card-title">Daily Health Tip</h4>
-                                        <div class="daily-tip-content">
-                                            <div class="tip-icon-large">💡</div>
-                                            <p id="daily-tip-text">Loading today's tip...</p>
-                                        </div>
-                                        <button class="btn btn-outline-primary w-100" onclick="getNewDailyTip()">Get New Tip</button>
-                                    </div>
-                                    
-                                    <div class="weather-tips-card glow-hover mt-4">
-                                        <h4 class="card-title">Weather-Based Tips</h4>
-                                        <div id="weather-tips-content">
-                                            <p>Enable location to get weather-based health recommendations.</p>
-                                            <button class="btn btn-outline-info" onclick="getWeatherTips()">Get Weather Tips</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Removed complex features for better performance -->
                     </div>
                 </div>
             </div>
@@ -609,7 +433,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
-    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+    <!-- Optimized JavaScript -->
+    <script src="{{ url_for('static', filename='js/calculator-optimized.js') }}"></script>
 </body>
 </html>

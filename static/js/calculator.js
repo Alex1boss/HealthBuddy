@@ -79,8 +79,12 @@ class HealthDashboard {
         this.generatePersonalizedTips();
         this.updateChallengeProgress();
         
-        // Apply dark mode if enabled
-        if (this.data.preferences.darkMode) {
+        // Ensure light mode by default for new users
+        document.body.classList.remove('dark-mode');
+        document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+        
+        // Apply dark mode only if explicitly enabled
+        if (this.data.preferences.darkMode === true) {
             document.body.classList.add('dark-mode');
             document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i> Light Mode';
         }
