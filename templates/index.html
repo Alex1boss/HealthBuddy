@@ -1,737 +1,181 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>
-            Daily Health Buddy - Free Water Intake & Health Calculator
-        </title>
-        <meta
-            name="description"
-            content="Calculate your daily water intake, BMI, calories, and track health goals. Free personalized health dashboard with progress tracking and wellness tips."
-        />
-        <meta
-            name="keywords"
-            content="water intake calculator, health tracker, BMI calculator, daily health goals, wellness dashboard"
-        />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Water Calculator - Calculate Your Personal Hydration Goal</title>
+    <meta name="description" content="Free water intake calculator that helps you determine how much water to drink daily based on your weight and activity level. Stay hydrated with personalized recommendations.">
+    <meta name="keywords" content="water intake calculator, daily water goal, hydration calculator, water consumption, health calculator">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Daily Water Calculator - Personal Hydration Goal">
+    <meta property="og:description" content="Calculate your daily water intake goal based on weight and activity level. Free, fast, and accurate hydration calculator.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=630&fit=crop&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Water droplets - Daily Water Calculator">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daily Water Calculator">
+    <meta name="twitter:description" content="Calculate your personal daily water intake goal instantly.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Daily Water Calculator",
+        "description": "Free water intake calculator that helps you determine how much water to drink daily based on your weight and activity level.",
+        "url": "{{ request.url_root }}",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Daily Water Calculator"
+        },
+        "mainEntity": {
+            "@type": "Calculator",
+            "name": "Water Intake Calculator",
+            "description": "Calculate personalized daily water intake based on weight and activity level"
+        }
+    }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title">💧 Daily Water Calculator</h1>
+                <p class="subtitle">Calculate your personalized daily water intake goal in seconds</p>
+            </div>
+        </div>
+    </header>
 
-        <!-- Open Graph Tags -->
-        <meta
-            property="og:title"
-            content="Daily Health Buddy - Free Health Calculator"
-        />
-        <meta
-            property="og:description"
-            content="Calculate your daily water intake, BMI, calories, and track health goals with our free personalized dashboard."
-        />
-        <meta property="og:type" content="website" />
-        <meta
-            property="og:image"
-            content="https://your-domain.com/og-image.jpg"
-        />
-
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-            name="twitter:title"
-            content="Daily Health Buddy - Free Health Calculator"
-        />
-        <meta
-            name="twitter:description"
-            content="Track your water intake, health goals, and wellness journey with our personalized dashboard."
-        />
-
-        <!-- Google Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
-
-        <!-- Bootstrap CSS -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-        />
-
-        <!-- Font Awesome Icons -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        />
-
-        <!-- Main Theme CSS -->
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/style-optimized.css') }}"
-        />
-        
-        <!-- Additional Premium Styles -->
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/premium-style.css') }}"
-        />
-
-        <!-- Chart.js for Progress Charts -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </head>
-    <body>
-        <!-- User Setup Modal -->
-        <div id="setupModal" class="setup-modal">
-            <div class="setup-content">
-                <div class="setup-header">
-                    <h2>Welcome to Daily Water Guide 💧</h2>
-                    <p>
-                        Let's personalize your hydration plan in 30 seconds!
-                    </p>
+    <!-- Main Calculator -->
+    <main class="main">
+        <div class="container">
+            <div class="calculator-card">
+                <div class="calculator-header">
+                    <h2>🎯 Calculate Your Water Goal</h2>
+                    <p>Enter your details below to get your personalized daily hydration target</p>
                 </div>
-                <div class="setup-form">
-                    <div class="form-step active" id="step1">
-                        <h3>Let's calculate your water goal!</h3>
-                        <div class="input-group mb-3">
-                            <label class="form-label">Your Name</label>
-                            <input
-                                type="text"
-                                id="setup-name"
-                                class="form-control"
-                                placeholder="Enter your name"
-                            />
-                        </div>
-                        <div class="input-group mb-3">
-                            <label class="form-label">Your Weight (kg) <span class="text-danger">*</span></label>
-                            <input
-                                type="number"
-                                id="setup-weight"
-                                class="form-control"
-                                placeholder="70"
-                                min="20"
-                                step="0.1"
+                
+                <form class="calculator-form" id="waterForm">
+                    <div class="form-group">
+                        <label for="weight" class="form-label">Your Weight</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="number" 
+                                id="weight" 
+                                name="weight"
+                                class="form-input" 
+                                placeholder="70" 
+                                min="20" 
+                                max="300" 
+                                step="0.5" 
                                 required
-                            />
+                            >
+                            <span class="input-unit">kg</span>
                         </div>
-                        <div class="input-group mb-3">
-                            <label class="form-label">Activity Level</label>
-                            <select id="setup-activity" class="form-control">
-                                <option value="low">Low</option>
-                                <option value="medium" selected>Medium</option>
-                                <option value="high">High</option>
-                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity" class="form-label">Activity Level</label>
+                        <select id="activity" name="activity" class="form-select" required>
+                            <option value="">Select your activity level</option>
+                            <option value="low">🛋️ Low - Mostly sitting, minimal exercise</option>
+                            <option value="moderate">🚶 Moderate - Light exercise 1-3 times per week</option>
+                            <option value="active">🏃 Active - Exercise 3-5 times per week</option>
+                            <option value="very_active">💪 Very Active - Intense exercise 6-7 times per week</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="calculate-btn">
+                        <span class="btn-text">💧 Calculate My Water Goal</span>
+                    </button>
+                </form>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <div class="result-card">
+                        <div class="result-icon">💧</div>
+                        <h3 class="result-title">Your Daily Water Goal</h3>
+                        <div class="result-amount" id="waterAmount">2.5L</div>
+                        <div class="result-details" id="resultDetails">
+                            <p>Based on your weight and activity level</p>
                         </div>
-                        <div class="input-group mb-4">
-                            <label class="form-label">Daily Goal Preference</label>
-                            <div class="mt-2">
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="goalPreference"
-                                        id="defaultGoal"
-                                        value="default"
-                                        checked
-                                    />
-                                    <label class="form-check-label" for="defaultGoal">
-                                        <strong>💧 Default goal (recommended by us)</strong><br>
-                                        <small>💧 Stay hydrated with a personalized daily water target based on your weight and activity level.<br>
-                                        🚶 Reach at least 8,000–10,000 steps per day for overall health.<br>
-                                        ⏰ Get smart reminders throughout the day to keep you on track.</small>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="goalPreference"
-                                        id="customGoal"
-                                        value="custom"
-                                    />
-                                    <label class="form-check-label" for="customGoal">
-                                        ⚙️ Customize my own goal
-                                    </label>
-                                </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h4>💡 Hydration Tips</h4>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <div class="tip-emoji">⏰</div>
+                                <div class="tip-text">Start your day with a glass of water</div>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">🥤</div>
+                                <div class="tip-text">Keep a water bottle nearby</div>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">🍎</div>
+                                <div class="tip-text">Eat water-rich foods</div>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">📱</div>
+                                <div class="tip-text">Set hydration reminders</div>
                             </div>
                         </div>
-                        <button
-                            class="btn btn-primary w-100"
-                            onclick="calculateWaterGoal()"
-                        >
-                            💧 Calculate My Water Goal
-                        </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions" id="quickActions" style="display: none;">
+                <h3>🚀 Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="recalculate()">
+                        🔄 Calculate Again
+                    </button>
+                    <button class="action-btn" onclick="shareResult()">
+                        📱 Share Result
+                    </button>
                 </div>
             </div>
         </div>
+    </main>
 
-        <!-- Header / Hero Section -->
-        <header class="hero-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <div class="d-flex justify-content-end mb-3">
-                            <button
-                                id="dark-mode-toggle"
-                                class="btn btn-outline-secondary"
-                            >
-                                <i class="fas fa-moon"></i> Dark Mode
-                            </button>
-                        </div>
-                        <h1 class="hero-title">Daily Health Buddy</h1>
-                        <p class="hero-subtitle">
-                            Calculate your daily water intake, track health
-                            goals, and improve your wellness with our simple
-                            tools.
-                        </p>
-                    </div>
-                </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    💧 Daily Water Calculator - Stay hydrated, stay healthy!
+                </p>
+                <p class="footer-disclaimer">
+                    *This calculator provides general hydration guidelines. Consult your doctor for specific medical advice.
+                </p>
             </div>
-        </header>
+        </div>
+    </footer>
 
-        <!-- Navigation Tabs -->
-        <section class="navigation-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <ul
-                            class="nav nav-pills nav-fill health-nav"
-                            id="healthNav"
-                            role="tablist"
-                        >
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link active"
-                                    id="dashboard-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#dashboard"
-                                    type="button"
-                                    role="tab"
-                                >
-                                    <i class="fas fa-chart-line me-2"></i
-                                    >Dashboard
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="calculators-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#calculators"
-                                    type="button"
-                                    role="tab"
-                                >
-                                    <i class="fas fa-calculator me-2"></i
-                                    >Calculators
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button
-                                    class="nav-link"
-                                    id="tracker-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#tracker"
-                                    type="button"
-                                    role="tab"
-                                >
-                                    <i class="fas fa-list-check me-2"></i>Daily
-                                    Tracker
-                                </button>
-                            </li>
-                            <!-- Simplified navigation - removed complex tabs for better performance -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Main Content Sections -->
-        <section class="main-content-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <div class="tab-content" id="healthNavContent">
-                            <!-- Dashboard Tab -->
-                            <div
-                                class="tab-pane fade show active"
-                                id="dashboard"
-                                role="tabpanel"
-                            >
-                                <div class="row g-4">
-                                    <div class="col-md-6 col-lg-3">
-                                        <div class="stat-card glow-hover">
-                                            <div
-                                                class="stat-icon water-gradient"
-                                            >
-                                                <i class="fas fa-tint"></i>
-                                            </div>
-                                            <div class="stat-content">
-                                                <h5>Today's Water</h5>
-                                                <p
-                                                    class="stat-value"
-                                                    id="daily-water"
-                                                >
-                                                    0L
-                                                </p>
-                                                <small class="stat-goal"
-                                                    >Goal:
-                                                    <span id="water-goal"
-                                                        >2.5L</span
-                                                    ></small
-                                                >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3">
-                                        <div class="stat-card glow-hover">
-                                            <div
-                                                class="stat-icon steps-gradient"
-                                            >
-                                                <i class="fas fa-walking"></i>
-                                            </div>
-                                            <div class="stat-content">
-                                                <h5>Today's Steps</h5>
-                                                <p
-                                                    class="stat-value"
-                                                    id="daily-steps"
-                                                >
-                                                    0
-                                                </p>
-                                                <small class="stat-goal"
-                                                    >Goal:
-                                                    <span id="steps-goal"
-                                                        >10,000</span
-                                                    ></small
-                                                >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3">
-                                        <div class="stat-card glow-hover">
-                                            <div
-                                                class="stat-icon health-gradient"
-                                            >
-                                                <i class="fas fa-heart"></i>
-                                            </div>
-                                            <div class="stat-content">
-                                                <h5>Health Score</h5>
-                                                <p
-                                                    class="stat-value"
-                                                    id="health-score"
-                                                >
-                                                    0
-                                                </p>
-                                                <small class="stat-goal"
-                                                    >Out of 100</small
-                                                >
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Streak tracking removed for simplicity -->
-                                </div>
-
-                                <div class="row g-4 mt-3">
-                                    <div class="col-lg-8">
-                                        <div class="progress-card glow-hover">
-                                            <h4 class="card-title">
-                                                Your Progress 📈
-                                            </h4>
-                                            <canvas
-                                                id="progressChart"
-                                                width="400"
-                                                height="150"
-                                            ></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div
-                                            class="quick-actions-card glow-hover"
-                                        >
-                                            <h4 class="card-title">
-                                                Quick Wins ⚡
-                                            </h4>
-                                            <div class="quick-actions">
-                                                <button
-                                                    class="btn btn-outline-primary mb-2 w-100"
-                                                    onclick="addWater(0.25)"
-                                                >
-                                                    💧 Just drank a cup!
-                                                </button>
-                                                <button
-                                                    class="btn btn-outline-success mb-2 w-100"
-                                                    onclick="addSteps(1000)"
-                                                >
-                                                    🚶 Walked 1k steps
-                                                </button>
-                                                <button
-                                                    class="btn btn-outline-info mb-2 w-100"
-                                                    onclick="startWaterTimer()"
-                                                >
-                                                    ⏰ Remind me to drink
-                                                </button>
-                                                <button
-                                                    class="btn btn-outline-warning w-100"
-                                                    onclick="shareProgress()"
-                                                >
-                                                    📱 Show off my progress
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Calculators Tab -->
-                            <div
-                                class="tab-pane fade"
-                                id="calculators"
-                                role="tabpanel"
-                            >
-                                <div class="row g-4">
-                                    <!-- Water & Steps Calculator -->
-                                    <div class="col-lg-6">
-                                        <div class="calculator-card glow-hover">
-                                            <h4 class="calculator-title">
-                                                💧 How much should I drink?
-                                            </h4>
-                                            <div class="input-group mb-3">
-                                                <label class="form-label"
-                                                    >Weight (kg)</label
-                                                >
-                                                <input
-                                                    type="number"
-                                                    id="weight-input"
-                                                    class="form-control"
-                                                    placeholder="70"
-                                                    min="20"
-                                                    step="0.1"
-                                                />
-                                            </div>
-                                            <button
-                                                class="btn btn-primary w-100 mb-3"
-                                                onclick="calculateWaterSteps()"
-                                            >
-                                                ✨ Tell me my goals!
-                                            </button>
-                                            <div
-                                                id="water-steps-result"
-                                                class="result-display"
-                                            ></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- BMI Calculator -->
-                                    <div class="col-lg-6">
-                                        <div class="calculator-card glow-hover">
-                                            <h4 class="calculator-title">
-                                                📏 What's my BMI?
-                                            </h4>
-                                            <div class="input-group mb-3">
-                                                <label class="form-label"
-                                                    >Height (cm)</label
-                                                >
-                                                <input
-                                                    type="number"
-                                                    id="height-input"
-                                                    class="form-control"
-                                                    placeholder="170"
-                                                    min="100"
-                                                    step="1"
-                                                />
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <label class="form-label"
-                                                    >Weight (kg)</label
-                                                >
-                                                <input
-                                                    type="number"
-                                                    id="bmi-weight-input"
-                                                    class="form-control"
-                                                    placeholder="70"
-                                                    min="20"
-                                                    step="0.1"
-                                                />
-                                            </div>
-                                            <button
-                                                class="btn btn-success w-100 mb-3"
-                                                onclick="calculateBMI()"
-                                            >
-                                                🎯 Check my BMI
-                                            </button>
-                                            <div
-                                                id="bmi-result"
-                                                class="result-display"
-                                            ></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Simplified - Only essential calculators kept -->
-                                </div>
-                            </div>
-
-                            <!-- Daily Tracker Tab -->
-                            <div
-                                class="tab-pane fade"
-                                id="tracker"
-                                role="tabpanel"
-                            >
-                                <div class="row g-4">
-                                    <div class="col-lg-8">
-                                        <div class="tracker-card glow-hover">
-                                            <h4 class="card-title">
-                                                Today's Progress
-                                            </h4>
-                                            <div class="habit-tracker">
-                                                <div class="habit-item">
-                                                    <div class="habit-info">
-                                                        <i
-                                                            class="fas fa-tint text-primary"
-                                                        ></i>
-                                                        <span
-                                                            >Water Intake</span
-                                                        >
-                                                    </div>
-                                                    <div class="habit-progress">
-                                                        <div class="progress">
-                                                            <div
-                                                                class="progress-bar bg-primary"
-                                                                id="water-progress"
-                                                                style="
-                                                                    width: 0%;
-                                                                "
-                                                            ></div>
-                                                        </div>
-                                                        <span
-                                                            class="progress-text"
-                                                            ><span
-                                                                id="water-current"
-                                                                >0</span
-                                                            >L /
-                                                            <span
-                                                                id="water-target"
-                                                                >2.5</span
-                                                            >L</span
-                                                        >
-                                                    </div>
-                                                    <div class="habit-actions">
-                                                        <button
-                                                            class="btn btn-sm btn-outline-primary"
-                                                            onclick="addWater(-0.25)"
-                                                        >
-                                                            -
-                                                        </button>
-                                                        <button
-                                                            class="btn btn-sm btn-primary"
-                                                            onclick="addWater(0.25)"
-                                                        >
-                                                            +
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="habit-item">
-                                                    <div class="habit-info">
-                                                        <i
-                                                            class="fas fa-walking text-success"
-                                                        ></i>
-                                                        <span>Steps</span>
-                                                    </div>
-                                                    <div class="habit-progress">
-                                                        <div class="progress">
-                                                            <div
-                                                                class="progress-bar bg-success"
-                                                                id="steps-progress"
-                                                                style="
-                                                                    width: 0%;
-                                                                "
-                                                            ></div>
-                                                        </div>
-                                                        <span
-                                                            class="progress-text"
-                                                            ><span
-                                                                id="steps-current"
-                                                                >0</span
-                                                            >
-                                                            /
-                                                            <span
-                                                                id="steps-target"
-                                                                >10,000</span
-                                                            ></span
-                                                        >
-                                                    </div>
-                                                    <div class="habit-actions">
-                                                        <button
-                                                            class="btn btn-sm btn-outline-success"
-                                                            onclick="addSteps(-500)"
-                                                        >
-                                                            -
-                                                        </button>
-                                                        <button
-                                                            class="btn btn-sm btn-success"
-                                                            onclick="addSteps(500)"
-                                                        >
-                                                            +
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Sleep tracking removed for simplicity -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div
-                                            class="water-timer-card glow-hover"
-                                        >
-                                            <h4 class="card-title">
-                                                Water Reminder Timer
-                                            </h4>
-                                            <div class="timer-display">
-                                                <div class="timer-circle">
-                                                    <span id="timer-text"
-                                                        >30:00</span
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="timer-controls">
-                                                <button
-                                                    class="btn btn-primary"
-                                                    onclick="startWaterTimer()"
-                                                >
-                                                    Start
-                                                </button>
-                                                <button
-                                                    class="btn btn-secondary"
-                                                    onclick="pauseWaterTimer()"
-                                                >
-                                                    Pause
-                                                </button>
-                                                <button
-                                                    class="btn btn-outline-secondary"
-                                                    onclick="resetWaterTimer()"
-                                                >
-                                                    Reset
-                                                </button>
-                                            </div>
-                                            <div class="timer-settings mt-3">
-                                                <label class="form-label"
-                                                    >Reminder Interval
-                                                    (minutes)</label
-                                                >
-                                                <select
-                                                    id="timer-interval"
-                                                    class="form-control"
-                                                >
-                                                    <option value="15">
-                                                        15 minutes
-                                                    </option>
-                                                    <option value="30" selected>
-                                                        30 minutes
-                                                    </option>
-                                                    <option value="45">
-                                                        45 minutes
-                                                    </option>
-                                                    <option value="60">
-                                                        60 minutes
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Removed complex features for better performance -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Health Tips Section -->
-        <section class="health-tips-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <h2 class="section-title text-center">
-                            Why Hydration & Walking Matter?
-                        </h2>
-
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div class="tip-card glow-hover">
-                                    <div class="tip-icon floating">💧</div>
-                                    <h5 class="gradient-text">
-                                        Stay Energized
-                                    </h5>
-                                    <p>
-                                        Drink enough water to stay energized
-                                        throughout the day and maintain optimal
-                                        body function.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="tip-card glow-hover">
-                                    <div class="tip-icon floating">🚶</div>
-                                    <h5 class="gradient-text">Heart Health</h5>
-                                    <p>
-                                        Walking daily keeps your heart healthy
-                                        and reduces the risk of cardiovascular
-                                        diseases.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="tip-card glow-hover">
-                                    <div class="tip-icon floating">❤️</div>
-                                    <h5 class="gradient-text">
-                                        Small Steps, Big Changes
-                                    </h5>
-                                    <p>
-                                        Small steps daily make big changes in
-                                        your overall health and well-being over
-                                        time.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <p class="footer-text">
-                            Built with
-                            <span class="floating" style="animation-delay: 1s"
-                                >❤️</span
-                            >
-                            and way too much coffee by
-                            <span class="gradient-text">Atul</span><br />
-                            <small
-                                >Just a guy who wanted to drink more water and
-                                ended up building this 😅</small
-                            >
-                        </p>
-                        <div class="footer-links">
-                            <a href="#" class="footer-link">Privacy Stuff</a>
-                            <span class="separator">•</span>
-                            <a href="#" class="footer-link">Say Hi!</a>
-                            <span class="separator">•</span>
-                            <a href="#" class="footer-link">Found a bug? 🐛</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Optimized JavaScript -->
-        <script src="{{ url_for('static', filename='js/calculator-optimized.js') }}"></script>
-    </body>
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+</body>
 </html>
