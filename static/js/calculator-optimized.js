@@ -525,6 +525,7 @@ window.calculateWaterGoal = () => {
         return;
     }
     
+    const name = document.getElementById('setup-name').value || 'User';
     const weight = parseFloat(document.getElementById('setup-weight').value);
     const activity = document.getElementById('setup-activity').value;
     const goalPreference = document.querySelector('input[name="goalPreference"]:checked')?.value || 'default';
@@ -552,7 +553,7 @@ window.calculateWaterGoal = () => {
         weight: weight,
         activityLevel: activity,
         goalPreference: goalPreference,
-        name: 'User', // Default name
+        name: name,
         age: 30, // Default age
         gender: 'user', // Generic
         height: 170, // Default height
@@ -572,9 +573,13 @@ window.calculateWaterGoal = () => {
     // Load the dashboard
     healthDashboard.loadDashboard();
     
-    // Show custom toast notification
+    // Show custom toast notification with personalized message
+    const welcomeMessage = name && name !== 'User' 
+        ? `🎉 Perfect ${name}! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`
+        : `🎉 Perfect! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`;
+    
     setTimeout(() => {
-        showToast(`🎉 Perfect! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`);
+        showToast(welcomeMessage);
     }, 500);
 };
 
