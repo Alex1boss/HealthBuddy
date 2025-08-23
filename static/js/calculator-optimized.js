@@ -10,7 +10,7 @@ class HealthDashboard {
     }
     
     checkFirstTime() {
-        const isFirstTime = !localStorage.getItem('healthDashboard') || !this.data.profile.name;
+        const isFirstTime = !localStorage.getItem('healthDashboard') || !this.data.profile.setupCompleted;
         if (isFirstTime) {
             document.getElementById('setupModal').style.display = 'flex';
         } else {
@@ -38,7 +38,7 @@ class HealthDashboard {
     // Essential Data Management
     loadData() {
         const defaultData = {
-            profile: { name: '', weight: 70, height: 170, age: 25, gender: 'male', activityLevel: 1.375 },
+            profile: { name: '', weight: 70, height: 170, age: 25, gender: 'male', activityLevel: 1.375, setupCompleted: false },
             daily: { 
                 water: 0, 
                 steps: 0, 
@@ -555,7 +555,8 @@ window.calculateWaterGoal = () => {
         name: 'User', // Default name
         age: 30, // Default age
         gender: 'user', // Generic
-        height: 170 // Default height
+        height: 170, // Default height
+        setupCompleted: true // Mark setup as completed
     };
     
     // Set water goal
