@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Health Buddy - Your Personal Wellness Dashboard</title>
+    <meta name="description" content="Transform your health journey with intelligent tracking, personalized insights, and science-backed recommendations. Free forever.">
+    <meta name="keywords" content="health tracker, wellness dashboard, water intake, fitness goals, BMI calculator, personal health">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Daily Health Buddy - Your Personal Wellness Dashboard">
+    <meta property="og:description" content="Transform your health journey with intelligent tracking and personalized insights. Trusted by thousands.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://your-domain.com/og-premium.jpg">
+    <meta property="og:url" content="https://your-domain.com">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daily Health Buddy - Your Personal Wellness Dashboard">
+    <meta name="twitter:description" content="Transform your health journey with intelligent tracking and personalized insights.">
+    <meta name="twitter:image" content="https://your-domain.com/twitter-premium.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{{ url_for('static', filename='css/premium-style.css') }}" as="style">
+    <link rel="preload" href="{{ url_for('static', filename='js/calculator-optimized.js') }}" as="script">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Premium Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Premium CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/premium-style.css') }}">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Daily Health Buddy",
+        "description": "Personal wellness dashboard with health tracking and insights",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Enhanced Setup Modal -->
+    <div id="setupModal" class="setup-modal">
+        <div class="setup-content">
+            <div class="setup-header">
+                <h2>Welcome to Your Health Journey! 🚀</h2>
+                <p>Let's personalize your wellness dashboard with science-backed recommendations tailored just for you.</p>
+            </div>
+            
+            <div class="setup-form">
+                <!-- Step 1: Personal Info -->
+                <div class="form-step active" id="step1">
+                    <h3>Tell us about yourself</h3>
+                    <div class="form-group">
+                        <label class="form-label">What should we call you?</label>
+                        <input type="text" id="setup-name" class="form-control" placeholder="Alex">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your age</label>
+                        <input type="number" id="setup-age" class="form-control" placeholder="28" min="16" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Gender</label>
+                        <select id="setup-gender" class="form-control">
+                            <option value="">Choose your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button class="btn-premium btn-primary w-100" onclick="nextStep(2)">
+                        Continue <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Step 2: Physical Stats -->
+                <div class="form-step" id="step2">
+                    <h3>Your physical stats</h3>
+                    <div class="form-group">
+                        <label class="form-label">Weight (kg)</label>
+                        <input type="number" id="setup-weight" class="form-control" placeholder="70" min="30" max="200" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Height (cm)</label>
+                        <input type="number" id="setup-height" class="form-control" placeholder="175" min="100" max="250">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Activity level</label>
+                        <select id="setup-activity" class="form-control">
+                            <option value="">Select your activity level</option>
+                            <option value="1.2">Sedentary (desk job, no exercise)</option>
+                            <option value="1.375">Lightly active (light exercise 1-3 days/week)</option>
+                            <option value="1.55">Moderately active (moderate exercise 3-5 days/week)</option>
+                            <option value="1.725">Very active (hard exercise 6-7 days/week)</option>
+                            <option value="1.9">Extremely active (very hard exercise, physical job)</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button class="btn-premium btn-secondary" onclick="prevStep(1)">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                        </button>
+                        <button class="btn-premium btn-primary flex-fill" onclick="nextStep(3)">
+                            Continue <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Goals & Preferences -->
+                <div class="form-step" id="step3">
+                    <h3>Your wellness goals</h3>
+                    <div class="form-group">
+                        <label class="form-label">Primary health goal</label>
+                        <select id="setup-goal" class="form-control">
+                            <option value="">What's your main focus?</option>
+                            <option value="weight-loss">Lose weight</option>
+                            <option value="weight-gain">Gain weight</option>
+                            <option value="maintenance">Maintain current weight</option>
+                            <option value="fitness">Improve fitness</option>
+                            <option value="wellness">General wellness</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Wake up time</label>
+                        <input type="time" id="setup-wakeup" class="form-control" value="07:00">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="setup-darkmode" class="form-check-input">
+                            <label class="form-check-label" for="setup-darkmode">
+                                Enable dark mode
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button class="btn-premium btn-secondary" onclick="prevStep(2)">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                        </button>
+                        <button class="btn-premium btn-success flex-fill" onclick="finishSetup()">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i> Create My Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Header -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="text-overline text-center mb-4">
+                <i data-lucide="shield-check" class="w-4 h-4 inline"></i>
+                Trusted by 50,000+ users worldwide
+            </div>
+            <h1 class="hero-title">Daily Health Buddy</h1>
+            <p class="hero-subtitle">Transform your wellness journey with intelligent tracking, personalized insights, and science-backed recommendations that actually work.</p>
+            
+            <div class="hero-cta">
+                <button class="btn-premium btn-primary" onclick="document.getElementById('setupModal').style.display = 'flex'">
+                    <i data-lucide="play" class="w-5 h-5"></i>
+                    Start Your Journey
+                </button>
+                <button class="btn-premium btn-secondary" onclick="document.querySelector('.navigation-section').scrollIntoView()">
+                    <i data-lucide="info" class="w-5 h-5"></i>
+                    See How It Works
+                </button>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">50k+</div>
+                    <div class="hero-stat-label">Active Users</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">4.9★</div>
+                    <div class="hero-stat-label">User Rating</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">100%</div>
+                    <div class="hero-stat-label">Free Forever</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Premium Navigation -->
+    <section class="navigation-section">
+        <div class="container">
+            <nav class="health-nav" role="tablist">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="pill" data-bs-target="#dashboard" type="button" role="tab">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-link" id="calculators-tab" data-bs-toggle="pill" data-bs-target="#calculators" type="button" role="tab">
+                    <i data-lucide="calculator" class="w-4 h-4"></i>
+                    <span>Calculators</span>
+                </button>
+                <button class="nav-link" id="tracking-tab" data-bs-toggle="pill" data-bs-target="#tracking" type="button" role="tab">
+                    <i data-lucide="activity" class="w-4 h-4"></i>
+                    <span>Tracking</span>
+                </button>
+                <button class="nav-link" id="insights-tab" data-bs-toggle="pill" data-bs-target="#insights" type="button" role="tab">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                    <span>Insights</span>
+                </button>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div class="tab-content">
+            <!-- Premium Dashboard Tab -->
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                <!-- Stats Overview -->
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon water-gradient">
+                                <i data-lucide="droplets" class="w-6 h-6"></i>
+                            </div>
+                            <div class="stat-label">Daily Water</div>
+                            <div class="stat-value text-mono"><span id="daily-water">0</span>L</div>
+                            <div class="stat-goal">Goal: <span id="water-goal">2.5</span>L</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon steps-gradient">
+                                <i data-lucide="footprints" class="w-6 h-6"></i>
+                            </div>
+                            <div class="stat-label">Daily Steps</div>
+                            <div class="stat-value text-mono" id="daily-steps">0</div>
+                            <div class="stat-goal">Goal: <span id="steps-goal">10,000</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-icon health-gradient">
+                                <i data-lucide="heart" class="w-6 h-6"></i>
+                            </div>
+                            <div class="stat-label">Health Score</div>
+                            <div class="stat-value text-mono"><span id="health-score">0</span>%</div>
+                            <div class="stat-goal">Today's Progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress & Actions -->
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <!-- Progress Chart -->
+                        <div class="premium-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="trending-up" class="w-5 h-5"></i>
+                                    Your Progress This Week
+                                </h3>
+                                <p class="card-subtitle">Track your daily achievements and stay motivated</p>
+                            </div>
+                            <div style="height: 250px; position: relative;">
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <!-- Quick Actions -->
+                        <div class="premium-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    Quick Actions
+                                </h3>
+                                <p class="card-subtitle">Log your daily activities</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-caption">Water Progress</span>
+                                    <span class="text-caption text-mono"><span id="water-current">0</span>L / <span id="water-target">2.5</span>L</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar progress-water" id="water-progress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 mb-4">
+                                <button class="btn-premium btn-primary" onclick="addWater(0.25)">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    Add 250ml Water
+                                </button>
+                                <button class="btn-premium btn-outline" onclick="addWater(-0.25)">
+                                    <i data-lucide="minus" class="w-4 h-4"></i>
+                                    Remove 250ml
+                                </button>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-caption">Steps Progress</span>
+                                    <span class="text-caption text-mono"><span id="steps-current">0</span> / <span id="steps-target">10,000</span></span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar progress-steps" id="steps-progress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button class="btn-premium btn-success" onclick="addSteps(1000)">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    Add 1,000 Steps
+                                </button>
+                                <button class="btn-premium btn-outline" onclick="addSteps(-1000)">
+                                    <i data-lucide="minus" class="w-4 h-4"></i>
+                                    Remove 1,000
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Calculators Tab -->
+            <div class="tab-pane fade" id="calculators" role="tabpanel">
+                <div class="row g-4">
+                    <!-- Water & Goals Calculator -->
+                    <div class="col-lg-6">
+                        <div class="premium-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="target" class="w-5 h-5"></i>
+                                    Personalized Goals
+                                </h3>
+                                <p class="card-subtitle">Get science-backed recommendations for your body</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Your Weight (kg)</label>
+                                <input type="number" id="weight-input" class="form-control" placeholder="70" min="30" max="200" step="0.1">
+                            </div>
+                            
+                            <button class="btn-premium btn-primary w-100 mb-4" onclick="calculateWaterSteps()">
+                                <i data-lucide="calculator" class="w-4 h-4"></i>
+                                Calculate My Goals
+                            </button>
+                            
+                            <div id="water-steps-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- BMI Calculator -->
+                    <div class="col-lg-6">
+                        <div class="premium-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="scale" class="w-5 h-5"></i>
+                                    BMI Calculator
+                                </h3>
+                                <p class="card-subtitle">Assess your body mass index and health category</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" id="height-input" class="form-control" placeholder="175" min="100" max="250">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Weight (kg)</label>
+                                <input type="number" id="bmi-weight-input" class="form-control" placeholder="70" min="30" max="200" step="0.1">
+                            </div>
+                            
+                            <button class="btn-premium btn-primary w-100 mb-4" onclick="calculateBMI()">
+                                <i data-lucide="calculator" class="w-4 h-4"></i>
+                                Calculate BMI
+                            </button>
+                            
+                            <div id="bmi-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Tracking Tab -->
+            <div class="tab-pane fade" id="tracking" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <!-- Enhanced Habit Tracker -->
+                        <div class="premium-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                                    Daily Habit Tracker
+                                </h3>
+                                <p class="card-subtitle">Build healthy habits with consistent tracking</p>
+                            </div>
+                            
+                            <div class="habit-tracker">
+                                <div class="habit-item">
+                                    <div class="habit-info">
+                                        <i data-lucide="droplets" class="text-primary"></i>
+                                        <span>Water Intake</span>
+                                    </div>
+                                    <div class="habit-progress flex-fill mx-4">
+                                        <div class="progress-container">
+                                            <div class="progress-bar progress-water" id="habit-water-progress" style="width: 0%"></div>
+                                        </div>
+                                        <small class="progress-text">
+                                            <span id="habit-water-current">0</span>L of <span id="habit-water-goal">2.5</span>L
+                                        </small>
+                                    </div>
+                                    <div class="habit-actions">
+                                        <button class="btn-premium btn-sm btn-primary" onclick="addWater(0.25)">+250ml</button>
+                                        <button class="btn-premium btn-sm btn-secondary" onclick="addWater(0.5)">+500ml</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="habit-item">
+                                    <div class="habit-info">
+                                        <i data-lucide="footprints" class="text-success"></i>
+                                        <span>Daily Steps</span>
+                                    </div>
+                                    <div class="habit-progress flex-fill mx-4">
+                                        <div class="progress-container">
+                                            <div class="progress-bar progress-steps" id="habit-steps-progress" style="width: 0%"></div>
+                                        </div>
+                                        <small class="progress-text">
+                                            <span id="habit-steps-current">0</span> of <span id="habit-steps-goal">10,000</span> steps
+                                        </small>
+                                    </div>
+                                    <div class="habit-actions">
+                                        <button class="btn-premium btn-sm btn-success" onclick="addSteps(500)">+500</button>
+                                        <button class="btn-premium btn-sm btn-success" onclick="addSteps(1000)">+1k</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <!-- Water Reminder Timer -->
+                        <div class="premium-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="timer" class="w-5 h-5"></i>
+                                    Water Reminder
+                                </h3>
+                                <p class="card-subtitle">Stay hydrated with smart reminders</p>
+                            </div>
+                            
+                            <div class="timer-display">
+                                <div class="timer-circle">
+                                    <span id="timer-text">30:00</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Reminder Interval</label>
+                                <select id="timer-interval" class="form-control">
+                                    <option value="15">15 minutes</option>
+                                    <option value="30" selected>30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">1 hour</option>
+                                </select>
+                            </div>
+                            
+                            <div class="timer-controls">
+                                <button class="btn-premium btn-success" onclick="startWaterTimer()">
+                                    <i data-lucide="play" class="w-4 h-4"></i>
+                                    Start
+                                </button>
+                                <button class="btn-premium btn-secondary" onclick="pauseWaterTimer()">
+                                    <i data-lucide="pause" class="w-4 h-4"></i>
+                                    Pause
+                                </button>
+                                <button class="btn-premium btn-outline" onclick="resetWaterTimer()">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Settings Card -->
+                        <div class="premium-card mt-4">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i data-lucide="settings" class="w-5 h-5"></i>
+                                    Preferences
+                                </h3>
+                            </div>
+                            
+                            <button class="btn-premium btn-outline w-100" id="dark-mode-toggle">
+                                <i data-lucide="moon" class="w-4 h-4"></i>
+                                Dark Mode
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Insights Tab -->
+            <div class="tab-pane fade" id="insights" role="tabpanel">
+                <div class="premium-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i data-lucide="brain" class="w-5 h-5"></i>
+                            Health Insights
+                        </h3>
+                        <p class="card-subtitle">Personalized recommendations based on your data</p>
+                    </div>
+                    
+                    <div class="alert alert-success">
+                        <strong>Great job!</strong> You're making consistent progress toward your health goals. 
+                        Keep up the excellent work with your hydration and activity levels.
+                    </div>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h4 class="text-title mb-3">💡 Smart Tips</h4>
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <strong>Hydration:</strong> Drink water first thing in the morning to kickstart your metabolism.
+                                </li>
+                                <li class="mb-3">
+                                    <strong>Activity:</strong> Take the stairs instead of elevators to boost your daily steps.
+                                </li>
+                                <li class="mb-3">
+                                    <strong>Timing:</strong> Set regular water reminders to maintain consistent hydration throughout the day.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h4 class="text-title mb-3">📊 Your Stats</h4>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>This Week's Average</span>
+                                <span class="text-mono">2.1L water</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Best Day</span>
+                                <span class="text-mono">8,500 steps</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Consistency</span>
+                                <span class="text-mono">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Trust Elements Footer -->
+    <footer class="bg-light py-5 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-4">
+                        <i data-lucide="shield-check" class="w-8 h-8 text-success"></i>
+                        <div>
+                            <h5 class="mb-1">Your Privacy Matters</h5>
+                            <p class="text-muted mb-0">All data is stored locally on your device. We never collect or share your personal information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex align-items-center justify-content-md-end gap-4 mt-3 mt-md-0">
+                        <div class="text-center">
+                            <div class="text-success fw-bold">★★★★★</div>
+                            <small class="text-muted">4.9/5 Rating</small>
+                        </div>
+                        <div class="text-center">
+                            <div class="fw-bold">50,000+</div>
+                            <small class="text-muted">Happy Users</small>
+                        </div>
+                        <div class="text-center">
+                            <div class="fw-bold text-success">100%</div>
+                            <small class="text-muted">Free Forever</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/calculator-optimized.js') }}"></script>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Enhanced smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
