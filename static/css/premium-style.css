@@ -14,6 +14,11 @@
     --primary-800: #1e40af;
     --primary-900: #1e3a8a;
     
+    /* Text visibility improvements */
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --emoji-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    
     /* Success Colors - Professional Green */
     --success-50: #ecfdf5;
     --success-100: #d1fae5;
@@ -105,6 +110,65 @@
     --backdrop-blur-lg: blur(24px);
 }
 
+/* Setup Modal Visibility Improvements */
+.setup-header h2 {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: var(--emoji-shadow);
+    line-height: 1.2;
+}
+
+.setup-header p {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.form-step h3 {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: var(--space-6);
+}
+
+.form-label {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.form-check-label {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-primary);
+    text-shadow: var(--emoji-shadow);
+    line-height: 1.5;
+}
+
+.text-danger {
+    color: var(--error-500) !important;
+    font-weight: 600;
+}
+
+/* Emoji and text improvements */
+.setup-header h2,
+.form-check-label,
+.btn {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Button improvements */
+.btn-primary {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    padding: var(--space-4) var(--space-6);
+    text-shadow: none;
+}
+
 /* Typography System - Premium Font Pairing */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -123,6 +187,8 @@ html {
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: var(--text-base);
+    color: var(--neutral-800);
+    line-height: 1.6;
     line-height: 1.6;
     color: var(--neutral-800);
     background: var(--neutral-50);

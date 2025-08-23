@@ -1065,6 +1065,60 @@ window.prevStep = (step) => {
     document.getElementById(`step${step}`).classList.add('active');
 };
 
+// New simplified water goal calculation function
+window.calculateWaterGoal = () => {
+    const weight = parseFloat(document.getElementById('setup-weight').value);
+    const activity = document.getElementById('setup-activity').value;
+    const goalPreference = document.querySelector('input[name="goalPreference"]:checked').value;
+    
+    // Validate required weight field
+    if (!weight || weight < 20 || weight > 500) {
+        alert('Please enter a valid weight between 20-500 kg 💧');
+        return;
+    }
+    
+    // Calculate water goal based on weight and activity level
+    let baseWaterGoal = weight * 0.035; // Base 35ml per kg
+    
+    // Adjust for activity level
+    if (activity === 'low') {
+        baseWaterGoal *= 0.9; // Reduce by 10% for low activity
+    } else if (activity === 'high') {
+        baseWaterGoal *= 1.2; // Increase by 20% for high activity
+    }
+    
+    const waterGoal = Math.round(baseWaterGoal * 10) / 10; // Round to 1 decimal
+    
+    // Save user data with simplified profile
+    healthDashboard.data.profile = {
+        weight: weight,
+        activityLevel: activity,
+        goalPreference: goalPreference,
+        name: 'User', // Default name
+        age: 30, // Default age
+        gender: 'user', // Generic
+        height: 170 // Default height
+    };
+    
+    // Set water goal
+    healthDashboard.data.daily.waterGoal = waterGoal;
+    
+    // Set default preferences for better visibility
+    healthDashboard.data.preferences.darkMode = false; // Default to light mode
+    
+    // Save and close modal
+    healthDashboard.saveData();
+    document.getElementById('setupModal').style.display = 'none';
+    
+    // Load the dashboard
+    healthDashboard.loadDashboard();
+    
+    // Show success message
+    setTimeout(() => {
+        alert(`🎉 Perfect! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`);
+    }, 500);
+};
+
 window.finishSetup = () => {
     const name = document.getElementById('setup-name').value;
     const age = parseInt(document.getElementById('setup-age').value);
