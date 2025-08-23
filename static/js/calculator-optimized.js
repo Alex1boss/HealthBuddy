@@ -578,7 +578,7 @@ window.calculateWaterGoal = () => {
 };
 
 // Custom toast notification function
-function showToast(message, duration = 4000) {
+function showToast(message, duration = 10000) {
     // Remove any existing toasts
     const existingToast = document.querySelector('.toast-notification');
     if (existingToast) {
@@ -588,7 +588,10 @@ function showToast(message, duration = 4000) {
     // Create toast element
     const toast = document.createElement('div');
     toast.className = 'toast-notification';
-    toast.innerHTML = `<span class="toast-message">${message}</span>`;
+    toast.innerHTML = `
+        <div class="toast-message">${message}</div>
+        <button class="toast-button" onclick="closeApp()">OK</button>
+    `;
     
     // Add to page
     document.body.appendChild(toast);
@@ -598,7 +601,7 @@ function showToast(message, duration = 4000) {
         toast.classList.add('show');
     }, 100);
     
-    // Auto hide after duration
+    // Auto hide after duration (longer now since user needs time to click OK)
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => {
@@ -607,6 +610,29 @@ function showToast(message, duration = 4000) {
             }
         }, 350); // Wait for animation to complete
     }, duration);
+}
+
+// Function to close the browser tab/window
+function closeApp() {
+    // Remove the toast first
+    const toast = document.querySelector('.toast-notification');
+    if (toast) {
+        toast.remove();
+    }
+    
+    // Try different methods to close the window
+    try {
+        window.close(); // Works for popup windows
+    } catch (e) {
+        // If window.close() doesn't work (main browser tab), try alternative
+        try {
+            window.open('', '_self', ''); 
+            window.close();
+        } catch (e2) {
+            // If all else fails, show a message
+            alert('Please close this browser tab manually.');
+        }
+    }
 }
 
 // Initialize dashboard when page loads
