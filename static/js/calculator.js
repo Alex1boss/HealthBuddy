@@ -117,6 +117,9 @@ class WaterCalculator {
             '<p>Based on your ' + weight + 'kg weight and ' + activityLabels[activity] + '</p>' +
             '<p><strong>That\'s about ' + result.glasses + ' glasses per day</strong></p>';
         
+        // Generate personalized tips based on weight
+        this.updatePersonalizedTips(weight, activity, result);
+        
         // Show result section
         this.resultSection.style.display = 'block';
         this.quickActions.style.display = 'block';
@@ -230,6 +233,95 @@ class WaterCalculator {
     showShareModal(text) {
         // Simple fallback for sharing
         prompt('Copy this text to share:', text);
+    }
+    
+    updatePersonalizedTips(weight, activity, result) {
+        const tipsGrid = document.querySelector('.tips-grid');
+        if (!tipsGrid) return;
+        
+        const tips = this.getPersonalizedTips(weight, activity, result);
+        
+        // Clear existing tips and add personalized ones
+        tipsGrid.innerHTML = '';
+        tips.forEach(tip => {
+            const tipCard = document.createElement('div');
+            tipCard.className = 'tip-card';
+            tipCard.innerHTML = 
+                '<div class="tip-emoji">' + tip.emoji + '</div>' +
+                '<div class="tip-text">' + tip.text + '</div>';
+            tipsGrid.appendChild(tipCard);
+        });
+    }
+    
+    getPersonalizedTips(weight, activity, result) {
+        let tips = [];
+        
+        // Calculate BMI for additional insights
+        const bmi = weight / (1.7 * 1.7); // Assuming average height for simplicity
+        
+        // Weight-based tips
+        if (weight < 60) {
+            tips.push({
+                emoji: '🥤',
+                text: 'Keep a small water bottle handy - your lighter body needs consistent small sips'
+            });
+            tips.push({
+                emoji: '⏰',
+                text: 'Set reminders every 45 minutes to drink 100-150ml of water'
+            });
+        } else if (weight >= 60 && weight < 80) {
+            tips.push({
+                emoji: '💧',
+                text: 'Drink a full glass (250ml) every hour during waking hours'
+            });
+            tips.push({
+                emoji: '🍎',
+                text: 'Include water-rich fruits like watermelon and oranges in your diet'
+            });
+        } else if (weight >= 80 && weight < 100) {
+            tips.push({
+                emoji: '🚰',
+                text: 'Start each meal with a large glass of water to support hydration'
+            });
+            tips.push({
+                emoji: '💪',
+                text: 'Your larger body needs extra hydration - aim for 300ml glasses'
+            });
+        } else {
+            tips.push({
+                emoji: '⚡',
+                text: 'Your body needs substantial hydration - drink 400ml every 90 minutes'
+            });
+            tips.push({
+                emoji: '🏃',
+                text: 'Pre-hydrate 30 minutes before any physical activity'
+            });
+        }
+        
+        // Activity-based tips
+        if (activity === 'very_active') {
+            tips.push({
+                emoji: '🥵',
+                text: 'Add an extra 500ml for every hour of intense exercise'
+            });
+            tips.push({
+                emoji: '🧂',
+                text: 'Consider electrolyte drinks during long workouts (>60 min)'
+            });
+        } else if (activity === 'active') {
+            tips.push({
+                emoji: '🏋️',
+                text: 'Drink 200-300ml extra water on workout days'
+            });
+        } else if (activity === 'low') {
+            tips.push({
+                emoji: '🛋️',
+                text: 'Even with low activity, consistent hydration boosts energy levels'
+            });
+        }
+        
+        // Return first 4 tips to fit the grid
+        return tips.slice(0, 4);
     }
     
     showToast(message) {
