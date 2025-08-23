@@ -1044,9 +1044,16 @@ window.addWater = (amount) => healthDashboard.addWater(amount);
 window.addSteps = (amount) => healthDashboard.addSteps(amount);
 window.calculateWaterSteps = () => healthDashboard.calculateWaterSteps();
 window.calculateWaterGoal = () => {
+    // Ensure healthDashboard is initialized
+    if (!healthDashboard) {
+        console.error('HealthDashboard not initialized');
+        alert('App is still loading, please wait a moment and try again.');
+        return;
+    }
+    
     const weight = parseFloat(document.getElementById('setup-weight').value);
     const activity = document.getElementById('setup-activity').value;
-    const goalPreference = document.querySelector('input[name="goalPreference"]:checked').value;
+    const goalPreference = document.querySelector('input[name="goalPreference"]:checked')?.value || 'default';
     
     // Validate required weight field
     if (!weight || weight < 20 || weight > 500) {
