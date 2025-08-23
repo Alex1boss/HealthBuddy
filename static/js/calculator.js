@@ -1043,29 +1043,6 @@ let healthDashboard;
 window.addWater = (amount) => healthDashboard.addWater(amount);
 window.addSteps = (amount) => healthDashboard.addSteps(amount);
 window.calculateWaterSteps = () => healthDashboard.calculateWaterSteps();
-window.calculateBMI = () => healthDashboard.calculateBMI();
-window.calculateCalories = () => healthDashboard.calculateCalories();
-window.calculateSleep = () => healthDashboard.calculateSleep();
-window.startWaterTimer = () => healthDashboard.startWaterTimer();
-window.pauseWaterTimer = () => healthDashboard.pauseWaterTimer();
-window.resetWaterTimer = () => healthDashboard.resetWaterTimer();
-window.joinChallenge = (type) => healthDashboard.joinChallenge(type);
-window.shareProgress = () => healthDashboard.shareProgress();
-window.getNewDailyTip = () => healthDashboard.getNewDailyTip();
-window.getWeatherTips = () => healthDashboard.getWeatherTips();
-
-// Setup Flow Functions
-window.nextStep = (step) => {
-    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-    document.getElementById(`step${step}`).classList.add('active');
-};
-
-window.prevStep = (step) => {
-    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-    document.getElementById(`step${step}`).classList.add('active');
-};
-
-// New simplified water goal calculation function
 window.calculateWaterGoal = () => {
     const weight = parseFloat(document.getElementById('setup-weight').value);
     const activity = document.getElementById('setup-activity').value;
@@ -1118,6 +1095,28 @@ window.calculateWaterGoal = () => {
         alert(`🎉 Perfect! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`);
     }, 500);
 };
+window.calculateBMI = () => healthDashboard.calculateBMI();
+window.calculateCalories = () => healthDashboard.calculateCalories();
+window.calculateSleep = () => healthDashboard.calculateSleep();
+window.startWaterTimer = () => healthDashboard.startWaterTimer();
+window.pauseWaterTimer = () => healthDashboard.pauseWaterTimer();
+window.resetWaterTimer = () => healthDashboard.resetWaterTimer();
+window.joinChallenge = (type) => healthDashboard.joinChallenge(type);
+window.shareProgress = () => healthDashboard.shareProgress();
+window.getNewDailyTip = () => healthDashboard.getNewDailyTip();
+window.getWeatherTips = () => healthDashboard.getWeatherTips();
+
+// Setup Flow Functions
+window.nextStep = (step) => {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(`step${step}`).classList.add('active');
+};
+
+window.prevStep = (step) => {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(`step${step}`).classList.add('active');
+};
+
 
 window.finishSetup = () => {
     const name = document.getElementById('setup-name').value;
