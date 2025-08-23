@@ -136,7 +136,8 @@
     font-size: var(--text-base);
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+    display: block;
 }
 
 .form-check-label {
