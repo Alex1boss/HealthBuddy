@@ -571,11 +571,43 @@ window.calculateWaterGoal = () => {
     // Load the dashboard
     healthDashboard.loadDashboard();
     
-    // Show success message
+    // Show custom toast notification
     setTimeout(() => {
-        alert(`🎉 Perfect! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`);
+        showToast(`🎉 Perfect! Your daily water goal is ${waterGoal}L based on your ${weight}kg weight and ${activity} activity level. Start tracking your hydration journey!`);
     }, 500);
 };
+
+// Custom toast notification function
+function showToast(message, duration = 4000) {
+    // Remove any existing toasts
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `<span class="toast-message">${message}</span>`;
+    
+    // Add to page
+    document.body.appendChild(toast);
+    
+    // Show with animation
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+    
+    // Auto hide after duration
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 350); // Wait for animation to complete
+    }, duration);
+}
 
 // Initialize dashboard when page loads
 document.addEventListener('DOMContentLoaded', function() {
