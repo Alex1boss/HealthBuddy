@@ -59,7 +59,13 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         />
 
-        <!-- Premium CSS -->
+        <!-- Main Theme CSS -->
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style-optimized.css') }}"
+        />
+        
+        <!-- Additional Premium Styles -->
         <link
             rel="stylesheet"
             href="{{ url_for('static', filename='css/premium-style.css') }}"
@@ -67,18 +73,6 @@
 
         <!-- Chart.js for Progress Charts -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <!-- Preload critical resources -->
-        <link
-            rel="preload"
-            href="{{ url_for('static', filename='css/style.css') }}"
-            as="style"
-        />
-        <link
-            rel="preload"
-            href="{{ url_for('static', filename='js/calculator.js') }}"
-            as="script"
-        />
     </head>
     <body>
         <!-- User Setup Modal -->
