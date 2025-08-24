@@ -217,8 +217,8 @@
 
         .form-row {
             display: grid;
-            gap: 1rem;
-            grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 1fr auto;
+            gap: 0.75rem;
+            grid-template-columns: 1.8fr 1.2fr 0.8fr 0.8fr 0.8fr 0.8fr auto;
             align-items: end;
         }
 
@@ -447,7 +447,7 @@
         .results-grid {
             display: grid;
             gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             margin-bottom: 1.5rem;
         }
 
@@ -725,6 +725,10 @@
                     <div id="hydrationValue" class="result-value">0 ml</div>
                     <div class="result-label">Net Hydration</div>
                 </div>
+                <div class="result-card">
+                    <div id="safetyValue" class="result-value">✅ Safe</div>
+                    <div class="result-label">Is it Safe for Me?</div>
+                </div>
             </div>
 
             <div id="statusMessage" class="status-message"></div>
@@ -736,10 +740,10 @@
             You haven't logged any drinks yet.
         </div>
 
-        <!-- Smart Drinking Tips -->
-        <div class="hydration-tip">
-            <h4>💡 Smart Drinking Tips</h4>
-            <div style="display: grid; gap: 0.75rem; margin-top: 1rem;">
+        <!-- Personalized Smart Drinking Tips -->
+        <div class="hydration-tip" id="personalizedTips">
+            <h4>💡 Personalized Tips for You</h4>
+            <div id="personalizedTipsContent" style="display: grid; gap: 0.75rem; margin-top: 1rem;">
                 <p><strong>💧 Hydrate Extra:</strong> Drink 250ml extra water for every 100mg caffeine consumed.</p>
                 <p><strong>⏰ Morning Rule:</strong> Have your strongest caffeinated drinks before noon to avoid sleep issues.</p>
                 <p><strong>🥛 Milk Magic:</strong> Add milk to coffee/tea - the protein slows caffeine absorption.</p>
@@ -792,9 +796,9 @@
                 formRow.style.gridTemplateColumns = '1fr';
             } else {
                 if (drinkType === 'custom') {
-                    formRow.style.gridTemplateColumns = '2fr 1.5fr 1fr 1fr 1fr 1fr auto';
+                    formRow.style.gridTemplateColumns = '1.8fr 1.2fr 0.8fr 0.8fr 0.8fr 0.8fr auto';
                 } else {
-                    formRow.style.gridTemplateColumns = '2fr 1fr 1fr auto';
+                    formRow.style.gridTemplateColumns = '1.8fr 0.8fr 0.8fr auto';
                 }
             }
         }
@@ -973,6 +977,19 @@
             
             document.getElementById('hydrationValue').textContent = `${Math.round(adjustedHydration)} ml`;
 
+            // Display safety indicator
+            const safetyElement = document.getElementById('safetyValue');
+            if (statusClass === 'safe') {
+                safetyElement.textContent = '✅ Safe';
+                safetyElement.className = 'result-value status-safe';
+            } else if (statusClass === 'warning') {
+                safetyElement.textContent = '⚠️ Caution';
+                safetyElement.className = 'result-value status-warning';
+            } else {
+                safetyElement.textContent = '❌ Unsafe';
+                safetyElement.className = 'result-value status-danger';
+            }
+
             const statusMessage = document.getElementById('statusMessage');
             statusMessage.className = `status-message ${statusClass}`;
             statusMessage.innerHTML = `
@@ -993,6 +1010,9 @@
             hydrationMessage += '</div>';
             document.getElementById('hydrationMessage').innerHTML = hydrationMessage;
 
+            // Generate personalized tips based on user profile
+            generatePersonalizedTips(age, totalCaffeine, percentage, isPregnantNursing);
+
             // Show results with animation
             const resultsSection = document.getElementById('resultsSection');
             resultsSection.classList.remove('hidden');
@@ -1002,6 +1022,90 @@
 
             // Scroll to results
             resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function generatePersonalizedTips(age, totalCaffeine, percentage, isPregnantNursing) {
+            const tipsContainer = document.getElementById('personalizedTipsContent');
+            let tips = [];
+
+            // Age-specific tips
+            if (age < 18) {
+                tips.push(`<p><strong>🧒 Teen Alert:</strong> At ${age}, your body processes caffeine slower. Keep intake under 100mg daily (about 1 cup of coffee).`);
+                tips.push(`<p><strong>📚 Study Smart:</strong> Avoid caffeine after 2 PM to protect your sleep and brain development.`);
+                tips.push(`<p><strong>💪 Natural Energy:</strong> Try exercise, healthy snacks, and proper sleep instead of relying on caffeine.`);
+                tips.push(`<p><strong>🥤 Better Choices:</strong> Choose water, milk, or natural juices over energy drinks and sodas.`);
+                if (totalCaffeine > 50) {
+                    tips.push(`<p><strong>⚠️ Reduce Now:</strong> You're consuming ${Math.round(totalCaffeine)}mg - consider cutting back gradually to avoid withdrawal.`);
+                } else {
+                    tips.push(`<p><strong>✅ Good Job:</strong> Your caffeine intake is reasonable for your age. Keep it moderate!`);
+                }
+            } else if (age >= 18 && age <= 30) {
+                tips.push(`<p><strong>🎯 Young Adult:</strong> At ${age}, you can handle up to 400mg daily, but moderation is key for long-term health.`);
+                tips.push(`<p><strong>💼 Work Balance:</strong> Space caffeine throughout the day rather than having it all at once.`);
+                if (totalCaffeine > 300) {
+                    tips.push(`<p><strong>⚡ High Intake Alert:</strong> ${Math.round(totalCaffeine)}mg is quite high. Consider reducing to avoid tolerance and dependence.`);
+                } else {
+                    tips.push(`<p><strong>☕ Timing Tip:</strong> Have your last caffeinated drink 6-8 hours before bedtime.`);
+                }
+                tips.push(`<p><strong>🏃 Active Lifestyle:</strong> Combine caffeine with physical activity for better energy management.`);
+                tips.push(`<p><strong>🌊 Hydration Focus:</strong> Drink an extra glass of water for every caffeinated beverage.`);
+            } else if (age > 30 && age <= 50) {
+                tips.push(`<p><strong>🧑‍💼 Midlife Balance:</strong> At ${age}, focus on sustainable energy habits rather than caffeine dependence.`);
+                if (totalCaffeine > 200) {
+                    tips.push(`<p><strong>📈 Metabolism Slowdown:</strong> Your body processes caffeine slower now. Consider reducing your ${Math.round(totalCaffeine)}mg intake.`);
+                } else {
+                    tips.push(`<p><strong>👍 Smart Consumption:</strong> Your intake level supports good energy without overwhelming your system.`);
+                }
+                tips.push(`<p><strong>💤 Sleep Priority:</strong> Limit caffeine after lunch to protect your sleep quality.`);
+                tips.push(`<p><strong>🧘 Stress Management:</strong> Don't use caffeine to mask stress - address the root causes.`);
+                tips.push(`<p><strong>🥗 Nutrition First:</strong> Maintain steady blood sugar with balanced meals to reduce caffeine cravings.`);
+            } else if (age > 50) {
+                tips.push(`<p><strong>🌟 Mature Wisdom:</strong> At ${age}, your caffeine sensitivity may be higher. The 300mg limit protects your health.`);
+                if (totalCaffeine > 150) {
+                    tips.push(`<p><strong>🚨 Senior Caution:</strong> ${Math.round(totalCaffeine)}mg might affect your sleep and blood pressure. Consider reducing gradually.`);
+                } else {
+                    tips.push(`<p><strong>✨ Perfect Level:</strong> Your moderate intake supports alertness without health risks.`);
+                }
+                tips.push(`<p><strong>💊 Medication Check:</strong> Some medications interact with caffeine - consult your doctor if needed.`);
+                tips.push(`<p><strong>🦴 Bone Health:</strong> Ensure adequate calcium intake as caffeine can affect calcium absorption.`);
+                tips.push(`<p><strong>❤️ Heart Health:</strong> Monitor how caffeine affects your heart rate and blood pressure.`);
+            }
+
+            // Pregnancy-specific tips
+            if (isPregnantNursing) {
+                tips = []; // Clear other tips for pregnancy-specific advice
+                tips.push(`<p><strong>🤰 Pregnancy Safe:</strong> The 200mg limit protects both you and your baby's development.`);
+                tips.push(`<p><strong>🍼 Nursing Consideration:</strong> Caffeine passes to breast milk - monitor your baby for restlessness.`);
+                tips.push(`<p><strong>⏰ Timing Matters:</strong> Have caffeine right after nursing/pumping to minimize baby's exposure.`);
+                tips.push(`<p><strong>💊 Supplement Check:</strong> Ensure you're getting enough iron and calcium despite caffeine.`);
+                tips.push(`<p><strong>🌊 Extra Hydration:</strong> Pregnancy increases fluid needs - drink more water when having caffeine.`);
+            }
+
+            // Status-specific tips
+            if (percentage > 100) {
+                tips.push(`<p><strong>🚨 Immediate Action:</strong> You're at ${percentage}% of safe limits. Stop caffeine intake for today and hydrate well.`);
+            } else if (percentage > 75) {
+                tips.push(`<p><strong>⚠️ Approaching Limit:</strong> At ${percentage}%, consider switching to decaf or herbal alternatives for remaining drinks today.`);
+            }
+
+            // Ensure minimum 5 tips
+            while (tips.length < 5) {
+                const generalTips = [
+                    `<p><strong>🔄 Cycle Break:</strong> Take caffeine-free days weekly to reset your tolerance.`,
+                    `<p><strong>🥛 Slow Absorption:</strong> Add milk or eat protein to slow caffeine absorption and reduce jitters.`,
+                    `<p><strong>🌅 Morning Focus:</strong> Have your strongest drinks in the morning when your body handles caffeine best.`,
+                    `<p><strong>💧 Hydration Rule:</strong> Drink 250ml extra water per 100mg caffeine to prevent dehydration.`,
+                    `<p><strong>🍽️ Never Empty:</strong> Always have food in your stomach before consuming caffeine to avoid stomach irritation.`
+                ];
+                
+                const randomTip = generalTips[Math.floor(Math.random() * generalTips.length)];
+                if (!tips.includes(randomTip)) {
+                    tips.push(randomTip);
+                }
+            }
+
+            // Display the personalized tips
+            tipsContainer.innerHTML = tips.slice(0, 8).join(''); // Show max 8 tips to keep it readable
         }
 
         function resetForm() {
