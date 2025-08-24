@@ -73,10 +73,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
+
     <!-- Side Navigation -->
-    <nav class="side-nav">
+    <nav class="side-nav" id="sideNav">
         <div class="nav-header">
             <h3>💧 Calculators</h3>
+            <button class="nav-close" onclick="toggleNavigation()">✕</button>
         </div>
         <ul class="nav-menu">
             <li><a href="/" class="nav-link active">💧 Daily Water</a></li>
@@ -243,5 +251,30 @@
 
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+    
+    <script>
+        // Navigation toggle functionality
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            sideNav.classList.toggle('closed');
+            navToggle.classList.toggle('active');
+            body.classList.toggle('nav-closed');
+        }
+        
+        // Close navigation when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            
+            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
+                if (!sideNav.classList.contains('closed')) {
+                    toggleNavigation();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
