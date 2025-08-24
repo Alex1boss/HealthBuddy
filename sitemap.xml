@@ -7,19 +7,19 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://waterguide.netlify.app/about.html</loc>
+    <loc>https://waterguide.netlify.app/about</loc>
     <lastmod>2025-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://waterguide.netlify.app/privacy.html</loc>
+    <loc>https://waterguide.netlify.app/privacy</loc>
     <lastmod>2025-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://waterguide.netlify.app/contact.html</loc>
+    <loc>https://waterguide.netlify.app/contact</loc>
     <lastmod>2025-08-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
