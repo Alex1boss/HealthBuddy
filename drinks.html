@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💧 Drinks & Hydration Calculator</title>
+    <meta name="description" content="Calculate your caffeine intake and net hydration effect from different beverages. Track coffee, tea, soda, energy drinks and more.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            min-height: 100vh;
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        body.nav-closed {
+            margin-left: 0;
+        }
+
+        /* Toggle Button */
+        .nav-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #0ea5e9;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-toggle.show {
+            display: flex;
+        }
+
+        .nav-toggle:hover {
+            background: #0284c7;
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            width: 20px;
+            height: 2px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .nav-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+
+        .nav-close:hover {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .nav-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: #f8fafc;
+            color: #0ea5e9;
+        }
+
+        .nav-link.active {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            border-left-color: #0ea5e9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            padding: 2rem 1rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        .drinks-calculator {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calculator-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .calculator-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .drink-entry-section {
+            padding: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: 1.8fr 1.2fr 0.8fr 0.8fr 0.8fr 0.8fr auto;
+            align-items: end;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-field label {
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .drink-select,
+        .form-field input {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .drink-select:focus,
+        .form-field input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .add-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .add-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .add-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .drinks-list {
+            padding: 2rem;
+        }
+
+        .drinks-list h4 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .no-drinks {
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+            padding: 2rem;
+            background: #f9fafb;
+            border-radius: 0.75rem;
+            border: 2px dashed #d1d5db;
+        }
+
+        .drink-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .drink-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .drink-emoji {
+            font-size: 1.5rem;
+        }
+
+        .drink-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drink-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .drink-stats {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .drink-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .remove-btn:hover {
+            background: #dc2626;
+        }
+
+        .settings-section {
+            background: #fef7f0;
+            border: 2px solid #fed7aa;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: #0ea5e9;
+        }
+
+        .checkbox-group label {
+            font-weight: 500;
+            color: #92400e;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #0ea5e9;
+            color: white;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            color: white;
+            box-shadow: 0 4px 14px rgba(100, 116, 139, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+            transform: translateY(-2px);
+        }
+
+        .results-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            border-left: 4px solid #0ea5e9;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .results-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            margin-bottom: 1.5rem;
+        }
+
+        .result-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .status-safe { color: #059669; }
+        .status-warning { color: #d97706; }
+        .status-danger { color: #dc2626; }
+
+        .status-message {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin: 1rem 0;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .status-message.safe {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-message.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fed7aa;
+        }
+
+        .status-message.danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .hydration-tip {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .hydration-tip h4 {
+            color: #0369a1;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #fecaca;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin-left: 0;
+            }
+            
+            .side-nav {
+                width: 100%;
+                height: auto;
+                position: relative;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0.5rem;
+            }
+            
+            .nav-menu li {
+                flex-shrink: 0;
+            }
+            
+            .nav-link {
+                padding: 0.75rem 1rem;
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .nav-link.active {
+                border-left: none;
+                border-bottom-color: #0ea5e9;
+            }
+
+            .container {
+                padding: 0.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            .drink-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .drink-actions {
+                align-self: stretch;
+                justify-content: center;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Toggle Button -->
+        <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+
+        <!-- Side Navigation -->
+        <nav class="side-nav" id="sideNav">
+            <div class="nav-header">
+                <h3>💧 Calculators</h3>
+                <button class="nav-close" onclick="toggleNavigation()">✕</button>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
+                <li><a href="drinks.html" class="nav-link active">☕ Drinks Calculator</a></li>
+            </ul>
+        </nav>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>💧 Drinks Calculator</h1>
+            <p>Track caffeine intake and hydration effect of your drinks</p>
+        </div>
+
+        <!-- User Settings -->
+        <div class="settings-section">
+            <div class="checkbox-group">
+                <input type="checkbox" id="pregnantNursing" name="pregnantNursing">
+                <label for="pregnantNursing">Pregnant / Nursing?</label>
+                <span class="tooltip" data-tooltip="Reduces safe caffeine limit to 200mg per day"></span>
+            </div>
+        </div>
+
+        <!-- Unified Drinks Calculator -->
+        <div class="drinks-calculator">
+            <div class="calculator-header">
+                <h3>🍹 Add Your Drinks</h3>
+                <p>Select drinks and enter quantities to calculate total caffeine and hydration</p>
+            </div>
+
+            <!-- Drink Entry Form -->
+            <div class="drink-entry-section">
+                <div class="add-drink-form">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="drinkType">Drink Type</label>
+                            <select id="drinkType" class="drink-select" onchange="updateDrinkInfo()">
+                                <option value="">Select a drink</option>
+                                <option value="coffee" data-emoji="☕" data-caffeine="95" data-size="8">Coffee (8 oz cup)</option>
+                                <option value="tea" data-emoji="🍵" data-caffeine="47" data-size="8">Tea (8 oz cup)</option>
+                                <option value="soda" data-emoji="🥤" data-caffeine="40" data-size="12">Soda (12 oz can)</option>
+                                <option value="energy" data-emoji="⚡" data-caffeine="80" data-size="8">Energy Drink (8 oz)</option>
+                                <option value="custom" data-emoji="➕" data-caffeine="0" data-size="8">Custom Drink</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-field" id="customNameField" style="display: none;">
+                            <label for="drinkName">Drink Name</label>
+                            <input type="text" id="drinkName" placeholder="e.g., Green Tea Latte">
+                        </div>
+                        
+                        <div class="form-field" id="customCaffeineField" style="display: none;">
+                            <label for="caffeineAmount">Caffeine (mg)</label>
+                            <input type="number" id="caffeineAmount" min="0" placeholder="0">
+                        </div>
+                        
+                        <div class="form-field" id="customSizeField" style="display: none;">
+                            <label for="servingSize">Size (oz)</label>
+                            <input type="number" id="servingSize" min="0" step="0.5" placeholder="8" value="8">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" min="0" step="0.5" placeholder="1" value="1">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" min="1" max="120" placeholder="25" value="25">
+                        </div>
+                        
+                        <div class="form-field">
+                            <button type="button" class="add-btn" onclick="addDrink()">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drinks List -->
+            <div class="drinks-list" id="drinksList">
+                <h4>Your Drinks</h4>
+                <div id="drinksContainer">
+                    <p class="no-drinks">No drinks added yet. Add your first drink above!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="calculateResults()">💧 Calculate</button>
+            <button class="btn btn-secondary" onclick="resetForm()">🔄 Reset</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section hidden">
+            <div class="results-header">
+                <h3 class="results-title">Your Caffeine & Hydration Results</h3>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-card">
+                    <div id="caffeineValue" class="result-value">0 mg</div>
+                    <div class="result-label">Total Caffeine</div>
+                </div>
+                <div class="result-card">
+                    <div id="percentageValue" class="result-value">0%</div>
+                    <div class="result-label">% of Safe Daily Limit</div>
+                </div>
+                <div class="result-card">
+                    <div id="hydrationValue" class="result-value">0 ml</div>
+                    <div class="result-label">Net Hydration</div>
+                </div>
+                <div class="result-card">
+                    <div id="safetyValue" class="result-value">✅ Safe</div>
+                    <div class="result-label">Is it Safe for Me?</div>
+                </div>
+            </div>
+
+            <div id="statusMessage" class="status-message"></div>
+            <div id="hydrationMessage"></div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message hidden">
+            You haven't logged any drinks yet.
+        </div>
+
+        <!-- Personalized Smart Drinking Tips -->
+        <div class="hydration-tip" id="personalizedTips">
+            <h4>💡 Personalized Tips for You</h4>
+            <div id="personalizedTipsContent" style="display: grid; gap: 0.75rem; margin-top: 1rem;">
+                <div style="background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e0f2fe;">
+                    <strong>⏰ Timing:</strong> Avoid caffeine 6 hours before bedtime for better sleep
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e0f2fe;">
+                    <strong>💧 Hydration:</strong> Drink 1 glass of water for every caffeinated drink
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e0f2fe;">
+                    <strong>🍎 Food:</strong> Eat something before consuming caffeine to reduce jitters
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let drinks = [];
+        let drinkIdCounter = 0;
+
+        function updateDrinkInfo() {
+            const drinkType = document.getElementById('drinkType');
+            const selected = drinkType.options[drinkType.selectedIndex];
+            
+            const customNameField = document.getElementById('customNameField');
+            const customCaffeineField = document.getElementById('customCaffeineField');
+            const customSizeField = document.getElementById('customSizeField');
+            
+            if (drinkType.value === 'custom') {
+                customNameField.style.display = 'block';
+                customCaffeineField.style.display = 'block';
+                customSizeField.style.display = 'block';
+                
+                document.getElementById('drinkName').value = '';
+                document.getElementById('caffeineAmount').value = '0';
+                document.getElementById('servingSize').value = '8';
+            } else {
+                customNameField.style.display = 'none';
+                customCaffeineField.style.display = 'none';
+                customSizeField.style.display = 'none';
+            }
+        }
+
+        function addDrink() {
+            const drinkType = document.getElementById('drinkType');
+            const quantity = parseFloat(document.getElementById('quantity').value) || 1;
+            const age = parseInt(document.getElementById('age').value) || 25;
+            
+            if (!drinkType.value) {
+                alert('Please select a drink type');
+                return;
+            }
+            
+            let drink;
+            
+            if (drinkType.value === 'custom') {
+                const drinkName = document.getElementById('drinkName').value.trim();
+                const caffeineAmount = parseFloat(document.getElementById('caffeineAmount').value) || 0;
+                const servingSize = parseFloat(document.getElementById('servingSize').value) || 8;
+                
+                if (!drinkName) {
+                    alert('Please enter a drink name');
+                    return;
+                }
+                
+                drink = {
+                    id: drinkIdCounter++,
+                    name: drinkName,
+                    emoji: '➕',
+                    caffeine: caffeineAmount,
+                    size: servingSize,
+                    quantity: quantity,
+                    age: age
+                };
+            } else {
+                const selected = drinkType.options[drinkType.selectedIndex];
+                drink = {
+                    id: drinkIdCounter++,
+                    name: selected.textContent,
+                    emoji: selected.dataset.emoji,
+                    caffeine: parseFloat(selected.dataset.caffeine) || 0,
+                    size: parseFloat(selected.dataset.size) || 8,
+                    quantity: quantity,
+                    age: age
+                };
+            }
+            
+            drinks.push(drink);
+            updateDrinksList();
+            resetForm();
+        }
+
+        function removeDrink(id) {
+            drinks = drinks.filter(drink => drink.id !== id);
+            updateDrinksList();
+        }
+
+        function updateDrinksList() {
+            const container = document.getElementById('drinksContainer');
+            
+            if (drinks.length === 0) {
+                container.innerHTML = '<p class="no-drinks">No drinks added yet. Add your first drink above!</p>';
+                return;
+            }
+            
+            container.innerHTML = drinks.map(drink => `
+                <div class="drink-item">
+                    <div class="drink-info">
+                        <div class="drink-emoji">${drink.emoji}</div>
+                        <div class="drink-details">
+                            <div class="drink-name">${drink.name}</div>
+                            <div class="drink-stats">
+                                ${drink.quantity}x • ${drink.caffeine * drink.quantity}mg caffeine • ${(drink.size * drink.quantity * 29.5735).toFixed(0)}ml
+                            </div>
+                        </div>
+                    </div>
+                    <div class="drink-actions">
+                        <button class="remove-btn" onclick="removeDrink(${drink.id})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function calculateResults() {
+            if (drinks.length === 0) {
+                document.getElementById('errorMessage').classList.remove('hidden');
+                document.getElementById('resultsSection').classList.add('hidden');
+                return;
+            }
+            
+            document.getElementById('errorMessage').classList.add('hidden');
+            
+            const isPregnantNursing = document.getElementById('pregnantNursing').checked;
+            const totalCaffeine = drinks.reduce((sum, drink) => sum + (drink.caffeine * drink.quantity), 0);
+            const totalHydration = drinks.reduce((sum, drink) => sum + (drink.size * drink.quantity * 29.5735), 0); // Convert to ml
+            
+            // Calculate safe limits (400mg for adults, 200mg for pregnant/nursing)
+            const safeLimit = isPregnantNursing ? 200 : 400;
+            const percentage = Math.round((totalCaffeine / safeLimit) * 100);
+            
+            // Determine safety status
+            let safetyStatus, safetyClass;
+            if (percentage <= 70) {
+                safetyStatus = '✅ Safe';
+                safetyClass = 'safe';
+            } else if (percentage <= 100) {
+                safetyStatus = '⚠️ Caution';
+                safetyClass = 'warning';
+            } else {
+                safetyStatus = '❌ Unsafe';
+                safetyClass = 'danger';
+            }
+            
+            // Update results
+            document.getElementById('caffeineValue').textContent = totalCaffeine + ' mg';
+            document.getElementById('percentageValue').textContent = percentage + '%';
+            document.getElementById('hydrationValue').textContent = Math.round(totalHydration) + ' ml';
+            document.getElementById('safetyValue').textContent = safetyStatus;
+            document.getElementById('safetyValue').className = 'result-value status-' + safetyClass.replace('danger', 'danger').replace('warning', 'warning').replace('safe', 'safe');
+            
+            // Update status message
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.className = 'status-message ' + safetyClass;
+            
+            if (safetyClass === 'safe') {
+                statusMessage.textContent = `Great! Your caffeine intake is within safe limits (${percentage}% of ${safeLimit}mg daily limit).`;
+            } else if (safetyClass === 'warning') {
+                statusMessage.textContent = `You're approaching your caffeine limit (${percentage}% of ${safeLimit}mg). Consider reducing intake.`;
+            } else {
+                statusMessage.textContent = `⚠️ You've exceeded the safe caffeine limit (${percentage}% of ${safeLimit}mg). Please reduce your intake.`;
+            }
+            
+            // Show results
+            document.getElementById('resultsSection').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('resultsSection').classList.add('show');
+            }, 100);
+        }
+
+        function resetForm() {
+            document.getElementById('drinkType').value = '';
+            document.getElementById('quantity').value = '1';
+            document.getElementById('age').value = '25';
+            document.getElementById('drinkName').value = '';
+            document.getElementById('caffeineAmount').value = '';
+            document.getElementById('servingSize').value = '8';
+            
+            document.getElementById('customNameField').style.display = 'none';
+            document.getElementById('customCaffeineField').style.display = 'none';
+            document.getElementById('customSizeField').style.display = 'none';
+            
+            drinks = [];
+            drinkIdCounter = 0;
+            updateDrinksList();
+            
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('show');
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        // Navigation toggle functionality
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+            navToggle.classList.toggle('active');
+        }
+        
+        // Initialize navigation state
+        function initializeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            // Start with navigation closed and toggle button visible
+            sideNav.classList.add('closed');
+            body.classList.add('nav-closed');
+            navToggle.classList.add('show');
+        }
+        
+        // Close navigation when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            
+            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
+                if (!sideNav.classList.contains('closed')) {
+                    toggleNavigation();
+                }
+            }
+        });
+
+        // Initialize navigation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+        });
+    </script>
+</body>
+</html>
