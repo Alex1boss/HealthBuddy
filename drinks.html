@@ -687,7 +687,7 @@
                         </div>
                         
                         <div class="form-field">
-                            <label for="quantity">Quantity</label>
+                            <label for="quantity">Quantity In Cup</label>
                             <input type="number" id="quantity" min="0" step="0.5" placeholder="1" value="1">
                         </div>
                         
@@ -726,20 +726,20 @@
             
             <div class="results-grid">
                 <div class="result-card">
-                    <div id="caffeineValue" class="result-value">0 mg</div>
+                    <div id="caffeineValue" class="result-value">☕ 0 mg</div>
                     <div class="result-label">Total Caffeine</div>
                 </div>
                 <div class="result-card">
-                    <div id="percentageValue" class="result-value">0%</div>
-                    <div class="result-label">% of Safe Daily Limit</div>
+                    <div id="percentageValue" class="result-value">📊 0%</div>
+                    <div class="result-label">Safe Limit Used</div>
                 </div>
                 <div class="result-card">
-                    <div id="hydrationValue" class="result-value">0 ml</div>
+                    <div id="hydrationValue" class="result-value">💧 +0 ml</div>
                     <div class="result-label">Net Hydration</div>
                 </div>
                 <div class="result-card">
                     <div id="safetyValue" class="result-value">✅ Safe</div>
-                    <div class="result-label">Is it Safe for Me?</div>
+                    <div class="result-label">Status</div>
                 </div>
             </div>
 
@@ -806,6 +806,17 @@
                 return;
             }
             
+            // Validate inputs
+            if (quantity <= 0) {
+                alert('Please enter a valid quantity');
+                return;
+            }
+            
+            if (age < 1 || age > 120) {
+                alert('Please enter a valid age between 1 and 120');
+                return;
+            }
+            
             let drink;
             
             if (drinkType.value === 'custom') {
@@ -815,6 +826,11 @@
                 
                 if (!drinkName) {
                     alert('Please enter a drink name');
+                    return;
+                }
+                
+                if (servingSize <= 0) {
+                    alert('Please enter a valid serving size');
                     return;
                 }
                 
@@ -842,7 +858,11 @@
             
             drinks.push(drink);
             updateDrinksList();
-            resetForm();
+            
+            // Clear form but keep it visible for next entry
+            document.getElementById('drinkType').value = '';
+            document.getElementById('quantity').value = '1';
+            updateDrinkInfo(); // Hide custom fields
         }
 
         function removeDrink(id) {
@@ -892,38 +912,39 @@
             // Calculate safe limits (400mg for adults, 200mg for pregnant/nursing)
             const safeLimit = isPregnantNursing ? 200 : 400;
             const percentage = Math.round((totalCaffeine / safeLimit) * 100);
+            const dailyWaterGoal = 2500; // 2.5L daily goal
             
-            // Determine safety status
-            let safetyStatus, safetyClass;
-            if (percentage <= 70) {
+            // Determine safety status with better thresholds
+            let safetyStatus, safetyClass, statusAdvice;
+            if (percentage <= 50) {
                 safetyStatus = '✅ Safe';
                 safetyClass = 'safe';
+                statusAdvice = `You are well within safe caffeine intake. Keep hydrated!`;
+            } else if (percentage <= 75) {
+                safetyStatus = '⚠️ Moderate';
+                safetyClass = 'warning';
+                statusAdvice = `You're approaching your daily caffeine limit. Consider reducing energy drinks.`;
             } else if (percentage <= 100) {
                 safetyStatus = '⚠️ Caution';
                 safetyClass = 'warning';
+                statusAdvice = `You're nearing your daily caffeine limit. Consider switching to water or decaf.`;
             } else {
                 safetyStatus = '❌ Unsafe';
                 safetyClass = 'danger';
+                statusAdvice = `You've exceeded your daily caffeine limit. Try replacing with water or decaf.`;
             }
             
-            // Update results
-            document.getElementById('caffeineValue').textContent = totalCaffeine + ' mg';
-            document.getElementById('percentageValue').textContent = percentage + '%';
-            document.getElementById('hydrationValue').textContent = Math.round(totalHydration) + ' ml';
+            // Update results with better formatting
+            document.getElementById('caffeineValue').textContent = `☕ ${totalCaffeine} mg`;
+            document.getElementById('percentageValue').textContent = `📊 ${percentage}% (of ${safeLimit} mg)`;
+            document.getElementById('hydrationValue').textContent = `💧 +${Math.round(totalHydration)} ml toward your daily goal`;
             document.getElementById('safetyValue').textContent = safetyStatus;
-            document.getElementById('safetyValue').className = 'result-value status-' + safetyClass.replace('danger', 'danger').replace('warning', 'warning').replace('safe', 'safe');
+            document.getElementById('safetyValue').className = 'result-value status-' + safetyClass;
             
-            // Update status message
+            // Update status message with actionable advice
             const statusMessage = document.getElementById('statusMessage');
             statusMessage.className = 'status-message ' + safetyClass;
-            
-            if (safetyClass === 'safe') {
-                statusMessage.textContent = `Great! Your caffeine intake is within safe limits (${percentage}% of ${safeLimit}mg daily limit).`;
-            } else if (safetyClass === 'warning') {
-                statusMessage.textContent = `You're approaching your caffeine limit (${percentage}% of ${safeLimit}mg). Consider reducing intake.`;
-            } else {
-                statusMessage.textContent = `⚠️ You've exceeded the safe caffeine limit (${percentage}% of ${safeLimit}mg). Please reduce your intake.`;
-            }
+            statusMessage.textContent = statusAdvice;
             
             // Show results and tips
             document.getElementById('resultsSection').classList.remove('hidden');
@@ -934,21 +955,26 @@
         }
 
         function resetForm() {
+            // Clear all form fields
             document.getElementById('drinkType').value = '';
             document.getElementById('quantity').value = '1';
             document.getElementById('age').value = '25';
             document.getElementById('drinkName').value = '';
             document.getElementById('caffeineAmount').value = '';
             document.getElementById('servingSize').value = '8';
+            document.getElementById('pregnantNursing').checked = false;
             
+            // Hide custom fields
             document.getElementById('customNameField').style.display = 'none';
             document.getElementById('customCaffeineField').style.display = 'none';
             document.getElementById('customSizeField').style.display = 'none';
             
+            // Clear drinks list
             drinks = [];
             drinkIdCounter = 0;
             updateDrinksList();
             
+            // Hide results and tips
             document.getElementById('resultsSection').classList.add('hidden');
             document.getElementById('resultsSection').classList.remove('show');
             document.getElementById('personalizedTips').classList.add('hidden');
