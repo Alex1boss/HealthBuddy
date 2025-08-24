@@ -218,8 +218,20 @@
         .form-row {
             display: grid;
             gap: 0.75rem;
-            grid-template-columns: 1.8fr 1.2fr 0.8fr 0.8fr 0.8fr 0.8fr auto;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr auto;
             align-items: end;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr auto;
+                gap: 1rem;
+            }
+            
+            .form-field {
+                min-width: 120px;
+            }
         }
 
         .form-field {
@@ -741,7 +753,7 @@
         </div>
 
         <!-- Personalized Smart Drinking Tips -->
-        <div class="hydration-tip" id="personalizedTips">
+        <div class="hydration-tip hidden" id="personalizedTips">
             <h4>💡 Personalized Tips for You</h4>
             <div id="personalizedTipsContent" style="display: grid; gap: 0.75rem; margin-top: 1rem;">
                 <div style="background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e0f2fe;">
@@ -913,8 +925,9 @@
                 statusMessage.textContent = `⚠️ You've exceeded the safe caffeine limit (${percentage}% of ${safeLimit}mg). Please reduce your intake.`;
             }
             
-            // Show results
+            // Show results and tips
             document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('personalizedTips').classList.remove('hidden');
             setTimeout(() => {
                 document.getElementById('resultsSection').classList.add('show');
             }, 100);
@@ -938,6 +951,7 @@
             
             document.getElementById('resultsSection').classList.add('hidden');
             document.getElementById('resultsSection').classList.remove('show');
+            document.getElementById('personalizedTips').classList.add('hidden');
             document.getElementById('errorMessage').classList.add('hidden');
         }
 
