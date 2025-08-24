@@ -180,123 +180,169 @@
             color: #64748b;
         }
 
-        .calculator-grid {
-            display: grid;
-            gap: 1.5rem;
+        .drinks-calculator {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
             margin-bottom: 2rem;
         }
 
-        .drink-section {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e2e8f0;
-        }
-
-        .drink-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            gap: 0.75rem;
-        }
-
-        .drink-emoji {
-            font-size: 1.8rem;
-        }
-
-        .drink-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1e293b;
-        }
-
-        .tooltip {
-            position: relative;
-            cursor: help;
-            color: #64748b;
-            margin-left: 0.5rem;
-        }
-
-        .tooltip::before {
-            content: "ℹ️";
-            font-size: 0.9rem;
-        }
-
-        .tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
+        .calculator-header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             color: white;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            z-index: 10;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            text-align: center;
         }
 
-        .input-group {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .calculator-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        .input-group label {
-            font-weight: 500;
-            color: #475569;
-            min-width: 140px;
-        }
-
-        .input-group input {
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 0.75rem;
+        .calculator-header p {
+            opacity: 0.9;
             font-size: 1rem;
-            width: 120px;
-            transition: all 0.2s ease;
         }
 
-        .input-group input:focus {
-            outline: none;
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        .drink-entry-section {
+            padding: 2rem;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .custom-drink {
+        .form-row {
             display: grid;
             gap: 1rem;
-            grid-template-columns: 1fr;
+            grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr auto;
+            align-items: end;
         }
 
-        .custom-inputs {
-            display: grid;
-            gap: 0.75rem;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-
-        .custom-input-group {
+        .form-field {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .custom-input-group label {
+        .form-field label {
             font-weight: 500;
-            color: #475569;
+            color: #374151;
             font-size: 0.9rem;
         }
 
-        .custom-input-group input {
+        .drink-select,
+        .form-field input {
             padding: 0.75rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #e5e7eb;
             border-radius: 0.5rem;
             font-size: 1rem;
             transition: all 0.2s ease;
+        }
+
+        .drink-select:focus,
+        .form-field input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .add-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .add-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .add-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .drinks-list {
+            padding: 2rem;
+        }
+
+        .drinks-list h4 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .no-drinks {
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+            padding: 2rem;
+            background: #f9fafb;
+            border-radius: 0.75rem;
+            border: 2px dashed #d1d5db;
+        }
+
+        .drink-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .drink-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .drink-emoji {
+            font-size: 1.5rem;
+        }
+
+        .drink-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drink-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .drink-stats {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .drink-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .remove-btn:hover {
+            background: #dc2626;
         }
 
         .settings-section {
@@ -520,21 +566,20 @@
                 font-size: 2rem;
             }
 
-            .input-group {
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            .drink-item {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: flex-start;
+                gap: 1rem;
             }
 
-            .input-group label {
-                min-width: auto;
-            }
-
-            .input-group input {
-                width: 100%;
-            }
-
-            .custom-inputs {
-                grid-template-columns: 1fr;
+            .drink-actions {
+                align-self: stretch;
+                justify-content: center;
             }
 
             .button-group {
@@ -587,86 +632,61 @@
             </div>
         </div>
 
-        <!-- Drink Inputs -->
-        <div class="calculator-grid">
-            <!-- Coffee -->
-            <div class="drink-section">
-                <div class="drink-header">
-                    <span class="drink-emoji">☕</span>
-                    <span class="drink-title">Coffee</span>
-                    <span class="tooltip" data-tooltip="Standard brewed coffee has ~95 mg per 8 oz (240 ml)"></span>
-                </div>
-                <div class="input-group">
-                    <label for="coffee">How many cups of coffee?</label>
-                    <input type="number" id="coffee" min="0" step="0.5" placeholder="0" value="0">
-                </div>
+        <!-- Unified Drinks Calculator -->
+        <div class="drinks-calculator">
+            <div class="calculator-header">
+                <h3>🍹 Add Your Drinks</h3>
+                <p>Select drinks and enter quantities to calculate total caffeine and hydration</p>
             </div>
 
-            <!-- Tea -->
-            <div class="drink-section">
-                <div class="drink-header">
-                    <span class="drink-emoji">🍵</span>
-                    <span class="drink-title">Tea</span>
-                    <span class="tooltip" data-tooltip="Black tea ~47 mg per 8 oz. Green tea slightly less"></span>
-                </div>
-                <div class="input-group">
-                    <label for="tea">How many cups of tea?</label>
-                    <input type="number" id="tea" min="0" step="0.5" placeholder="0" value="0">
-                </div>
-            </div>
-
-            <!-- Soda -->
-            <div class="drink-section">
-                <div class="drink-header">
-                    <span class="drink-emoji">🥤</span>
-                    <span class="drink-title">Soda</span>
-                    <span class="tooltip" data-tooltip="Typical cola has ~40 mg per 12 oz can"></span>
-                </div>
-                <div class="input-group">
-                    <label for="soda">How many cans of soda?</label>
-                    <input type="number" id="soda" min="0" step="0.5" placeholder="0" value="0">
-                </div>
-            </div>
-
-            <!-- Energy Drinks -->
-            <div class="drink-section">
-                <div class="drink-header">
-                    <span class="drink-emoji">⚡</span>
-                    <span class="drink-title">Energy Drinks</span>
-                    <span class="tooltip" data-tooltip="Varies widely (80–160 mg). Default 80 mg / 8 oz"></span>
-                </div>
-                <div class="input-group">
-                    <label for="energy">How many energy drinks?</label>
-                    <input type="number" id="energy" min="0" step="0.5" placeholder="0" value="0">
-                </div>
-            </div>
-
-            <!-- Custom Drink -->
-            <div class="drink-section">
-                <div class="drink-header">
-                    <span class="drink-emoji">➕</span>
-                    <span class="drink-title">Custom Drink</span>
-                    <span class="tooltip" data-tooltip="Enter any other caffeinated beverage"></span>
-                </div>
-                <div class="custom-drink">
-                    <div class="custom-inputs">
-                        <div class="custom-input-group">
-                            <label for="customName">Drink Name</label>
-                            <input type="text" id="customName" placeholder="e.g., Green Tea Latte">
+            <!-- Drink Entry Form -->
+            <div class="drink-entry-section">
+                <div class="add-drink-form">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="drinkType">Drink Type</label>
+                            <select id="drinkType" class="drink-select" onchange="updateDrinkInfo()">
+                                <option value="">Select a drink</option>
+                                <option value="coffee" data-emoji="☕" data-caffeine="95" data-size="8">Coffee (8 oz cup)</option>
+                                <option value="tea" data-emoji="🍵" data-caffeine="47" data-size="8">Tea (8 oz cup)</option>
+                                <option value="soda" data-emoji="🥤" data-caffeine="40" data-size="12">Soda (12 oz can)</option>
+                                <option value="energy" data-emoji="⚡" data-caffeine="80" data-size="8">Energy Drink (8 oz)</option>
+                                <option value="custom" data-emoji="➕" data-caffeine="0" data-size="8">Custom Drink</option>
+                            </select>
                         </div>
-                        <div class="custom-input-group">
-                            <label for="customCaffeine">Caffeine per serving (mg)</label>
-                            <input type="number" id="customCaffeine" min="0" placeholder="0">
+                        
+                        <div class="form-field" id="customNameField" style="display: none;">
+                            <label for="drinkName">Drink Name</label>
+                            <input type="text" id="drinkName" placeholder="e.g., Green Tea Latte">
                         </div>
-                        <div class="custom-input-group">
-                            <label for="customSize">Serving size (oz)</label>
-                            <input type="number" id="customSize" min="0" step="0.5" placeholder="8">
+                        
+                        <div class="form-field" id="customCaffeineField" style="display: none;">
+                            <label for="caffeineAmount">Caffeine (mg)</label>
+                            <input type="number" id="caffeineAmount" min="0" placeholder="0">
                         </div>
-                        <div class="custom-input-group">
-                            <label for="customServings">Number of servings</label>
-                            <input type="number" id="customServings" min="0" step="0.5" placeholder="0" value="0">
+                        
+                        <div class="form-field" id="customSizeField" style="display: none;">
+                            <label for="servingSize">Size (oz)</label>
+                            <input type="number" id="servingSize" min="0" step="0.5" placeholder="8">
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" min="0" step="0.5" placeholder="1">
+                        </div>
+                        
+                        <div class="form-field">
+                            <button type="button" class="add-btn" onclick="addDrink()">+ Add</button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Drinks List -->
+            <div class="drinks-list" id="drinksList">
+                <h4>Your Drinks</h4>
+                <div id="drinksContainer">
+                    <p class="no-drinks">No drinks added yet. Add your first drink above!</p>
                 </div>
             </div>
         </div>
@@ -715,51 +735,151 @@
     </div>
 
     <script>
-        // Drink data with caffeine content and fluid amounts
-        const drinkData = {
-            coffee: { caffeine: 95, fluid: 8 },
-            tea: { caffeine: 47, fluid: 8 },
-            soda: { caffeine: 40, fluid: 12 },
-            energy: { caffeine: 80, fluid: 8 }
+        // Array to store all added drinks
+        let addedDrinks = [];
+        let drinkIdCounter = 0;
+
+        // Predefined drink data
+        const drinkPresets = {
+            coffee: { emoji: '☕', name: 'Coffee', caffeine: 95, size: 8 },
+            tea: { emoji: '🍵', name: 'Tea', caffeine: 47, size: 8 },
+            soda: { emoji: '🥤', name: 'Soda', caffeine: 40, size: 12 },
+            energy: { emoji: '⚡', name: 'Energy Drink', caffeine: 80, size: 8 }
         };
 
-        function validateInputs() {
-            const inputs = document.querySelectorAll('input[type="number"]');
-            inputs.forEach(input => {
-                if (input.value < 0) input.value = 0;
+        function updateDrinkInfo() {
+            const drinkType = document.getElementById('drinkType').value;
+            const customFields = ['customNameField', 'customCaffeineField', 'customSizeField'];
+            
+            // Hide all custom fields first
+            customFields.forEach(fieldId => {
+                document.getElementById(fieldId).style.display = 'none';
             });
+
+            // Show custom fields only if custom drink is selected
+            if (drinkType === 'custom') {
+                customFields.forEach(fieldId => {
+                    document.getElementById(fieldId).style.display = 'block';
+                });
+                // Set default values for custom drink
+                document.getElementById('servingSize').value = '8';
+            }
+
+            // Update form row layout for mobile
+            updateFormLayout();
+        }
+
+        function updateFormLayout() {
+            const formRow = document.querySelector('.form-row');
+            const drinkType = document.getElementById('drinkType').value;
+            
+            if (window.innerWidth <= 768) {
+                formRow.style.gridTemplateColumns = '1fr';
+            } else {
+                if (drinkType === 'custom') {
+                    formRow.style.gridTemplateColumns = '2fr 1.5fr 1fr 1fr 1fr auto';
+                } else {
+                    formRow.style.gridTemplateColumns = '2fr 1fr auto';
+                }
+            }
+        }
+
+        function addDrink() {
+            const drinkType = document.getElementById('drinkType').value;
+            const quantity = parseFloat(document.getElementById('quantity').value) || 0;
+
+            if (!drinkType || quantity <= 0) {
+                alert('Please select a drink type and enter a valid quantity.');
+                return;
+            }
+
+            let drink = {};
+
+            if (drinkType === 'custom') {
+                const name = document.getElementById('drinkName').value.trim();
+                const caffeine = parseFloat(document.getElementById('caffeineAmount').value) || 0;
+                const size = parseFloat(document.getElementById('servingSize').value) || 8;
+
+                if (!name) {
+                    alert('Please enter a name for your custom drink.');
+                    return;
+                }
+
+                drink = {
+                    id: drinkIdCounter++,
+                    type: 'custom',
+                    emoji: '➕',
+                    name: name,
+                    caffeine: caffeine,
+                    size: size,
+                    quantity: quantity
+                };
+            } else {
+                const preset = drinkPresets[drinkType];
+                drink = {
+                    id: drinkIdCounter++,
+                    type: drinkType,
+                    emoji: preset.emoji,
+                    name: preset.name,
+                    caffeine: preset.caffeine,
+                    size: preset.size,
+                    quantity: quantity
+                };
+            }
+
+            addedDrinks.push(drink);
+            updateDrinksList();
+            clearForm();
+        }
+
+        function removeDrink(drinkId) {
+            addedDrinks = addedDrinks.filter(drink => drink.id !== drinkId);
+            updateDrinksList();
+        }
+
+        function updateDrinksList() {
+            const container = document.getElementById('drinksContainer');
+            
+            if (addedDrinks.length === 0) {
+                container.innerHTML = '<p class="no-drinks">No drinks added yet. Add your first drink above!</p>';
+                return;
+            }
+
+            let html = '';
+            addedDrinks.forEach(drink => {
+                const totalCaffeine = drink.caffeine * drink.quantity;
+                const totalFluid = drink.size * drink.quantity;
+                
+                html += `
+                    <div class="drink-item">
+                        <div class="drink-info">
+                            <span class="drink-emoji">${drink.emoji}</span>
+                            <div class="drink-details">
+                                <span class="drink-name">${drink.name}</span>
+                                <span class="drink-stats">${drink.quantity} × ${drink.size}oz = ${totalCaffeine}mg caffeine, ${totalFluid}oz fluid</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <button class="remove-btn" onclick="removeDrink(${drink.id})">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function clearForm() {
+            document.getElementById('drinkType').value = '';
+            document.getElementById('quantity').value = '';
+            document.getElementById('drinkName').value = '';
+            document.getElementById('caffeineAmount').value = '';
+            document.getElementById('servingSize').value = '8';
+            updateDrinkInfo();
         }
 
         function calculateResults() {
-            validateInputs();
-            
-            let totalCaffeine = 0;
-            let totalFluidMl = 0;
-            let hasAnyDrinks = false;
-
-            // Calculate standard drinks
-            for (const [drink, data] of Object.entries(drinkData)) {
-                const servings = parseFloat(document.getElementById(drink).value) || 0;
-                if (servings > 0) {
-                    hasAnyDrinks = true;
-                    totalCaffeine += servings * data.caffeine;
-                    totalFluidMl += servings * data.fluid * 29.57; // Convert oz to ml
-                }
-            }
-
-            // Calculate custom drink
-            const customServings = parseFloat(document.getElementById('customServings').value) || 0;
-            const customCaffeine = parseFloat(document.getElementById('customCaffeine').value) || 0;
-            const customSize = parseFloat(document.getElementById('customSize').value) || 8;
-            
-            if (customServings > 0) {
-                hasAnyDrinks = true;
-                totalCaffeine += customServings * customCaffeine;
-                totalFluidMl += customServings * customSize * 29.57;
-            }
-
-            // Check if no drinks entered
-            if (!hasAnyDrinks || totalCaffeine === 0) {
+            if (addedDrinks.length === 0) {
                 document.getElementById('errorMessage').classList.remove('hidden');
                 document.getElementById('resultsSection').classList.add('hidden');
                 return;
@@ -767,6 +887,15 @@
 
             // Hide error message
             document.getElementById('errorMessage').classList.add('hidden');
+
+            let totalCaffeine = 0;
+            let totalFluidMl = 0;
+
+            // Calculate totals from added drinks
+            addedDrinks.forEach(drink => {
+                totalCaffeine += drink.caffeine * drink.quantity;
+                totalFluidMl += drink.size * drink.quantity * 29.57; // Convert oz to ml
+            });
 
             // Determine safe limit
             const isPregnantNursing = document.getElementById('pregnantNursing').checked;
@@ -806,7 +935,7 @@
             // Display results
             document.getElementById('caffeineValue').textContent = `${Math.round(totalCaffeine)} mg`;
             document.getElementById('percentageValue').textContent = `${percentage}%`;
-            document.getElementById('percentageValue').className = `result-value status-${statusClass.replace('danger', 'danger').replace('warning', 'warning').replace('safe', 'safe')}`;
+            document.getElementById('percentageValue').className = `result-value status-${statusClass}`;
             
             document.getElementById('hydrationValue').textContent = `${Math.round(adjustedHydration)} ml`;
 
@@ -836,41 +965,31 @@
         }
 
         function resetForm() {
-            // Reset all number inputs
-            const numberInputs = document.querySelectorAll('input[type="number"]');
-            numberInputs.forEach(input => {
-                input.value = input.id === 'customSize' ? '8' : '0';
-            });
-
-            // Reset text input
-            document.getElementById('customName').value = '';
-
-            // Reset checkbox
+            addedDrinks = [];
+            updateDrinksList();
+            clearForm();
             document.getElementById('pregnantNursing').checked = false;
-
-            // Hide results and error
             document.getElementById('resultsSection').classList.remove('show');
             document.getElementById('resultsSection').classList.add('hidden');
             document.getElementById('errorMessage').classList.add('hidden');
         }
 
-        // Add event listeners for real-time validation
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            const numberInputs = document.querySelectorAll('input[type="number"]');
-            numberInputs.forEach(input => {
-                input.addEventListener('input', validateInputs);
-                input.addEventListener('blur', validateInputs);
+            updateDrinkInfo();
+            
+            // Handle Enter key in form fields
+            const formInputs = document.querySelectorAll('#drinkType, #quantity, #drinkName, #caffeineAmount, #servingSize');
+            formInputs.forEach(input => {
+                input.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        addDrink();
+                    }
+                });
             });
 
-            // Set default value for custom size
-            document.getElementById('customSize').value = '8';
-        });
-
-        // Handle Enter key submission
-        document.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                calculateResults();
-            }
+            // Handle window resize for responsive layout
+            window.addEventListener('resize', updateFormLayout);
         });
         
         // Navigation toggle functionality
