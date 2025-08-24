@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://waterguide.netlify.app/sitemap.xml
+
+# Allow all pages to be crawled
+Disallow:
+
+# Allow crawling of static assets
+Allow: /static/
+
+# Block crawling of any admin or private directories (if any)
+# Disallow: /admin/
