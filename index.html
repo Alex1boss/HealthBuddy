@@ -73,11 +73,30 @@
     <link rel="stylesheet" href="static/css/main.css">
 </head>
 <body>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <h3>💧 Calculators</h3>
+            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link active">💧 Water Calculator</a></li>
+            <li><a href="/drinks" class="nav-link">☕ Drinks Calculator</a></li>
+        </ul>
+    </nav>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1 class="title">💧 Daily Water Calculator</h1>
+                <h1 class="title">💧 Water Calculator</h1>
                 <p class="subtitle">Calculate your personalized daily water intake goal in seconds</p>
             </div>
         </div>
@@ -151,24 +170,39 @@
                     </div>
 
                     <div class="tips-section">
-                        <h4>💡 Personalized Tips for You</h4>
+                        <h4>💡 Hydration Tips</h4>
                         <div class="tips-grid">
-                            <!-- Personalized tips will be generated based on weight -->
+                            <div class="tip-card">
+                                <div class="tip-emoji">⏰</div>
+                                <div class="tip-text">Start your day with a glass of water</div>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">🥤</div>
+                                <div class="tip-text">Keep a water bottle nearby</div>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">🍎</div>
+                                <div class="tip-text">Eat water-rich foods</div>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-emoji">📱</div>
+                                <div class="tip-text">Set hydration reminders</div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Quick Actions -->
-                    <div class="quick-actions" id="quickActions" style="display: none;">
-                        <h3>🚀 Quick Actions</h3>
-                        <div class="action-buttons">
-                            <button class="action-btn" onclick="recalculate()">
-                                🔄 Calculate Again
-                            </button>
-                            <button class="action-btn" onclick="shareResult()">
-                                📱 Share Result
-                            </button>
-                        </div>
-                    </div>
+            <!-- Quick Actions -->
+            <div class="quick-actions" id="quickActions" style="display: none;">
+                <h3>🚀 Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="recalculate()">
+                        🔄 Calculate Again
+                    </button>
+                    <button class="action-btn" onclick="shareResult()">
+                        📱 Share Result
+                    </button>
                 </div>
             </div>
 
@@ -217,5 +251,54 @@
 
     <!-- JavaScript -->
     <script src="static/js/calculator.js"></script>
+    
+    <script>
+        // Navigation toggle functionality
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+            navToggle.classList.toggle('active');
+        }
+        
+        // Initialize navigation state
+        function initializeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            // Start with navigation closed and toggle button visible
+            sideNav.classList.add('closed');
+            body.classList.add('nav-closed');
+            navToggle.classList.add('show');
+        }
+        
+        // Close navigation when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            
+            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
+                if (!sideNav.classList.contains('closed')) {
+                    toggleNavigation();
+                }
+            }
+        });
+
+        // Initialize navigation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+        });
+    </script>
 </body>
 </html>
