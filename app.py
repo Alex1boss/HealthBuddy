@@ -11,6 +11,10 @@ app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 def index():
     return render_template('index.html')
 
+@app.route('/drinks')
+def drinks():
+    return render_template('drinks.html')
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('index.html'), 404
