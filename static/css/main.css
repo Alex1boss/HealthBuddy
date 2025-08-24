@@ -73,9 +73,13 @@ body.nav-closed {
     cursor: pointer;
     box-shadow: var(--shadow-lg);
     transition: var(--transition);
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 0.25rem;
+}
+
+.nav-toggle.show {
+    display: flex;
 }
 
 .nav-toggle:hover {

@@ -87,8 +87,8 @@
             <button class="nav-close" onclick="toggleNavigation()">✕</button>
         </div>
         <ul class="nav-menu">
-            <li><a href="/" class="nav-link active">💧 Daily Water</a></li>
-            <li><a href="/drinks" class="nav-link">☕ Drinks & Caffeine</a></li>
+            <li><a href="/" class="nav-link active">💧 Water Calculator</a></li>
+            <li><a href="/drinks" class="nav-link">☕ Drinks Calculator</a></li>
         </ul>
     </nav>
 
@@ -96,7 +96,7 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1 class="title">💧 Daily Water Calculator</h1>
+                <h1 class="title">💧 Water Calculator</h1>
                 <p class="subtitle">Calculate your personalized daily water intake goal in seconds</p>
             </div>
         </div>
@@ -259,9 +259,28 @@
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            sideNav.classList.toggle('closed');
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
             navToggle.classList.toggle('active');
-            body.classList.toggle('nav-closed');
+        }
+        
+        // Initialize navigation state
+        function initializeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            // Start with navigation closed and toggle button visible
+            sideNav.classList.add('closed');
+            body.classList.add('nav-closed');
+            navToggle.classList.add('show');
         }
         
         // Close navigation when clicking outside on mobile
@@ -274,6 +293,11 @@
                     toggleNavigation();
                 }
             }
+        });
+
+        // Initialize navigation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
         });
     </script>
 </body>
