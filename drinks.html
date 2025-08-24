@@ -225,7 +225,7 @@
 
         @media (max-width: 1024px) {
             .form-row {
-                grid-template-columns: 1fr 1fr auto;
+                grid-template-columns: 1fr 1fr 1fr auto;
                 gap: 1rem;
             }
             
@@ -459,7 +459,7 @@
         .results-grid {
             display: grid;
             gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             margin-bottom: 1.5rem;
         }
 
@@ -692,6 +692,11 @@
                         </div>
                         
                         <div class="form-field">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" min="20" max="300" step="0.5" placeholder="70" value="70">
+                        </div>
+                        
+                        <div class="form-field">
                             <label for="age">Age</label>
                             <input type="number" id="age" min="1" max="120" placeholder="25" value="25">
                         </div>
@@ -736,6 +741,14 @@
                 <div class="result-card">
                     <div id="hydrationValue" class="result-value">💧 +0 ml</div>
                     <div class="result-label">Net Hydration</div>
+                </div>
+                <div class="result-card">
+                    <div id="recommendedWaterValue" class="result-value">🥤 0 ml</div>
+                    <div class="result-label">Recommended Daily Water</div>
+                </div>
+                <div class="result-card">
+                    <div id="remainingWaterValue" class="result-value">🚰 0 ml</div>
+                    <div class="result-label">Still Need Today</div>
                 </div>
                 <div class="result-card">
                     <div id="safetyValue" class="result-value">✅ Safe</div>
@@ -799,6 +812,7 @@
         function addDrink() {
             const drinkType = document.getElementById('drinkType');
             const quantity = parseFloat(document.getElementById('quantity').value) || 1;
+            const weight = parseFloat(document.getElementById('weight').value) || 70;
             const age = parseInt(document.getElementById('age').value) || 25;
             
             if (!drinkType.value) {
@@ -809,6 +823,11 @@
             // Validate inputs
             if (quantity <= 0) {
                 alert('Please enter a valid quantity');
+                return;
+            }
+            
+            if (weight < 20 || weight > 300) {
+                alert('Please enter a valid weight between 20 and 300 kg');
                 return;
             }
             
@@ -841,6 +860,7 @@
                     caffeine: caffeineAmount,
                     size: servingSize,
                     quantity: quantity,
+                    weight: weight,
                     age: age
                 };
             } else {
@@ -852,6 +872,7 @@
                     caffeine: parseFloat(selected.dataset.caffeine) || 0,
                     size: parseFloat(selected.dataset.size) || 8,
                     quantity: quantity,
+                    weight: weight,
                     age: age
                 };
             }
@@ -907,12 +928,32 @@
             
             const isPregnantNursing = document.getElementById('pregnantNursing').checked;
             const totalCaffeine = drinks.reduce((sum, drink) => sum + (drink.caffeine * drink.quantity), 0);
-            const totalHydration = drinks.reduce((sum, drink) => sum + (drink.size * drink.quantity * 29.5735), 0); // Convert to ml
+            
+            // Get user weight (use first drink's weight or default)
+            const userWeight = drinks.length > 0 ? drinks[0].weight : 70;
+            
+            // Calculate hydration with caffeine adjustment
+            let netHydration = 0;
+            drinks.forEach(drink => {
+                const drinkVolume = drink.size * drink.quantity * 29.5735; // Convert oz to ml
+                const caffeineInDrink = drink.caffeine * drink.quantity;
+                
+                // Caffeine has mild diuretic effect: subtract ~10ml per 100mg caffeine
+                const caffeineDehydration = caffeineInDrink * 0.1;
+                const adjustedHydration = drinkVolume - caffeineDehydration;
+                
+                netHydration += Math.max(adjustedHydration, drinkVolume * 0.8); // Minimum 80% hydration
+            });
+            
+            // Calculate recommended daily water intake: weight × 32.5ml (average of 30-35ml)
+            const recommendedDailyWater = Math.round(userWeight * 32.5);
+            
+            // Calculate remaining water needed
+            const remainingWater = Math.max(0, recommendedDailyWater - netHydration);
             
             // Calculate safe limits (400mg for adults, 200mg for pregnant/nursing)
             const safeLimit = isPregnantNursing ? 200 : 400;
             const percentage = Math.round((totalCaffeine / safeLimit) * 100);
-            const dailyWaterGoal = 2500; // 2.5L daily goal
             
             // Determine safety status with better thresholds
             let safetyStatus, safetyClass, statusAdvice;
@@ -934,10 +975,12 @@
                 statusAdvice = `You've exceeded your daily caffeine limit. Try replacing with water or decaf.`;
             }
             
-            // Update results with better formatting
-            document.getElementById('caffeineValue').textContent = `☕ ${totalCaffeine} mg`;
+            // Update results with comprehensive information
+            document.getElementById('caffeineValue').textContent = `☕ ${totalCaffeine} mg (${percentage}% of daily safe limit)`;
             document.getElementById('percentageValue').textContent = `📊 ${percentage}% (of ${safeLimit} mg)`;
-            document.getElementById('hydrationValue').textContent = `💧 +${Math.round(totalHydration)} ml toward your daily goal`;
+            document.getElementById('hydrationValue').textContent = `💧 +${Math.round(netHydration)} ml (after caffeine adjustment)`;
+            document.getElementById('recommendedWaterValue').textContent = `🥤 ${recommendedDailyWater} ml/day`;
+            document.getElementById('remainingWaterValue').textContent = `🚰 ~${Math.round(remainingWater)} ml of plain water today`;
             document.getElementById('safetyValue').textContent = safetyStatus;
             document.getElementById('safetyValue').className = 'result-value status-' + safetyClass;
             
@@ -958,6 +1001,7 @@
             // Clear all form fields
             document.getElementById('drinkType').value = '';
             document.getElementById('quantity').value = '1';
+            document.getElementById('weight').value = '70';
             document.getElementById('age').value = '25';
             document.getElementById('drinkName').value = '';
             document.getElementById('caffeineAmount').value = '';
