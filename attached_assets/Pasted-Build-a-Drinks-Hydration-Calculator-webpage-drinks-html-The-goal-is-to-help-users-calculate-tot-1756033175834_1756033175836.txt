@@ -1,0 +1,201 @@
+Build a Drinks & Hydration Calculator webpage (drinks.html).
+The goal is to help users calculate total caffeine intake + net hydration effect from different beverages.
+This will be part of a health-focused site, so accuracy, usability, and clean design are critical.
+
+1. Page Setup
+
+File: drinks.html (standalone, deploy-ready).
+
+Include everything (HTML, CSS, JavaScript) in one file.
+
+Mobile-first, responsive design.
+
+Theme: light blue + white + soft gray (hydration/water-inspired).
+
+Use modern fonts (sans-serif, rounded corners, shadows).
+
+Add a top header: “💧 Drinks & Hydration Calculator”.
+
+Sub-header: “Track caffeine intake and hydration effect of your drinks.”
+
+2. Drink Inputs
+
+Create sections for the following drink categories, each with number input for servings:
+
+☕ Coffee
+
+Default: 95 mg caffeine / 8 oz cup.
+
+Input: “How many cups of coffee?”
+
+Show tooltip: “Standard brewed coffee has ~95 mg per 8 oz (240 ml).”
+
+🍵 Tea
+
+Default: 47 mg caffeine / 8 oz cup.
+
+Input: “How many cups of tea?”
+
+Tooltip: “Black tea ~47 mg per 8 oz. Green tea slightly less.”
+
+🥤 Soda
+
+Default: 40 mg caffeine / 12 oz can.
+
+Input: “How many cans of soda?”
+
+Tooltip: “Typical cola has ~40 mg per 12 oz can.”
+
+⚡ Energy Drinks
+
+Default: 80 mg caffeine / 8 oz can.
+
+Input: “How many energy drinks?”
+
+Tooltip: “Varies widely (80–160 mg). Default 80 mg / 8 oz.”
+
+➕ Custom Drink
+
+Fields:
+
+Drink Name (text input).
+
+Caffeine per serving (mg).
+
+Serving size (oz).
+
+Number of servings.
+
+Tooltip: “Enter any other caffeinated beverage.”
+
+3. User Settings
+
+Add checkbox: “Pregnant / Nursing?” → sets safe caffeine limit = 200 mg.
+
+Default safe limit for general users = 400 mg.
+
+Unit system: Keep in mg for caffeine, ml for fluids (convert oz → ml automatically, 1 oz = 29.57 ml).
+
+4. Calculation Logic
+
+For each drink:
+
+Caffeine = servings × caffeine per serving.
+
+Fluid = servings × fluid ounces × 29.57 ml.
+
+Add to totals.
+
+Apply hydration adjustment:
+
+If total caffeine < 300 mg → full fluid counts.
+
+If 300–500 mg → subtract 10% of total fluid volume.
+
+If > 500 mg → subtract 15% of total fluid volume.
+
+Compare total caffeine to safe daily limit:
+
+✅ “Safe range” (< 75% of limit).
+
+⚠️ “Close to limit” (75–100%).
+
+❌ “Exceeds safe limit” (> 100%).
+
+5. Results Section
+
+After pressing Calculate, show:
+
+Total Caffeine (mg).
+
+% of safe daily limit.
+
+Net Hydration (ml).
+
+A message:
+
+“✅ Safe: Well within daily limits.”
+
+“⚠️ Careful: Close to your daily max.”
+
+“❌ Over Limit: Reduce caffeine intake.”
+
+Show hydration insight line:
+
+“Hydration positive.”
+
+“Slight hydration reduction.”
+
+“Hydration negative risk.”
+
+Example output:
+
+“You consumed 325 mg caffeine (81% of safe daily limit).”
+
+“Net hydration: 1,750 ml after adjustment.”
+
+“⚠️ You’re close to your daily caffeine limit. Consider reducing soda or energy drinks.”
+
+6. Buttons & Interactivity
+
+Calculate button → runs JS calculations.
+
+Reset (Clear All) button → resets inputs to default.
+
+Inputs should validate: no negative numbers.
+
+If user leaves inputs blank → treat as 0.
+
+7. Extra Features
+
+Add hydration tip at bottom:
+“💡 Tip: Aim for 2–3 liters of total water daily. Caffeinated drinks can contribute, but balance with plain water.”
+
+Add small hydration icon (💧) beside results.
+
+Add error handling: If user enters caffeine = 0, show “You haven’t logged any drinks yet.”
+
+Add smooth animations for result section (fade in).
+
+Make sure layout works on mobile screens (inputs stacked vertically).
+
+8. Technical Requirements
+
+Use only HTML + CSS + vanilla JavaScript (no React, no frameworks).
+
+Keep JS inline at bottom of HTML.
+
+Write clean, commented code for readability.
+
+Optimized for Netlify deployment (no external dependencies required).
+
+Place results section below inputs, styled in a card with shadow + rounded corners.
+
+9. Deployment Check
+
+After finishing:
+
+File must be named drinks.html.
+
+When deployed on Netlify, page must load instantly.
+
+No console errors in browser dev tools.
+
+Design should look professional and not like a default form.
+
+10. Example User Flow
+
+User enters: 2 coffees, 1 tea, 1 soda.
+
+Clicks Calculate.
+
+Output:
+
+“Total caffeine: 277 mg (69% of safe daily limit).”
+
+“Net hydration: 920 ml (hydration positive).”
+
+“✅ Safe range.”
+
+✅ Final Deliverable:
+A polished drinks.html file that calculates caffeine + hydration, displays results clearly, and looks professional on mobile + desktop.
