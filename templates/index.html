@@ -77,10 +77,17 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1 class="title">💧 Daily Water Calculator</h1>
-                <p class="subtitle">Calculate your personalized daily water intake goal in seconds</p>
-                <div style="margin-top: 1rem;">
-                    <a href="/drinks" style="background: #059669; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; text-decoration: none; font-weight: 500;">☕ Try Our Drinks Calculator</a>
+                <h1 class="title">💧 Health Calculators</h1>
+                <p class="subtitle">Calculate your daily water intake and track caffeine from drinks</p>
+                
+                <!-- Calculator Tabs -->
+                <div class="calculator-tabs" style="margin-top: 1.5rem;">
+                    <button class="tab-btn active" onclick="switchTab('water')" id="waterTab">
+                        💧 Daily Water Calculator
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('drinks')" id="drinksTab">
+                        ☕ Drinks & Caffeine Calculator
+                    </button>
                 </div>
             </div>
         </div>
