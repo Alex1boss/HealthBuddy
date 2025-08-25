@@ -16,14 +16,162 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     
     <style>
-        /* Sugar calculator specific styles */
+        /* Navigation and responsive styles */
+        body {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        body.nav-closed {
+            margin-left: 0;
+        }
+
+        /* Toggle Button */
+        .nav-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #0ea5e9;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-toggle.show {
+            display: flex;
+        }
+
+        .nav-toggle:hover {
+            background: #0284c7;
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            width: 20px;
+            height: 2px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .nav-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+
+        .nav-close:hover {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .nav-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: #f8fafc;
+            color: #0ea5e9;
+        }
+
+        .nav-link.active {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            border-left-color: #0ea5e9;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 1rem;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                margin-left: 0;
+            }
+            
+            .nav-toggle.show {
+                display: flex;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr !important;
+            }
         }
         
         .card {
@@ -231,18 +379,19 @@
         </ul>
     </nav>
 
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="header-content">
-                    <h1 class="title">🍬 Sweet Calculator</h1>
-                    <p class="subtitle">Get personalized hydration advice based on your sugar intake</p>
-                </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title">🍬 Sweet Calculator</h1>
+                <p class="subtitle">Get personalized hydration advice based on your sugar intake</p>
             </div>
-        </header>
-        
-        <main class="main">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
             <div class="grid">
                 <!-- Personal Details -->
                 <div class="card">
@@ -354,8 +503,8 @@
                 <div id="energy-warning"></div>
                 <div id="daily-summary"></div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
