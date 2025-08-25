@@ -24,25 +24,298 @@
       gtag('config', 'G-PLQH7WFSWK');
     </script>
     
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="static/css/main.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 1rem;
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        body.nav-closed {
+            margin-left: 0;
+        }
+
+        .nav-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #0ea5e9;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-toggle.show {
+            display: flex;
+        }
+
+        .nav-toggle:hover {
+            background: #0284c7;
+            transform: scale(1.05);
+        }
+
+        .hamburger {
+            width: 20px;
+            height: 2px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .nav-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+
+        .nav-close:hover {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        .nav-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 1rem 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: #f8fafc;
+            color: #0ea5e9;
+        }
+
+        .nav-link.active {
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            border-left-color: #0ea5e9;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main {
+            padding: 2rem;
+        }
+        
+        .content h2 {
+            color: #0ea5e9;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .content h3 {
+            color: #1e293b;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+        
+        .content h4 {
+            color: #374151;
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        .content p, .content li {
+            margin-bottom: 0.75rem;
+            color: #475569;
+        }
+        
+        .content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content a {
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+        
+        .content a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin-left: 0;
+                padding: 0.5rem;
+            }
+            
+            .nav-toggle.show {
+                display: flex;
+            }
+            
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .main {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="title"><a href="/" style="text-decoration: none; color: inherit;">💧 Daily Water Calculator</a></h1>
-                <p class="subtitle">About Us</p>
-            </div>
-        </div>
-    </header>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
 
-    <!-- Main Content -->
-    <main class="main">
-        <div class="container">
-            <div class="calculator-card">
-                <div style="padding: 2rem;">
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <h3>💧 Calculators</h3>
+            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
+            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>ℹ️ About Us</h1>
+            <p>Learn about our mission to help you stay hydrated</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="content">
                     <h2>About Daily Water Calculator</h2>
                     
                     <h3>Our Mission</h3>
@@ -110,13 +383,12 @@
                         <li><strong>Feedback:</strong> We're always looking to improve our calculator based on user feedback</li>
                     </ul>
                     
-                    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
-                        <p><a href="/">← Back to Water Calculator</a> | <a href="/privacy">Privacy Policy</a></p>
-                    </div>
+                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                    <p><a href="index.html">← Back to Water Calculator</a> | <a href="privacy.html">Privacy Policy</a></p>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -126,10 +398,38 @@
                     💧 Daily Water Calculator - Stay hydrated, stay healthy!
                 </p>
                 <p class="footer-disclaimer">
-                    <a href="/privacy">Privacy Policy</a> | <a href="/about">About Us</a> | <a href="/contact">Contact Us</a>
+                    <a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a>
                 </p>
             </div>
         </div>
     </footer>
+    <script>
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+            navToggle.classList.toggle('active');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            sideNav.classList.add('closed');
+            body.classList.add('nav-closed');
+            navToggle.classList.add('show');
+        });
+    </script>
 </body>
 </html>
