@@ -60,6 +60,12 @@ The application is designed as a lightweight, self-contained health calculator w
 
 ## Recent Changes
 
+### Footer Consistency Fix (August 25, 2025)
+- **Fixed inconsistent footer styling** across all pages (index.html, drinks.html, sugar.html, privacy.html)
+- **Standardized dark footer theme** - Dark background (#1e293b), white text, blue links (#0ea5e9)
+- **Added missing CSS** to drinks.html and override styles to index.html
+- **Ensured consistent links** - All footer links point to .html files for standalone deployment
+
 ### Website Optimization & Performance Boost (August 23, 2025)
 - **Fixed dark mode issue** - Website now properly loads in light mode for new users
 - **Comprehensive performance optimization** - Removed unnecessary features and complex animations
