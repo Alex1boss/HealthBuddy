@@ -60,6 +60,33 @@ body.nav-closed {
     margin-left: 0;
 }
 
+/* Mobile-First Responsive Design */
+@media (max-width: 768px) {
+    .footer-disclaimer {
+        font-size: 0.75rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .footer a {
+        padding: 0.25rem 0.5rem !important;
+        display: inline-block !important;
+    }
+    
+    .container {
+        padding: 0 1rem !important;
+    }
+    
+    .article-preview {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+    
+    .nav-toggle {
+        padding: 1rem !important;
+        font-size: 1.1rem !important;
+    }
+}
+
 /* Toggle Button */
 .nav-toggle {
     position: fixed;
