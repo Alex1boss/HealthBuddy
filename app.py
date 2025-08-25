@@ -32,8 +32,7 @@ def privacy():
 
 @app.route('/sugar')
 def sugar():
-    with open('sugar.html', 'r') as f:
-        return f.read()
+    return render_template('sugar.html')
 
 @app.errorhandler(404)
 def not_found_error(error):

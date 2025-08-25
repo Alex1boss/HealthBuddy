@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍬 Sweet Intake → Water Needs Calculator</title>
+    <meta name="description" content="Calculate how much extra water you need based on sugar intake. Get personalized hydration targets with health guidelines comparison.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    
+    <style>
+        /* Sugar calculator specific styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .helper {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: #1e40af;
+            margin-top: 0.5rem;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #0ea5e9;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0284c7;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .results {
+            background: white;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .results.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .converter {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .error {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <h3>💧 Calculators</h3>
+            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">💧 Water Calculator</a></li>
+            <li><a href="/drinks" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="/sugar" class="nav-link active">🍬 Sweet Calculator</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1 class="title">🍬 Sweet Calculator</h1>
+                    <p class="subtitle">Calculate how much extra water you need after sweets</p>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main">
+            <div class="grid">
+                <!-- User Details -->
+                <div class="card">
+                    <h2>👤 User Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="weight">Weight (kg) *</label>
+                        <input type="number" id="weight" min="20" max="250" step="0.1" required aria-describedby="weight-error">
+                        <div id="weight-error" class="error" style="display: none;">Weight is required</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Sex (for sugar guideline)</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="sex-male" name="sex" value="male">
+                                <label for="sex-male">Male</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="sex-female" name="sex" value="female">
+                                <label for="sex-female">Female</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="sex-prefer" name="sex" value="prefer-not" checked>
+                                <label for="sex-prefer">Prefer not to say</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sweet Intake -->
+                <div class="card">
+                    <h2>🍭 Sugar Intake</h2>
+                    
+                    <div class="form-group">
+                        <label for="total-sugar">Total sugar consumed today (grams)</label>
+                        <input type="number" id="total-sugar" min="0" step="0.1" placeholder="Enter total grams of sugar">
+                        <div class="helper">
+                            <strong>💡 Examples:</strong> 1 soda = 39g • 1 chocolate bar = 24g • 1 donut = 10g
+                        </div>
+                    </div>
+                    
+                    <div class="helper">
+                        <strong>🧮 Quick Add:</strong>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(39)" style="padding: 0.5rem; font-size: 0.875rem;">🥤 Soda (39g)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(24)" style="padding: 0.5rem; font-size: 0.875rem;">🍫 Chocolate (24g)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(10)" style="padding: 0.5rem; font-size: 0.875rem;">🍩 Donut (10g)</button>
+                        </div>
+                    </div>
+                    
+                    <div class="helper">
+                        <strong>💡 Converter:</strong> 1 teaspoon sugar ≈ 4g
+                        <div class="converter">
+                            <input type="number" id="tsp-input" placeholder="Teaspoons" min="0" step="0.25">
+                            <span>→</span>
+                            <input type="number" id="grams-output" placeholder="Grams" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calculate Button -->
+                <div class="card">
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary" onclick="calculate()">💧 Calculate Water Needs</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearAll()">🔄 Reset</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results -->
+            <div class="results" id="results">
+                <h3>💧 Your Hydration Plan</h3>
+                <div id="results-content"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    💧 Daily Water Calculator - Stay hydrated, stay healthy!
+                </p>
+                <p class="footer-disclaimer">
+                    <a href="/privacy">Privacy Policy</a> | <a href="/about">About Us</a> | <a href="/contact">Contact Us</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add sugar from quick buttons
+        function addSugar(amount) {
+            const totalSugarInput = document.getElementById('total-sugar');
+            const currentValue = parseFloat(totalSugarInput.value) || 0;
+            totalSugarInput.value = (currentValue + amount).toFixed(1);
+        }
+
+        // Teaspoon converter
+        document.getElementById('tsp-input').addEventListener('input', function() {
+            const tsp = parseFloat(this.value) || 0;
+            const grams = tsp * 4;
+            document.getElementById('grams-output').value = grams.toFixed(1);
+            
+            if (grams > 0) {
+                document.getElementById('total-sugar').value = grams.toFixed(1);
+            }
+        });
+
+        function calculate() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const sugar = parseFloat(document.getElementById('total-sugar').value) || 0;
+            
+            if (!weight || weight < 20) {
+                alert('Please enter a valid weight');
+                return;
+            }
+            
+            // Basic calculation: 35ml per kg + 4ml per gram of sugar
+            const baseWater = weight * 35;
+            const extraWater = sugar * 4;
+            const totalWater = baseWater + extraWater;
+            
+            const resultsDiv = document.getElementById('results');
+            const contentDiv = document.getElementById('results-content');
+            
+            contentDiv.innerHTML = `
+                <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #0ea5e9;">${totalWater.toFixed(0)}ml</div>
+                        <div style="color: #64748b;">Total Water Needed</div>
+                    </div>
+                    <div style="background: #fef3c7; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #d97706;">${extraWater.toFixed(0)}ml</div>
+                        <div style="color: #64748b;">Extra for Sugar</div>
+                    </div>
+                    <div style="background: #dcfce7; padding: 1rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #16a34a;">${(totalWater/250).toFixed(1)}</div>
+                        <div style="color: #64748b;">Glasses (250ml)</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: #f1f5f9; border-radius: 8px;">
+                    <h4>💡 Tips:</h4>
+                    <ul style="margin: 0.5rem 0;">
+                        <li>Spread water intake throughout the day</li>
+                        <li>Start with water when you wake up</li>
+                        <li>Consider reducing sugar intake for better health</li>
+                    </ul>
+                </div>
+            `;
+            
+            resultsDiv.classList.add('show');
+        }
+
+        function clearAll() {
+            document.getElementById('weight').value = '';
+            document.getElementById('total-sugar').value = '';
+            document.getElementById('tsp-input').value = '';
+            document.getElementById('grams-output').value = '';
+            document.getElementById('results').classList.remove('show');
+        }
+
+        // Navigation toggle functionality (same as other pages)
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+            navToggle.classList.toggle('active');
+        }
+        
+        // Initialize navigation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            sideNav.classList.add('closed');
+            body.classList.add('nav-closed');
+            navToggle.classList.add('show');
+        });
+    </script>
+</body>
+</html>
