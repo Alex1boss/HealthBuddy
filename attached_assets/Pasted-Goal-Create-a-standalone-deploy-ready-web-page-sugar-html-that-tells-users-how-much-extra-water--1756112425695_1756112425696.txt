@@ -1,0 +1,376 @@
+Goal: Create a standalone, deploy-ready web page (sugar.html) that tells users how much extra water they should drink based on sugar (sweet) intake, while also showing daily water needs and how their sugar compares to health guidelines. Everything (HTML + CSS + JS) must be inside one file.
+
+1) Page Setup & Design
+
+Single file: sugar.html.
+
+Include: semantic HTML, internal <style> and <script>.
+
+Mobile-first, responsive layout.
+
+Theme: light, clean “hydration” style (white/very light gray background, accents in light blue, rounded corners, soft shadows).
+
+Typography: system UI or Google Font (e.g., Inter).
+
+Accessibility: proper labels, input aria-describedby, keyboard focus states.
+
+Header:
+
+Title: “🍬 Sweet Intake → Water Needs”
+
+Subtitle: “See how much extra water to drink after sweets, plus your daily hydration target.”
+
+Sections (stacked on mobile, 2-column max on desktop):
+
+User Details
+
+Sweet Intake
+
+Guidelines & Settings
+
+Results
+
+Tips & Disclaimers
+
+2) Inputs & Controls
+A) User Details
+
+Weight (kg): number input (min 20, max 250, step 0.1). Required.
+
+Sex (for sugar guideline): radio (Male, Female, Prefer not to say). Default: “Prefer not to say”.
+
+Optional health context toggles:
+
+“Pregnant/Nursing” (checkbox) → only affects sugar guideline label note (does not change multiplier).
+
+“Diabetes or prediabetes” (checkbox) → adds caution note in results (does not change numbers).
+
+B) Sweet Intake (choose one or combine)
+
+Preset items (each with servings input):
+
+Soda (12 oz / 355 ml can) → 39 g sugar per can.
+
+Chocolate bar (standard) → 24 g per bar.
+
+Donut (glazed) → 10 g per donut.
+
+Candy (small pack) → 17 g per pack.
+
+Fruit juice (8 oz / 240 ml) → 20 g per glass.
+
+Sweetened yogurt (cup) → 18 g per cup.
+
+Custom entry:
+
+Name (text).
+
+Sugar per serving (g) (number, min 0).
+
+Servings (number, min 0).
+
+Whole fruit toggle (checkbox at item level for only “fruit juice” and “custom”) → if checked and name contains “fruit”, apply hydration modifier (see §4D).
+
+All items default to 0 servings.
+
+C) Guideline & Settings
+
+Sugar guideline source (select dropdown):
+
+WHO (Free sugars): Tip—“<10% of energy; practical target 25 g/day for additional benefits.”
+
+AHA (Added sugars): 25 g/day (women), 36 g/day (men).
+
+Custom daily limit (user enters g/day).
+
+Hydration baseline factor (select):
+
+30 ml/kg
+
+35 ml/kg (default)
+
+40 ml/kg
+
+Custom (number)
+
+Sugar→Water multiplier (advanced—collapsed by default):
+
+Default: 4 ml water per 1 g sugar
+
+Allow user override (min 0, max 10, step 0.1).
+
+Helper text: “This expresses extra water required for metabolizing sugar; keep 3–6 ml/g if unsure.”
+
+D) Units Helper
+
+Show helper: 1 teaspoon sugar ≈ 4 g.
+
+Provide a quick converter: input “teaspoons” → auto-fill grams (teaspoons × 4) into a custom sugar line (optional, not required).
+
+3) Core Calculations (show in JS comments too)
+A) Total Sugar (g)
+totalSugarGrams = sum over all items (servings × sugarPerServing_g)
+
+B) Daily Water Need (ml)
+dailyWaterNeed_ml = weight_kg × hydrationFactor_mlPerKg (default 35)
+
+C) Extra Water Needed Due to Sugar (ml)
+extraWater_ml = totalSugarGrams × sugarWaterMultiplier_mlPerGram (default 4)
+
+D) Whole Fruit Hydration Modifier (if enabled for a line)
+
+If item is a whole fruit (user checked the “whole fruit” box for that specific line), then reduce that item’s sugar-driven extra water by 50% (due to intrinsic water & fiber aiding satiety/fluid balance).
+
+Implementation:
+
+for each item:
+  itemSugar_g = servings × sugarPerServing_g
+  itemExtraWater_ml = itemSugar_g × multiplier
+  if item.wholeFruitChecked === true:
+      itemExtraWater_ml *= 0.5
+sum to get extraWater_ml
+
+
+This modifier applies only to designated items (not sodas/chocolate/etc. unless the user marks a custom item as whole fruit).
+
+E) Total Water Target for the Day (ml)
+totalWaterTarget_ml = dailyWaterNeed_ml + extraWater_ml
+
+F) Cups Conversion
+
+Use 1 cup = 240 ml.
+
+cupsNeeded = value_ml / 240
+
+
+Round display to 1 decimal.
+
+G) Sugar Guideline Comparison
+
+Compute % of chosen guideline:
+
+guideline_g = based on WHO / AHA / custom and sex
+percentOfGuideline = (totalSugarGrams / guideline_g) × 100
+
+
+If WHO chosen and sex unspecified, show guideline line as:
+
+“WHO guidance: keep free sugars low; a practical target is ≤ 25 g/day for additional benefits.”
+
+In that case, compute % vs 25 g as the “practical target”.
+
+If AHA chosen:
+
+Female: 25 g/day
+
+Male: 36 g/day
+
+Prefer not to say: use 25–36 g range → show both % numbers or show “Select sex for exact AHA limit”.
+
+H) Status Logic
+
+Sugar Status (based on % of guideline):
+
+✅ Within target: ≤ 75%
+
+⚠️ Approaching limit: > 75% to ≤ 100%
+
+❌ Over limit: > 100%
+
+Hydration Status (based on extraWater_ml and completion vs baseline):
+
+If extraWater_ml = 0 → “No extra water needed from sweets.”
+
+Else:
+
+Show “Drink X ml (~Y cups) extra water today.”
+
+4) Output / Results (clear, friendly, actionable)
+
+Results card after clicking Calculate (fade-in):
+
+Total Sugar Consumed: NN g
+
+Guideline Check:
+
+If WHO: “Against WHO practical target 25 g/day → PP% used.”
+
+If AHA: “Against AHA limit (25 g women / 36 g men) → PP% used.”
+
+If Custom: “Against your custom limit LL g/day → PP% used.”
+
+Daily Water Need (baseline): dailyWaterNeed_ml ml (cups cups)
+
+Extra Water Needed from Sweets: extraWater_ml ml (cups cups)
+
+Total Water Target Today: totalWaterTarget_ml ml (cups cups)
+
+Status line (color-coded):
+
+✅ Within sugar target.
+
+⚠️ Close to your sugar limit—consider swapping a soda for water.
+
+❌ Over the sugar limit—prioritize plain water and reduce added sugars.
+
+Tone: supportive, non-judgmental.
+Color coding: green (safe), amber (approaching), red (over).
+Icons: ✅ ⚠️ ❌ 💧
+
+Buttons:
+
+Calculate (primary)
+
+Clear All (secondary; resets everything)
+
+Optional: Copy Result (copies a short summary to clipboard).
+
+5) Validation & UX Details
+
+All number inputs: block negatives; coerce empty to 0.
+
+Weight required; if missing, show small inline error near weight.
+
+If totalSugarGrams = 0 → show:
+
+“You haven’t logged any sweets. No extra water from sugar is needed.”
+
+Tooltips next to presets showing typical sugar values and note: “Actual labels may vary; use custom for exact grams.”
+
+6) Implementation Notes (JS structure)
+
+Use vanilla JS only. No frameworks.
+
+Break logic into functions:
+
+getHydrationFactor()
+
+getGuidelineGrams()
+
+computeTotalSugar()
+
+computeExtraWater()
+
+formatCups(ml) → returns value in cups with 1 decimal.
+
+renderResults(model)
+
+Use toFixed(0) for ml, toFixed(1) for cups, toFixed(0) for percentages.
+
+Add modest animation (CSS transition) for results block.
+
+7) Content Blocks
+
+Under results, show tips:
+
+“💡 Tip: Prioritize plain water; unsweetened beverages also help.”
+
+If “Diabetes/prediabetes” checked:
+“⚠️ Note: For diabetes or prediabetes, individual targets vary. This tool is for general guidance only.”
+
+Footer: small text:
+“This calculator provides general educational guidance and is not medical advice.”
+
+8) Default Values (for presets)
+
+Soda (12 oz can): 39 g
+
+Chocolate bar: 24 g
+
+Donut (glazed): 10 g
+
+Candy (small pack): 17 g
+
+Fruit juice (8 oz): 20 g
+
+Sweetened yogurt (cup): 18 g
+
+(Show these in tooltips; allow editing via Custom for exact labels.)
+
+9) Test Cases (add in comments so QA can verify)
+
+Zero sweets
+
+Weight: 70 kg; all servings 0; WHO.
+
+Expect:
+
+Total sugar: 0 g; % used: 0%
+
+Baseline: 70 × 35 = 2450 ml (~10.2 cups)
+
+Extra water: 0 ml
+
+Total target: 2450 ml
+
+Status: ✅ Within sugar target; “No extra water needed.”
+
+1 soda
+
+Weight: 70 kg; Soda: 1; WHO (25 g target).
+
+Sugar = 39 g; % = 39/25 ×100 ≈ 156% (Over)
+
+Baseline = 2450 ml
+
+Extra water = 39 × 4 = 156 ml (0.7 cups)
+
+Total target = 2606 ml
+
+Status: ❌ Over sugar target; advise water first.
+
+Chocolate 2 + Donut 1; AHA Male
+
+Weight: 80 kg; Choc: 2 (48 g), Donut: 1 (10 g) → 58 g
+
+AHA male = 36 g → % ≈ 161%
+
+Baseline = 80 × 35 = 2800 ml
+
+Extra water = 58 × 4 = 232 ml (1.0 cups)
+
+Total target = 3032 ml
+
+Status: ❌ Over limit.
+
+Custom Whole Fruit
+
+Weight: 60 kg; Custom “Whole fruit bowl”: 30 g sugar, 1 serving, “whole fruit” checked.
+
+Baseline = 60 × 35 = 2100 ml
+
+Extra water (with 50% reduction): 30 × 4 × 0.5 = 60 ml (0.3 cups)
+
+Total target = 2160 ml
+
+If WHO: 30/25=120% → ⚠️/❌ depending on threshold.
+
+User changes multiplier
+
+Case 2 (1 soda), but multiplier set to 5 ml/g: extra water = 39 × 5 = 195 ml.
+
+Pregnant toggle on (label only)
+
+Show note: “Pregnancy/nursing: focus on minimizing free sugars; prioritize water.”
+
+No change in numeric outputs.
+
+10) Performance & Deliverable
+
+No external JS/CSS (except optional Google Fonts).
+
+No console errors.
+
+Fast load (pure HTML/CSS/JS).
+
+Deliver a polished sugar.html ready for Netlify/Vercel.
+
+11) Optional Nice-to-Haves
+
+Small progress bar for % of sugar guideline used.
+
+Collapsible “Advanced settings” for multiplier and custom limit.
+
+“Share result” button → copies a short summary string.
+
+End of Prompt. Build exactly as specified.
