@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Manager - Daily Water Calculator</title>
+    <meta name="description" content="Sitemap management tool for Daily Water Calculator - Generate and validate sitemaps for Google Search Console submission.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="static/css/main.css">
+    
+    <style>
+        .manager-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .status-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-success {
+            background: #f0fdf4;
+            border-color: #16a34a;
+        }
+        
+        .status-warning {
+            background: #fffbeb;
+            border-color: #eab308;
+        }
+        
+        .status-error {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+        
+        .url-list {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .url-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .url-item:last-child {
+            border-bottom: none;
+        }
+        
+        .url-info {
+            flex: 1;
+        }
+        
+        .url-link {
+            font-weight: 500;
+            color: #1e40af;
+            text-decoration: none;
+        }
+        
+        .url-meta {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .priority-high {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .priority-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .priority-low {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #1e40af;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #15803d;
+        }
+        
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .instructions {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .instructions h4 {
+            color: #1e40af;
+            margin-top: 0;
+        }
+        
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .step-number {
+            background: #3b82f6;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title"><a href="index.html" style="text-decoration: none; color: inherit;">💧 Daily Water Calculator</a></h1>
+                <p class="subtitle">Sitemap Manager</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="manager-container">
+            <!-- Current Status -->
+            <div class="status-card status-success">
+                <h3><i class="fas fa-check-circle"></i> Sitemap Status: Ready for Submission</h3>
+                <p>Your sitemap.xml is properly formatted and ready for Google Search Console submission.</p>
+                <div class="action-buttons">
+                    <a href="sitemap.xml" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Sitemap.xml
+                    </a>
+                    <button onclick="validateSitemap()" class="btn btn-secondary">
+                        <i class="fas fa-search"></i>
+                        Validate Sitemap
+                    </button>
+                </div>
+            </div>
+
+            <!-- URL Overview -->
+            <div class="calculator-card">
+                <h3><i class="fas fa-list"></i> URLs in Sitemap (5 total)</h3>
+                <div class="url-list">
+                    <div class="url-item">
+                        <div class="url-info">
+                            <a href="https://waterguide.netlify.app/" class="url-link" target="_blank">
+                                https://waterguide.netlify.app/
+                            </a>
+                            <div class="url-meta">Last Modified: Aug 25, 2025 | Updates: Weekly</div>
+                        </div>
+                        <span class="priority-badge priority-high">Priority 1.0</span>
+                    </div>
+                    
+                    <div class="url-item">
+                        <div class="url-info">
+                            <a href="https://waterguide.netlify.app/drinks.html" class="url-link" target="_blank">
+                                https://waterguide.netlify.app/drinks.html
+                            </a>
+                            <div class="url-meta">Last Modified: Aug 25, 2025 | Updates: Weekly</div>
+                        </div>
+                        <span class="priority-badge priority-high">Priority 0.9</span>
+                    </div>
+                    
+                    <div class="url-item">
+                        <div class="url-info">
+                            <a href="https://waterguide.netlify.app/about.html" class="url-link" target="_blank">
+                                https://waterguide.netlify.app/about.html
+                            </a>
+                            <div class="url-meta">Last Modified: Aug 25, 2025 | Updates: Monthly</div>
+                        </div>
+                        <span class="priority-badge priority-medium">Priority 0.8</span>
+                    </div>
+                    
+                    <div class="url-item">
+                        <div class="url-info">
+                            <a href="https://waterguide.netlify.app/contact.html" class="url-link" target="_blank">
+                                https://waterguide.netlify.app/contact.html
+                            </a>
+                            <div class="url-meta">Last Modified: Aug 25, 2025 | Updates: Monthly</div>
+                        </div>
+                        <span class="priority-badge priority-medium">Priority 0.7</span>
+                    </div>
+                    
+                    <div class="url-item">
+                        <div class="url-info">
+                            <a href="https://waterguide.netlify.app/privacy.html" class="url-link" target="_blank">
+                                https://waterguide.netlify.app/privacy.html
+                            </a>
+                            <div class="url-meta">Last Modified: Aug 25, 2025 | Updates: Monthly</div>
+                        </div>
+                        <span class="priority-badge priority-low">Priority 0.6</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Search Console Instructions -->
+            <div class="instructions">
+                <h4><i class="fas fa-graduation-cap"></i> How to Submit to Google Search Console</h4>
+                <ol class="step-list">
+                    <li>
+                        <span class="step-number">1</span>
+                        <div>
+                            <strong>Go to Google Search Console:</strong><br>
+                            Visit <a href="https://search.google.com/search-console" target="_blank">search.google.com/search-console</a> and log in with your Google account.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">2</span>
+                        <div>
+                            <strong>Select Your Property:</strong><br>
+                            Choose "waterguide.netlify.app" from your properties list (or add it if not already added).
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">3</span>
+                        <div>
+                            <strong>Navigate to Sitemaps:</strong><br>
+                            In the left sidebar, click on "Sitemaps" under the "Indexing" section.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">4</span>
+                        <div>
+                            <strong>Submit Your Sitemap:</strong><br>
+                            Enter <code>sitemap.xml</code> in the "Add a new sitemap" field and click "Submit".
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">5</span>
+                        <div>
+                            <strong>Verify Success:</strong><br>
+                            You should see "Success" status. If you get "Couldn't fetch", wait a few minutes and try again.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="calculator-card">
+                <h3><i class="fas fa-tools"></i> Troubleshooting "Couldn't Fetch" Error</h3>
+                <p>If Google Search Console shows "Couldn't fetch", try these solutions:</p>
+                <ul>
+                    <li><strong>Wait and Retry:</strong> Sometimes it takes a few minutes for the sitemap to be accessible</li>
+                    <li><strong>Check URL:</strong> Ensure your sitemap is accessible at: <a href="https://waterguide.netlify.app/sitemap.xml" target="_blank">https://waterguide.netlify.app/sitemap.xml</a></li>
+                    <li><strong>Clear Cache:</strong> Use Ctrl+F5 to hard refresh and try submitting again</li>
+                    <li><strong>Robots.txt:</strong> Make sure your robots.txt doesn't block the sitemap</li>
+                    <li><strong>XML Validation:</strong> Use the validate button above to check for any XML errors</li>
+                </ul>
+
+                <div class="action-buttons">
+                    <a href="https://search.google.com/search-console" class="btn btn-success" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Google Search Console
+                    </a>
+                    <button onclick="testSitemapUrl()" class="btn btn-secondary">
+                        <i class="fas fa-globe"></i>
+                        Test Sitemap URL
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sitemap Preview -->
+            <div class="calculator-card">
+                <h3><i class="fas fa-code"></i> Sitemap XML Preview</h3>
+                <p>Here's what your sitemap.xml looks like:</p>
+                <div class="code-block" id="sitemapPreview">
+                    Loading sitemap content...
+                </div>
+                <div class="action-buttons">
+                    <button onclick="copySitemap()" class="btn btn-secondary">
+                        <i class="fas fa-copy"></i>
+                        Copy to Clipboard
+                    </button>
+                    <button onclick="downloadSitemap()" class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download Sitemap
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back Navigation -->
+            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; text-align: center;">
+                <a href="index.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Water Calculator
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    💧 Daily Water Calculator - Stay hydrated, stay healthy!
+                </p>
+                <p class="footer-disclaimer">
+                    <a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load and display sitemap content
+        async function loadSitemapPreview() {
+            try {
+                const response = await fetch('sitemap.xml');
+                const xmlText = await response.text();
+                document.getElementById('sitemapPreview').textContent = xmlText;
+            } catch (error) {
+                document.getElementById('sitemapPreview').textContent = 'Error loading sitemap: ' + error.message;
+            }
+        }
+
+        // Validate sitemap format
+        function validateSitemap() {
+            fetch('sitemap.xml')
+                .then(response => response.text())
+                .then(xmlText => {
+                    try {
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+                        
+                        if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                            alert('❌ Sitemap has XML syntax errors!');
+                        } else {
+                            const urls = xmlDoc.getElementsByTagName("url");
+                            alert(`✅ Sitemap is valid! Found ${urls.length} URLs with proper XML format.`);
+                        }
+                    } catch (error) {
+                        alert('❌ Error validating sitemap: ' + error.message);
+                    }
+                })
+                .catch(error => {
+                    alert('❌ Could not fetch sitemap: ' + error.message);
+                });
+        }
+
+        // Test if sitemap URL is accessible
+        function testSitemapUrl() {
+            const sitemapUrl = 'https://waterguide.netlify.app/sitemap.xml';
+            
+            fetch(sitemapUrl, { mode: 'no-cors' })
+                .then(() => {
+                    alert(`✅ Sitemap URL is accessible!\n\nURL: ${sitemapUrl}\n\nYou can now submit this to Google Search Console.`);
+                })
+                .catch(error => {
+                    alert(`❌ Could not access sitemap URL.\n\nThis might be why Google Search Console shows "Couldn't fetch".\n\nError: ${error.message}`);
+                });
+        }
+
+        // Copy sitemap to clipboard
+        async function copySitemap() {
+            try {
+                const response = await fetch('sitemap.xml');
+                const xmlText = await response.text();
+                await navigator.clipboard.writeText(xmlText);
+                alert('✅ Sitemap copied to clipboard!');
+            } catch (error) {
+                alert('❌ Could not copy sitemap: ' + error.message);
+            }
+        }
+
+        // Download sitemap file
+        async function downloadSitemap() {
+            try {
+                const response = await fetch('sitemap.xml');
+                const xmlText = await response.text();
+                
+                const blob = new Blob([xmlText], { type: 'application/xml' });
+                const url = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'sitemap.xml';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                alert('✅ Sitemap downloaded successfully!');
+            } catch (error) {
+                alert('❌ Could not download sitemap: ' + error.message);
+            }
+        }
+
+        // Load preview on page load
+        document.addEventListener('DOMContentLoaded', loadSitemapPreview);
+    </script>
+</body>
+</html>
