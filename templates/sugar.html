@@ -182,6 +182,32 @@
             font-size: 0.875rem;
             margin-top: 0.25rem;
         }
+        
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #92400e;
+        }
+        
+        .tip-box {
+            background: #dcfce7;
+            border: 1px solid #16a34a;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #166534;
+        }
+        
+        .summary-box {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -211,52 +237,84 @@
             <div class="container">
                 <div class="header-content">
                     <h1 class="title">🍬 Sweet Calculator</h1>
-                    <p class="subtitle">Calculate how much extra water you need after sweets</p>
+                    <p class="subtitle">Get personalized hydration advice based on your sugar intake</p>
                 </div>
             </div>
         </header>
         
         <main class="main">
             <div class="grid">
-                <!-- User Details -->
+                <!-- Personal Details -->
                 <div class="card">
-                    <h2>👤 User Details</h2>
+                    <h2>👤 Personal Details</h2>
                     
                     <div class="form-group">
                         <label for="weight">Weight (kg) *</label>
-                        <input type="number" id="weight" min="20" max="250" step="0.1" required aria-describedby="weight-error">
+                        <input type="number" id="weight" min="20" max="250" step="0.1" required>
                         <div id="weight-error" class="error" style="display: none;">Weight is required</div>
                     </div>
                     
                     <div class="form-group">
-                        <label>Sex (for sugar guideline)</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="sex-male" name="sex" value="male">
-                                <label for="sex-male">Male</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="sex-female" name="sex" value="female">
-                                <label for="sex-female">Female</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="sex-prefer" name="sex" value="prefer-not" checked>
-                                <label for="sex-prefer">Prefer not to say</label>
-                            </div>
+                        <label for="age-group">Age Group *</label>
+                        <select id="age-group" required>
+                            <option value="">Select your age group</option>
+                            <option value="child">👶 Child (5-12 years)</option>
+                            <option value="teen">🧒 Teen (13-18 years)</option>
+                            <option value="adult">👩 Adult (19-64 years)</option>
+                            <option value="senior">👴 Senior (65+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activity-level">Activity Level</label>
+                        <select id="activity-level">
+                            <option value="sedentary">💤 Sedentary - Mostly sitting</option>
+                            <option value="moderate" selected>🚶 Moderate - Light exercise</option>
+                            <option value="active">🏃 Active - Regular exercise</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Context & Timing -->
+                <div class="card">
+                    <h2>⏰ Context & Timing</h2>
+                    
+                    <div class="form-group">
+                        <label for="meal-timing">When did you eat most sugar today?</label>
+                        <select id="meal-timing">
+                            <option value="morning">🌅 Morning (before noon)</option>
+                            <option value="afternoon" selected>☀️ Afternoon (noon - 6pm)</option>
+                            <option value="evening">🌙 Evening (after 6pm)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="poor-sleep">
+                            <label for="poor-sleep">😴 Had less than 6 hours sleep last night</label>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Sweet Intake -->
+                <!-- Sugar Intake -->
                 <div class="card">
-                    <h2>🍭 Sugar Intake</h2>
+                    <h2>🍭 Sugar Intake Today</h2>
                     
                     <div class="form-group">
-                        <label for="total-sugar">Total sugar consumed today (grams)</label>
+                        <label for="total-sugar">Total sugar consumed (grams)</label>
                         <input type="number" id="total-sugar" min="0" step="0.1" placeholder="Enter total grams of sugar">
                         <div class="helper">
-                            <strong>💡 Examples:</strong> 1 soda = 39g • 1 chocolate bar = 24g • 1 donut = 10g
+                            <strong>💡 Examples:</strong> 1 soda = 39g • 1 chocolate bar = 24g • 1 donut = 10g • 1 cup juice = 20g
                         </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sugar-type">Type of sugar consumed</label>
+                        <select id="sugar-type">
+                            <option value="mixed" selected>🍫🍎 Mixed (added sugars + some fruit)</option>
+                            <option value="added">🍬 Mostly added sugars (candy, soda, desserts)</option>
+                            <option value="fruit">🍎 Mostly from whole fruits</option>
+                        </select>
                     </div>
                     
                     <div class="helper">
@@ -265,11 +323,12 @@
                             <button type="button" class="btn btn-secondary" onclick="addSugar(39)" style="padding: 0.5rem; font-size: 0.875rem;">🥤 Soda (39g)</button>
                             <button type="button" class="btn btn-secondary" onclick="addSugar(24)" style="padding: 0.5rem; font-size: 0.875rem;">🍫 Chocolate (24g)</button>
                             <button type="button" class="btn btn-secondary" onclick="addSugar(10)" style="padding: 0.5rem; font-size: 0.875rem;">🍩 Donut (10g)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(20)" style="padding: 0.5rem; font-size: 0.875rem;">🧃 Juice (20g)</button>
                         </div>
                     </div>
                     
                     <div class="helper">
-                        <strong>💡 Converter:</strong> 1 teaspoon sugar ≈ 4g
+                        <strong>💡 Converter:</strong> 1 teaspoon sugar = 4g
                         <div class="converter">
                             <input type="number" id="tsp-input" placeholder="Teaspoons" min="0" step="0.25">
                             <span>→</span>
@@ -281,7 +340,7 @@
                 <!-- Calculate Button -->
                 <div class="card">
                     <div class="button-group">
-                        <button type="button" class="btn btn-primary" onclick="calculate()">💧 Calculate Water Needs</button>
+                        <button type="button" class="btn btn-primary" onclick="calculate()">💧 Get My Hydration Plan</button>
                         <button type="button" class="btn btn-secondary" onclick="clearAll()">🔄 Reset</button>
                     </div>
                 </div>
@@ -289,8 +348,11 @@
             
             <!-- Results -->
             <div class="results" id="results">
-                <h3>💧 Your Hydration Plan</h3>
+                <h3>💧 Your Personalized Hydration Plan</h3>
                 <div id="results-content"></div>
+                <div id="age-advice"></div>
+                <div id="energy-warning"></div>
+                <div id="daily-summary"></div>
             </div>
         </main>
     </div>
@@ -328,55 +390,196 @@
             }
         });
 
+        function getAgeGuidelines(ageGroup) {
+            const guidelines = {
+                child: { max: 25, name: "children" },
+                teen: { max: 30, name: "teens" },
+                adult: { max: 25, name: "adults" },
+                senior: { max: 20, name: "seniors" }
+            };
+            return guidelines[ageGroup] || guidelines.adult;
+        }
+
+        function getActivityMultiplier(activityLevel) {
+            const multipliers = {
+                sedentary: 1.0,
+                moderate: 1.1,
+                active: 1.3
+            };
+            return multipliers[activityLevel] || 1.1;
+        }
+
+        function getSugarTypeMultiplier(sugarType) {
+            const multipliers = {
+                added: 1.2,    // Added sugars need more water
+                mixed: 1.0,    // Mixed is baseline
+                fruit: 0.7     // Whole fruits provide some hydration
+            };
+            return multipliers[sugarType] || 1.0;
+        }
+
         function calculate() {
             const weight = parseFloat(document.getElementById('weight').value);
+            const ageGroup = document.getElementById('age-group').value;
+            const activityLevel = document.getElementById('activity-level').value;
+            const mealTiming = document.getElementById('meal-timing').value;
+            const poorSleep = document.getElementById('poor-sleep').checked;
             const sugar = parseFloat(document.getElementById('total-sugar').value) || 0;
+            const sugarType = document.getElementById('sugar-type').value;
             
-            if (!weight || weight < 20) {
-                alert('Please enter a valid weight');
+            if (!weight || weight < 20 || !ageGroup) {
+                alert('Please enter valid weight and age group');
                 return;
             }
             
-            // Basic calculation: 35ml per kg + 4ml per gram of sugar
-            const baseWater = weight * 35;
-            const extraWater = sugar * 4;
+            // Get age-specific guidelines
+            const ageInfo = getAgeGuidelines(ageGroup);
+            
+            // Base water calculation: 35ml per kg
+            let baseWater = weight * 35;
+            
+            // Activity multiplier
+            const activityMultiplier = getActivityMultiplier(activityLevel);
+            baseWater *= activityMultiplier;
+            
+            // Sugar type multiplier
+            const sugarMultiplier = getSugarTypeMultiplier(sugarType);
+            
+            // Extra water for sugar: 4ml per gram, adjusted for type
+            let extraWater = sugar * 4 * sugarMultiplier;
+            
+            // Timing adjustment - evening sugar needs more water
+            if (mealTiming === 'evening') {
+                extraWater *= 1.2;
+            }
+            
+            // Poor sleep adjustment
+            if (poorSleep) {
+                extraWater *= 1.15;
+                baseWater *= 1.05;
+            }
+            
             const totalWater = baseWater + extraWater;
+            const glasses = totalWater / 250; // 250ml glasses
+            const cups = totalWater / 237; // US cups
             
-            const resultsDiv = document.getElementById('results');
+            // Generate results
+            displayResults(weight, ageGroup, ageInfo, sugar, totalWater, extraWater, glasses, cups, activityLevel, mealTiming, poorSleep, sugarType);
+        }
+
+        function displayResults(weight, ageGroup, ageInfo, sugar, totalWater, extraWater, glasses, cups, activityLevel, mealTiming, poorSleep, sugarType) {
+            // Main results
             const contentDiv = document.getElementById('results-content');
-            
             contentDiv.innerHTML = `
                 <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                     <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: #0ea5e9;">${totalWater.toFixed(0)}ml</div>
-                        <div style="color: #64748b;">Total Water Needed</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #0ea5e9;">${Math.round(totalWater)}ml</div>
+                        <div style="color: #64748b;">Total Water Target</div>
+                        <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">That's about ${Math.round(glasses)} glasses</div>
                     </div>
                     <div style="background: #fef3c7; padding: 1rem; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: #d97706;">${extraWater.toFixed(0)}ml</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #d97706;">+${Math.round(extraWater)}ml</div>
                         <div style="color: #64748b;">Extra for Sugar</div>
+                        <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">About ${(extraWater/250).toFixed(1)} extra glasses</div>
                     </div>
                     <div style="background: #dcfce7; padding: 1rem; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 2rem; font-weight: bold; color: #16a34a;">${(totalWater/250).toFixed(1)}</div>
-                        <div style="color: #64748b;">Glasses (250ml)</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #16a34a;">${sugar.toFixed(1)}g</div>
+                        <div style="color: #64748b;">Sugar Consumed</div>
+                        <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">≈ ${(sugar/4).toFixed(1)} teaspoons</div>
                     </div>
-                </div>
-                
-                <div style="margin-top: 1rem; padding: 1rem; background: #f1f5f9; border-radius: 8px;">
-                    <h4>💡 Tips:</h4>
-                    <ul style="margin: 0.5rem 0;">
-                        <li>Spread water intake throughout the day</li>
-                        <li>Start with water when you wake up</li>
-                        <li>Consider reducing sugar intake for better health</li>
-                    </ul>
                 </div>
             `;
             
-            resultsDiv.classList.add('show');
+            // Age-specific advice
+            const ageAdviceDiv = document.getElementById('age-advice');
+            const sugarStatus = sugar > ageInfo.max ? "above" : sugar > ageInfo.max * 0.8 ? "near" : "within";
+            const statusColor = sugarStatus === "above" ? "#dc2626" : sugarStatus === "near" ? "#d97706" : "#16a34a";
+            
+            ageAdviceDiv.innerHTML = `
+                <div class="tip-box" style="border-color: ${statusColor}; color: ${statusColor === "#16a34a" ? "#166534" : statusColor === "#d97706" ? "#92400e" : "#991b1b"};">
+                    <h4 style="margin-bottom: 0.5rem;">📊 Age-Specific Guidance</h4>
+                    <p><strong>Recommended for ${ageInfo.name}:</strong> Less than ${ageInfo.max}g sugar daily</p>
+                    <p><strong>Your intake:</strong> ${sugar.toFixed(1)}g (${sugarStatus} recommended limit)</p>
+                    ${ageGroup === 'senior' ? '<p><em>💡 Seniors may need extra water for optimal kidney function.</em></p>' : ''}
+                    ${ageGroup === 'child' ? '<p><em>💡 Kids are more sensitive to sugar spikes - balance with protein and water.</em></p>' : ''}
+                </div>
+            `;
+            
+            // Energy & mood warning
+            const energyDiv = document.getElementById('energy-warning');
+            let energyWarning = '';
+            
+            if (sugar > 30) {
+                energyWarning = `
+                    <div class="warning-box">
+                        <h4 style="margin-bottom: 0.5rem;">⚡ Energy & Mood Alert</h4>
+                        <p>High sugar intake (${sugar.toFixed(1)}g) can cause:</p>
+                        <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                            <li>Energy spike followed by a crash</li>
+                            <li>Mood swings and irritability</li>
+                            <li>Increased thirst and dehydration</li>
+                        </ul>
+                        <p><strong>💡 Balance with:</strong> Protein, fiber, and extra water throughout the day.</p>
+                        ${poorSleep ? '<p><em>Poor sleep + high sugar can worsen fatigue - prioritize hydration!</em></p>' : ''}
+                    </div>
+                `;
+            } else if (sugar > 15) {
+                energyWarning = `
+                    <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem; margin: 1rem 0; color: #92400e;">
+                        <h4 style="margin-bottom: 0.5rem;">⚡ Energy Note</h4>
+                        <p>Moderate sugar intake may give you a quick energy boost. Stay hydrated to maintain steady energy levels.</p>
+                    </div>
+                `;
+            }
+            
+            // Add activity boost message
+            if (activityLevel === 'active') {
+                energyWarning += `
+                    <div class="tip-box">
+                        <h4 style="margin-bottom: 0.5rem;">🏋️ Activity Boost</h4>
+                        <p>Since you're active, your body processes sugar faster and needs more water. Added an extra 30% to your target!</p>
+                    </div>
+                `;
+            }
+            
+            energyDiv.innerHTML = energyWarning;
+            
+            // Daily summary
+            const summaryDiv = document.getElementById('daily-summary');
+            const timingAdvice = mealTiming === 'evening' ? 
+                'Evening sugar can affect sleep - try to finish sweet treats 3+ hours before bed.' : 
+                mealTiming === 'morning' ? 
+                'Good timing! Morning sugar gives you energy for the day ahead.' :
+                'Afternoon treats are fine - just stay hydrated for the rest of the day.';
+                
+            const changeAdvice = sugar > ageInfo.max ? 
+                `Small change: Replace one sugary drink with sparkling water = save ~10 teaspoons (40g) sugar!` :
+                'You\'re doing great with sugar intake! Keep it balanced with plenty of water.';
+            
+            summaryDiv.innerHTML = `
+                <div class="summary-box">
+                    <h4 style="margin-bottom: 1rem; color: #0ea5e9;">📝 Your Daily Summary</h4>
+                    <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <p><strong>Today:</strong> ${sugar.toFixed(1)}g sugar (≈${(sugar/4).toFixed(1)} teaspoons) → <strong>Target: ${Math.round(glasses)} glasses water</strong></p>
+                        <p style="margin-top: 0.5rem;"><strong>Timing:</strong> ${timingAdvice}</p>
+                    </div>
+                    <div style="background: #e0f2fe; padding: 1rem; border-radius: 8px;">
+                        <p style="margin: 0;"><strong>💡 ${changeAdvice}</strong></p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('results').classList.add('show');
         }
 
         function clearAll() {
             document.getElementById('weight').value = '';
+            document.getElementById('age-group').value = '';
+            document.getElementById('activity-level').value = 'moderate';
+            document.getElementById('meal-timing').value = 'afternoon';
+            document.getElementById('poor-sleep').checked = false;
             document.getElementById('total-sugar').value = '';
+            document.getElementById('sugar-type').value = 'mixed';
             document.getElementById('tsp-input').value = '';
             document.getElementById('grams-output').value = '';
             document.getElementById('results').classList.remove('show');
