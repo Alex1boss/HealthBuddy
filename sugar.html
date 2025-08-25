@@ -477,7 +477,7 @@
                         <label for="total-sugar">Total sugar consumed today (grams)</label>
                         <input type="number" id="total-sugar" min="0" step="0.1" placeholder="Enter total grams of sugar">
                         <div class="helper" style="margin-top: 0.5rem;">
-                            <strong>💡 Common examples:</strong> 1 soda (39g) • 1 chocolate bar (24g) • 1 donut (10g) • 1 candy pack (17g) • 1 cup juice (20g) • 1 yogurt cup (18g)
+                            <strong>💡 Common examples:</strong> 1 soda = 39g (≈10 tsp) • 1 chocolate bar = 24g (≈6 tsp) • 1 donut = 10g (≈2.5 tsp) • 1 candy pack = 17g (≈4 tsp) • 1 cup juice = 20g (≈5 tsp) • 1 yogurt cup = 18g (≈4.5 tsp)
                         </div>
                     </div>
                     
@@ -485,20 +485,22 @@
                     <div class="form-group">
                         <div class="checkbox-item">
                             <input type="checkbox" id="whole-fruit">
-                            <label for="whole-fruit">Most of this sugar is from whole fruits (reduces extra water needed by 50%)</label>
+                            <label for="whole-fruit">🍎 Most sugar is from whole fruits (apples, oranges, etc. - gives hydration credit!)</label>
                         </div>
                     </div>
                     
                     <!-- Quick Calculator Helper -->
                     <div class="helper">
-                        <strong>🧮 Quick Calculator:</strong>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
-                            <button type="button" class="btn btn-secondary" onclick="addSugar(39)" style="padding: 0.5rem; font-size: 0.875rem;">+ Soda (39g)</button>
-                            <button type="button" class="btn btn-secondary" onclick="addSugar(24)" style="padding: 0.5rem; font-size: 0.875rem;">+ Chocolate (24g)</button>
-                            <button type="button" class="btn btn-secondary" onclick="addSugar(10)" style="padding: 0.5rem; font-size: 0.875rem;">+ Donut (10g)</button>
-                            <button type="button" class="btn btn-secondary" onclick="addSugar(17)" style="padding: 0.5rem; font-size: 0.875rem;">+ Candy (17g)</button>
-                            <button type="button" class="btn btn-secondary" onclick="addSugar(20)" style="padding: 0.5rem; font-size: 0.875rem;">+ Juice (20g)</button>
-                            <button type="button" class="btn btn-secondary" onclick="addSugar(18)" style="padding: 0.5rem; font-size: 0.875rem;">+ Yogurt (18g)</button>
+                        <strong>🧮 Quick Add:</strong>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(39)" style="padding: 0.5rem; font-size: 0.875rem;">🥤 Soda (10 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(24)" style="padding: 0.5rem; font-size: 0.875rem;">🍫 Chocolate (6 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(10)" style="padding: 0.5rem; font-size: 0.875rem;">🍩 Donut (2.5 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(17)" style="padding: 0.5rem; font-size: 0.875rem;">🍭 Candy (4 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(20)" style="padding: 0.5rem; font-size: 0.875rem;">🧃 Juice (5 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(18)" style="padding: 0.5rem; font-size: 0.875rem;">🥛 Yogurt (4.5 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(21)" style="padding: 0.5rem; font-size: 0.875rem;">🍦 Ice Cream (5 tsp)</button>
+                            <button type="button" class="btn btn-secondary" onclick="addSugar(12)" style="padding: 0.5rem; font-size: 0.875rem;">🥣 Cereal (3 tsp)</button>
                         </div>
                     </div>
                     
@@ -518,11 +520,12 @@
                     <h2>📋 Guidelines & Settings</h2>
                     
                     <div class="form-group">
-                        <label for="guideline">Sugar guideline source</label>
+                        <label for="guideline">Health guideline to follow</label>
                         <select id="guideline">
-                            <option value="who">WHO (Free sugars): &lt;10% of energy; practical target 25 g/day</option>
-                            <option value="aha">AHA (Added sugars): 25 g/day (women), 36 g/day (men)</option>
-                            <option value="custom">Custom daily limit</option>
+                            <option value="who">WHO Global (25g/day) - Strictest health standard</option>
+                            <option value="aha">American Heart Assoc. - 25g women, 36g men</option>
+                            <option value="icmr">ICMR India (30g/day) - Local guidelines</option>
+                            <option value="custom">Set my own limit</option>
                         </select>
                     </div>
                     
@@ -657,6 +660,13 @@
         function getGuidelineGrams() {
             const guideline = document.getElementById('guideline').value;
             const sex = document.querySelector('input[name="sex"]:checked').value;
+            const pregnant = document.getElementById('pregnant').checked;
+            const diabetes = document.getElementById('diabetes').checked;
+            
+            // Adjust for health conditions
+            if (pregnant || diabetes) {
+                return 15; // Stricter limit for special conditions
+            }
             
             if (guideline === 'who') {
                 return 25; // WHO practical target
@@ -664,6 +674,8 @@
                 if (sex === 'female') return 25;
                 if (sex === 'male') return 36;
                 return 25; // Default to lower limit for "prefer not to say"
+            } else if (guideline === 'icmr') {
+                return 30; // ICMR India guidelines
             } else if (guideline === 'custom') {
                 return parseFloat(document.getElementById('custom-limit').value) || 25;
             }
@@ -672,13 +684,20 @@
         
         function computeTotalSugar() {
             const totalSugar = parseFloat(document.getElementById('total-sugar').value) || 0;
-            const multiplier = parseFloat(document.getElementById('sugar-multiplier').value) || 4;
+            let multiplier = parseFloat(document.getElementById('sugar-multiplier').value) || 4;
+            
+            // Adjust multiplier based on health conditions
+            const diabetes = document.getElementById('diabetes').checked;
+            if (diabetes) {
+                multiplier *= 1.5; // Diabetes requires more hydration for sugar processing
+            }
             
             let extraWater = totalSugar * multiplier;
             
-            // Check whole fruit modifier
+            // Check whole fruit modifier - fruits provide natural hydration
             if (document.getElementById('whole-fruit').checked) {
-                extraWater *= 0.5; // 50% reduction for whole fruit
+                const fruitHydrationCredit = totalSugar * 2; // Each gram of fruit sugar provides 2ml hydration credit
+                extraWater = Math.max(0, extraWater - fruitHydrationCredit);
             }
             
             return { totalSugar, extraWater };
@@ -728,87 +747,140 @@
             // Show results section
             resultsDiv.classList.add('show');
             
-            // Generate content
+            // Generate human-friendly content
+            const teaspoons = (data.totalSugar / 4).toFixed(1);
+            const baselineCups = formatCups(data.dailyWaterNeed);
+            const extraCups = formatCups(data.extraWater);
+            const totalCups = formatCups(data.totalWaterTarget);
+            
             let content = '';
             
             if (data.totalSugar === 0) {
                 content = `
-                    <div class="result-item">
-                        <span class="result-label">Total Sugar Consumed:</span>
-                        <span class="result-value">0 g</span>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h4 style="color: #10b981; margin-bottom: 0.5rem;">🎉 Great job! No sugar today</h4>
+                        <p style="font-size: 1.1rem; color: #374151;">Your body just needs its normal water intake.</p>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Daily Water Need (baseline):</span>
-                        <span class="result-value">${data.dailyWaterNeed.toFixed(0)} ml (~${formatCups(data.dailyWaterNeed)} cups)</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Extra Water from Sweets:</span>
-                        <span class="result-value">0 ml (0.0 cups)</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Total Water Target Today:</span>
-                        <span class="result-value">${data.totalWaterTarget.toFixed(0)} ml (~${formatCups(data.totalWaterTarget)} cups)</span>
+                        <span class="result-label">💧 Your water goal today:</span>
+                        <span class="result-value">${baselineCups} cups</span>
                     </div>
                 `;
             } else {
                 content = `
-                    <div class="result-item">
-                        <span class="result-label">Total Sugar Consumed:</span>
-                        <span class="result-value">${data.totalSugar.toFixed(0)} g</span>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h4 style="color: #0ea5e9; margin-bottom: 0.5rem;">🍬 Sugar Check</h4>
+                        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">
+                            <strong>You had: ${data.totalSugar.toFixed(0)}g sugar</strong> (≈ ${teaspoons} teaspoons)
+                        </p>
+                        <p style="font-size: 1rem; color: #6b7280;">
+                            That's ${data.percentOfGuideline.toFixed(0)}% of your safe daily limit.
+                        </p>
                     </div>
-                    <div class="result-item">
-                        <span class="result-label">Guideline Check:</span>
-                        <span class="result-value">${data.percentOfGuideline.toFixed(0)}% of ${data.guidelineGrams}g limit</span>
-                    </div>
-                    <div class="progress-container">
+                    
+                    <div class="progress-container" style="margin-bottom: 1.5rem;">
                         <div class="progress-bar" style="width: ${Math.min(data.percentOfGuideline, 100)}%"></div>
                     </div>
-                    <div class="result-item">
-                        <span class="result-label">Daily Water Need (baseline):</span>
-                        <span class="result-value">${data.dailyWaterNeed.toFixed(0)} ml (~${formatCups(data.dailyWaterNeed)} cups)</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Extra Water from Sweets:</span>
-                        <span class="result-value">${data.extraWater.toFixed(0)} ml (~${formatCups(data.extraWater)} cups)</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Total Water Target Today:</span>
-                        <span class="result-value">${data.totalWaterTarget.toFixed(0)} ml (~${formatCups(data.totalWaterTarget)} cups)</span>
+                    
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h4 style="color: #0ea5e9; margin-bottom: 0.5rem;">💧 Water Plan</h4>
+                        <div class="result-item" style="justify-content: center; border: none; padding: 0.25rem 0;">
+                            <span style="color: #6b7280;">Your body needs:</span>
+                            <span style="font-weight: 600; margin-left: 0.5rem;">${baselineCups} cups water</span>
+                        </div>
+                        <div class="result-item" style="justify-content: center; border: none; padding: 0.25rem 0;">
+                            <span style="color: #6b7280;">Extra for sugar:</span>
+                            <span style="font-weight: 600; margin-left: 0.5rem;">+${extraCups} cups</span>
+                        </div>
+                        <div style="background: #eff6ff; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                            <div style="font-size: 1.2rem; font-weight: 700; color: #1e40af;">
+                                👉 Total today: ${totalCups} cups water
+                            </div>
+                        </div>
                     </div>
                 `;
             }
             
             contentDiv.innerHTML = content;
             
-            // Generate status
-            let statusClass, statusText;
-            if (data.percentOfGuideline <= 75) {
+            // Generate human-friendly status and tips
+            let statusClass, statusText, tip;
+            const pregnant = document.getElementById('pregnant').checked;
+            const diabetes = document.getElementById('diabetes').checked;
+            
+            if (data.totalSugar === 0) {
                 statusClass = 'safe';
-                statusText = '✅ Within sugar target. Great job staying hydrated!';
+                statusText = '🌟 Perfect! No added sugar means no extra water stress on your body.';
+                tip = 'Keep this up! Your organs will thank you.';
+            } else if (data.percentOfGuideline <= 50) {
+                statusClass = 'safe';
+                statusText = '✅ You\'re doing great! Well within healthy limits.';
+                tip = 'This level of sugar is totally manageable for your body.';
+            } else if (data.percentOfGuideline <= 75) {
+                statusClass = 'safe';
+                statusText = '👍 Good balance! You\'re staying in the safe zone.';
+                tip = 'Maybe skip that evening dessert to keep things perfect.';
             } else if (data.percentOfGuideline <= 100) {
                 statusClass = 'warning';
-                statusText = '⚠️ Close to your sugar limit—consider swapping a soda for water.';
+                statusText = '⚠️ Getting close to your limit. Time to slow down on sweets.';
+                tip = 'Swap your next sugary drink for water or unsweetened tea.';
+            } else if (data.percentOfGuideline <= 150) {
+                statusClass = 'danger';
+                statusText = '🚨 Over your healthy limit! Your body is working overtime.';
+                tip = 'Tomorrow, try to have just 1 sweet treat instead of several.';
             } else {
                 statusClass = 'danger';
-                statusText = '❌ Over the sugar limit—prioritize plain water and reduce added sugars.';
+                statusText = '💥 Way over limit! This much sugar is really stressing your system.';
+                tip = 'Consider a "sugar reset" tomorrow - fruits only for sweetness.';
             }
             
-            if (data.extraWater === 0) {
-                statusText = '✅ No extra water needed from sweets. Keep up the healthy choices!';
-                statusClass = 'safe';
+            // Special health condition messages
+            if (pregnant) {
+                tip += ' 🤱 During pregnancy, keeping sugar low helps both you and baby.';
+            }
+            if (diabetes) {
+                tip += ' 🩺 With diabetes, every gram of sugar matters - great job tracking!';
             }
             
-            statusDiv.innerHTML = `<div class="status ${statusClass}">${statusText}</div>`;
+            statusDiv.innerHTML = `
+                <div class="status ${statusClass}" style="margin-bottom: 1rem;">
+                    ${statusText}
+                </div>
+                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 1rem; border-radius: 0 8px 8px 0;">
+                    <strong>💡 Your coach says:</strong> ${tip}
+                </div>
+            `;
             
-            // Generate tips
-            let tips = '<div class="tip-item">💡 <span>Tip: Prioritize plain water; unsweetened beverages also help.</span></div>';
+            // Generate educational tips with real examples
+            let tips = '';
+            const wholeFruit = document.getElementById('whole-fruit').checked;
             
+            // Basic hydration tip
+            tips += '<div class="tip-item">💧 <span><strong>Hydration hack:</strong> Drink a glass of water before each meal - it helps your body process everything better.</span></div>';
+            
+            // Sugar comparison tip
+            if (data.totalSugar > 20) {
+                const sodaEquivalent = (data.totalSugar / 39).toFixed(1);
+                tips += `<div class="tip-item">🥤 <span><strong>Reality check:</strong> ${data.totalSugar}g sugar = about ${sodaEquivalent} cans of soda worth of sugar!</span></div>`;
+            }
+            
+            // Fruit tip
+            if (wholeFruit) {
+                tips += '<div class="tip-item">🍎 <span><strong>Smart choice:</strong> Whole fruits give you hydration credit because they come with water and fiber built-in.</span></div>';
+            }
+            
+            // Teeth health tip
+            if (data.totalSugar > 15) {
+                tips += '<div class="tip-item">🦷 <span><strong>Teeth tip:</strong> Rinse with water after sweets to wash away sugar before bacteria can feast.</span></div>';
+            }
+            
+            // Special conditions
             if (document.getElementById('diabetes').checked) {
-                tips += '<div class="tip-item">⚠️ <span>Note: For diabetes or prediabetes, individual targets vary. This tool is for general guidance only.</span></div>';
+                tips += '<div class="tip-item">🩺 <span><strong>Diabetes note:</strong> Your body needs more water to process sugar safely. This calculator accounts for that.</span></div>';
             }
             
             if (document.getElementById('pregnant').checked) {
-                tips += '<div class="tip-item">🤱 <span>Pregnancy/nursing: focus on minimizing free sugars; prioritize water.</span></div>';
+                tips += '<div class="tip-item">🤱 <span><strong>Pregnancy focus:</strong> Lower sugar helps prevent gestational diabetes and keeps energy stable.</span></div>';
             }
             
             tipsDiv.innerHTML = tips;
@@ -842,16 +914,27 @@
         }
         
         function copyResult() {
-            const totalSugar = document.querySelector('.result-value').textContent;
-            const waterTarget = document.querySelectorAll('.result-value')[document.querySelectorAll('.result-value').length - 1].textContent;
-            const status = document.querySelector('.status').textContent;
+            const totalSugar = parseFloat(document.getElementById('total-sugar').value) || 0;
+            const teaspoons = (totalSugar / 4).toFixed(1);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const { extraWater } = computeTotalSugar();
+            const dailyWaterNeed = weight * getHydrationFactor();
+            const totalWaterTarget = dailyWaterNeed + extraWater;
             
-            const summary = `🍬 Sweet Intake Analysis:\nSugar consumed: ${totalSugar}\nWater target: ${waterTarget}\nStatus: ${status}\n\nGenerated by Sweet Intake → Water Needs Calculator`;
+            const summary = `🍬 My Sugar & Water Plan Today:
+            
+Sugar consumed: ${totalSugar}g (≈${teaspoons} teaspoons)
+Water goal: ${formatCups(totalWaterTarget)} cups total
+Extra for sugar: +${formatCups(extraWater)} cups
+
+💡 Quick tip: ${totalSugar > 25 ? 'Try swapping one sweet for water tomorrow!' : 'Great job staying within healthy limits!'}
+
+Track your hydration at waterguide.netlify.app`;
             
             navigator.clipboard.writeText(summary).then(() => {
                 const btn = document.getElementById('copy-btn');
                 const originalText = btn.textContent;
-                btn.textContent = 'Copied!';
+                btn.textContent = 'Copied! 📋';
                 setTimeout(() => {
                     btn.textContent = originalText;
                 }, 2000);
