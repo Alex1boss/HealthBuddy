@@ -60,6 +60,13 @@ The application is designed as a lightweight, self-contained health calculator w
 
 ## Recent Changes
 
+### Caffeine & Hydration Article Added (August 25, 2025)
+- **Created comprehensive article** "Do Coffee, Tea, and Soda Really Count as Water? The Truth About Hydration and Caffeine" (1,700+ words)
+- **Added featured article section** to drinks calculator page with eye-catching design and coffee/tea theme
+- **Integrated 5 Google ad spaces** throughout the article for optimal AdSense monetization
+- **Science-backed content** debunking caffeine myths and providing practical hydration advice
+- **Internal linking** to drinks and sugar calculators for improved user engagement
+
 ### Footer Consistency Fix (August 25, 2025)
 - **Fixed inconsistent footer styling** across all pages (index.html, drinks.html, sugar.html, privacy.html)
 - **Standardized dark footer theme** - Dark background (#1e293b), white text, blue links (#0ea5e9)
