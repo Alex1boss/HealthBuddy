@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Sugar Affects Your Hydration - And How Much Water You Need After Sweets</title>
+    <meta name="description" content="Discover how sugar impacts your body's hydration needs. Learn why you feel thirsty after sweets, how much extra water to drink, and science-backed strategies to stay hydrated when consuming sugar.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="How Sugar Affects Your Hydration - And How Much Water You Need After Sweets">
+    <meta property="og:description" content="Discover how sugar impacts your body's hydration needs. Learn why you feel thirsty after sweets, how much extra water to drink, and science-backed strategies to stay hydrated when consuming sugar.">
+    <meta property="og:image" content="https://your-domain.com/static/images/sugar-hydration-og.jpg">
+    <meta property="og:url" content="https://your-domain.com/sugar-hydration-guide.html">
+    <meta property="og:type" content="article">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Sugar Affects Your Hydration">
+    <meta name="twitter:description" content="Learn why you feel thirsty after eating sweets and how much extra water you really need.">
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://your-domain.com/sugar-hydration-guide.html">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background: #f8fafc;
+            margin-left: 250px;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .nav-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            flex-direction: column;
+            width: 40px;
+            height: 40px;
+        }
+
+        .hamburger {
+            width: 20px;
+            height: 2px;
+            background: white;
+            margin: 2px 0;
+            border-radius: 2px;
+        }
+
+        .nav-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 1rem;
+        }
+
+        .nav-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-close {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0.5rem 0;
+        }
+
+        .nav-link {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Article Container */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .article-header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .article-content {
+            padding: 3rem 2rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            color: #1a365d;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .article-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        /* Interactive Elements */
+        .sugar-tip {
+            background: linear-gradient(135deg, #fef7f7 0%, #fef2f2 100%);
+            border-left: 4px solid #FF1493;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(255, 20, 147, 0.1);
+        }
+
+        .sugar-tip h3 {
+            color: #FF1493;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .sugar-tip h3::before {
+            content: "🍬";
+            margin-right: 0.5rem;
+        }
+
+        .science-fact {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .science-fact::before {
+            content: "🔬";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .science-fact h3 {
+            color: #0ea5e9;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .science-fact p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Internal Links */
+        .internal-link {
+            color: #FF1493;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .internal-link:hover {
+            border-bottom-color: #FF1493;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fef5e7;
+            border: 1px solid #f6ad55;
+            padding: 1.5rem;
+            margin: 3rem 0 0 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #744210;
+        }
+
+        .disclaimer strong {
+            color: #c05621;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                margin-left: 0;
+                padding: 0.5rem;
+            }
+            
+            .nav-toggle {
+                display: flex;
+            }
+            
+            .nav-close {
+                display: block;
+            }
+
+            .side-nav {
+                transform: translateX(-100%);
+            }
+
+            .side-nav.show {
+                transform: translateX(0);
+            }
+
+            .article-header {
+                padding: 2rem 1rem;
+            }
+
+            .article-header h1 {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 2rem 1rem;
+            }
+
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <h3>💧 Calculators</h3>
+            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
+            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+            <li><a href="sugar-hydration-guide.html" class="nav-link active">🍬 Sugar Guide</a></li>
+        </ul>
+    </nav>
+
+    <div class="article-container">
+        <div class="article-header">
+            <h1>How Sugar Affects Your Hydration</h1>
+            <p class="subtitle">And how much water you really need after eating sweets</p>
+        </div>
+
+        <div class="article-content">
+            <p>You've just polished off a slice of birthday cake, and suddenly you're reaching for a glass of water. Or maybe you've noticed that after a few cookies, your mouth feels dry and you're craving something to drink. If this sounds familiar, you've experienced firsthand how sugar affects your body's hydration balance.</p>
+
+            <p>This isn't just in your head—there's real science behind why sweet treats make you thirsty. Understanding this connection can help you stay properly hydrated, feel better after indulging, and make smarter choices about when and how much water to drink with sugary foods.</p>
+
+            <!-- Google Ad Unit 1 - After Introduction -->
+            <div class="ad-container" style="text-align: center; margin: 2rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="1111111112"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>Why Sugar Makes You Thirsty: The Science Behind Sweet Cravings</h2>
+
+            <p>When you eat something sugary, your body goes into overdrive to process the sudden influx of glucose. Here's what happens inside your body that creates that "I need water NOW" feeling:</p>
+
+            <p><strong>Blood Sugar Spike:</strong> Sugar enters your bloodstream rapidly, causing your blood glucose levels to rise quickly. Your blood literally becomes thicker and more concentrated with sugar molecules.</p>
+
+            <p><strong>Osmotic Response:</strong> Your body recognizes this concentration change and tries to balance it out. To dilute the excess sugar in your blood, your cells release water into your bloodstream. This is why you might feel suddenly thirsty—your body is literally calling for more water to restore balance.</p>
+
+            <p><strong>Kidney Overtime:</strong> Your kidneys work harder to filter out the excess sugar, using additional water in the process. This is why people with diabetes (who have chronically high blood sugar) often experience excessive thirst and urination.</p>
+
+            <div class="science-fact">
+                <h3>Fascinating Fact</h3>
+                <p>Your body needs about 4 molecules of water to properly process and metabolize just 1 molecule of glucose. That's why even moderate amounts of sugar can significantly increase your hydration needs!</p>
+            </div>
+
+            <p><strong>Insulin Response:</strong> Your pancreas releases insulin to help cells absorb the sugar. This process also requires water and can leave you feeling dehydrated if you don't compensate with additional fluids.</p>
+
+            <!-- Google Ad Unit 2 - Between Sections -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="2222222223"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>How Much Extra Water Do You Actually Need?</h2>
+
+            <p>The amount of extra water you need after consuming sugar depends on several factors: how much sugar you ate, your body weight, your current hydration status, and your overall health. Here's a practical guide to help you calculate your needs:</p>
+
+            <div class="sugar-tip">
+                <h3>The Sugar-to-Water Formula</h3>
+                <p>For every 10 grams of added sugar you consume, aim to drink an additional 3-4 ounces of water. <a href="sugar.html" class="internal-link">Use our sugar calculator to track exactly how much sugar you're consuming</a> and calculate your extra water needs!</p>
+            </div>
+
+            <p><strong>Here are some common scenarios:</strong></p>
+
+            <ul>
+                <li><strong>One can of soda (39g sugar):</strong> Drink an extra 12-16 ounces of water</li>
+                <li><strong>Slice of cake (25g sugar):</strong> Drink an extra 8-10 ounces of water</li>
+                <li><strong>Candy bar (20g sugar):</strong> Drink an extra 6-8 ounces of water</li>
+                <li><strong>Large smoothie (45g sugar):</strong> Drink an extra 14-18 ounces of water</li>
+                <li><strong>Ice cream scoop (15g sugar):</strong> Drink an extra 5-6 ounces of water</li>
+            </ul>
+
+            <p>Keep in mind that this is <em>in addition to</em> your regular daily water intake. If you normally need 64 ounces of water per day and you have a soda, you should aim for about 76-80 ounces that day.</p>
+
+            <h2>The Hidden Sugar in "Healthy" Foods</h2>
+
+            <p>Many foods that seem healthy can actually contain significant amounts of hidden sugar that affect your hydration needs. Being aware of these can help you stay properly hydrated throughout the day:</p>
+
+            <p><strong>Fruit Juices:</strong> Even 100% fruit juice contains natural sugars that require additional water for processing. An 8-ounce glass of orange juice contains about 21 grams of sugar—that's 6-8 extra ounces of water needed.</p>
+
+            <p><strong>Yogurt:</strong> Flavored yogurts can contain 15-25 grams of added sugar per serving. Even "low-fat" varieties often compensate with extra sugar.</p>
+
+            <p><strong>Granola and Energy Bars:</strong> These "health" foods often pack 10-20 grams of sugar per bar, requiring an extra 3-8 ounces of water.</p>
+
+            <p><strong>Sports Drinks:</strong> While marketed for hydration, many contain 14-20 grams of sugar per serving, which can actually work against optimal hydration.</p>
+
+            <!-- Google Ad Unit 3 - Mid Article -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1.5rem; background: linear-gradient(135deg, #f8fafc 0%, #fef7f7 100%); border-radius: 12px; border: 1px solid #FF149320;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="3333333334"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <p><strong>Condiments and Sauces:</strong> Ketchup, barbecue sauce, and salad dressings can add up throughout the day. Two tablespoons of ketchup contain about 8 grams of sugar.</p>
+
+            <div class="sugar-tip">
+                <h3>Pro Reading Tip</h3>
+                <p>Check nutrition labels for "Total Sugars" rather than just looking for obvious sweets. Sugar hides under many names: high fructose corn syrup, agave nectar, brown rice syrup, and dozens of others. They all affect your hydration needs similarly.</p>
+            </div>
+
+            <h2>Timing Matters: When to Drink That Extra Water</h2>
+
+            <p>It's not just about <em>how much</em> extra water to drink—<em>when</em> you drink it can make a significant difference in how you feel and how effectively your body processes the sugar.</p>
+
+            <p><strong>Before Eating Sweets:</strong> Drinking 8-12 ounces of water 15-30 minutes before consuming something sugary can help prepare your body for the processing work ahead. This proactive approach often prevents the intense thirst that hits later.</p>
+
+            <p><strong>During Consumption:</strong> Sipping water while eating sweets helps dilute the sugar as it enters your system, reducing the spike in blood glucose and the subsequent dehydration response.</p>
+
+            <p><strong>Within 30 Minutes After:</strong> This is the critical window. Your blood sugar peaks about 30-60 minutes after eating sugar, so getting that extra water in your system during this time helps your body manage the load more effectively.</p>
+
+            <p><strong>The Next 2-3 Hours:</strong> Continue sipping water regularly during this period. Your body will be working to return to normal blood sugar levels, and staying hydrated supports this process.</p>
+
+            <!-- Google Ad Unit 4 - Between Major Sections -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #0ea5e920;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="4444444445"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>Special Situations: When Sugar Hits Harder</h2>
+
+            <p>Certain circumstances can make sugar's dehydrating effects more pronounced. Being aware of these situations can help you plan your hydration strategy accordingly:</p>
+
+            <p><strong>Hot Weather:</strong> When you're already losing more water through sweating, sugar consumption can quickly push you toward dehydration. In hot climates, consider increasing your post-sugar water intake by 25-50%.</p>
+
+            <p><strong>During Exercise:</strong> Your body is already using water for temperature regulation and muscle function. Consuming sugary sports drinks or energy gels requires careful attention to additional hydration needs.</p>
+
+            <p><strong>When You're Already Dehydrated:</strong> If you haven't been drinking enough water throughout the day, sugar consumption can make things worse quickly. In this case, prioritize plain water over any sugary beverages.</p>
+
+            <p><strong>Illness:</strong> When you're sick, your body needs extra water for immune function and healing. Adding sugar to the mix increases hydration needs even further.</p>
+
+            <div class="science-fact">
+                <h3>Diabetes Connection</h3>
+                <p>People with diabetes experience this sugar-hydration relationship more intensely. Their bodies struggle to process sugar efficiently, leading to higher blood glucose levels and increased water needs. This is why excessive thirst is often an early sign of diabetes.</p>
+            </div>
+
+            <h2>Smart Strategies for Sugar Lovers</h2>
+
+            <p>You don't have to give up sweets entirely to maintain good hydration. Here are practical strategies that let you enjoy sugar while keeping your hydration on track:</p>
+
+            <p><strong>The Pairing Strategy:</strong> Always pair sugary treats with water-rich foods. Have that cookie with some cucumber slices, or enjoy cake with a side of watermelon. The water content in these foods helps offset the dehydrating effects of sugar.</p>
+
+            <p><strong>Dilution Method:</strong> When possible, dilute sugary drinks with water or sparkling water. This reduces the sugar concentration while maintaining flavor. Try mixing fruit juice half-and-half with sparkling water.</p>
+
+            <p><strong>Frequency Over Quantity:</strong> Instead of consuming large amounts of sugar at once, spread it throughout the day in smaller amounts. This reduces the spike-and-crash cycle that taxes your hydration system.</p>
+
+            <div class="sugar-tip">
+                <h3>Hydration Hack</h3>
+                <p>Keep a "sugar log" for one week, noting when you consume sweets and how thirsty you feel afterward. <a href="drinks.html" class="internal-link">Track your total fluid intake with our drinks calculator</a> to see if you're compensating appropriately for your sugar consumption!</p>
+            </div>
+
+            <p><strong>Natural Sugar Priority:</strong> When you do consume sugar, prioritize natural sources like fresh fruit over processed sweets. Fresh fruit contains fiber and water that help slow sugar absorption and reduce the hydration impact.</p>
+
+            <p><strong>Post-Meal Strategy:</strong> If you're having dessert after a meal, you're already likely to be somewhat hydrated from other beverages consumed during dinner. This can reduce the intensity of sugar's dehydrating effects.</p>
+
+            <h2>The Electrolyte Factor</h2>
+
+            <p>Water alone isn't always the complete answer when dealing with sugar consumption. Sometimes, you need to replace electrolytes too:</p>
+
+            <p><strong>Sodium:</strong> Your kidneys use sodium to help regulate water balance. When processing large amounts of sugar, you might lose more sodium than usual. Adding a pinch of sea salt to your post-sugar water can help.</p>
+
+            <p><strong>Potassium:</strong> This mineral helps your cells maintain proper fluid balance. Foods like bananas, oranges, or coconut water can provide potassium while also contributing to your fluid intake.</p>
+
+            <p><strong>Magnesium:</strong> Involved in hundreds of bodily processes, including blood sugar regulation. Nuts, seeds, and leafy greens provide magnesium along with some hydration.</p>
+
+            <!-- Google Ad Unit 5 - Before Conclusion -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1.5rem; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; border: 2px solid #0ea5e930;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="5555555556"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>Long-Term Benefits of Smart Sugar Hydration</h2>
+
+            <p>When you consistently pair sugar consumption with adequate hydration, you'll likely notice several benefits:</p>
+
+            <p><strong>More Stable Energy:</strong> Proper hydration helps your body process sugar more efficiently, reducing the dramatic energy spikes and crashes that leave you feeling tired.</p>
+
+            <p><strong>Better Skin:</strong> Dehydration makes skin look dull and can worsen complexion issues. Staying hydrated while consuming sugar helps maintain that healthy glow.</p>
+
+            <p><strong>Improved Digestion:</strong> Your digestive system needs water to function properly. When you're dehydrated from sugar consumption, digestion slows down, leading to bloating and discomfort.</p>
+
+            <p><strong>Clearer Thinking:</strong> Even mild dehydration affects cognitive function. By maintaining hydration despite sugar consumption, you'll think more clearly and maintain better focus.</p>
+
+            <p><strong>Better Sleep:</strong> Blood sugar spikes and dehydration can both disrupt sleep patterns. Proper hydration helps your body return to baseline more quickly, supporting better rest.</p>
+
+            <p>The key takeaway? You don't have to choose between enjoying sweets and staying healthy. With the right hydration strategy, you can have both. Pay attention to your body's signals, plan ahead when you know you'll be consuming sugar, and remember that the extra water you drink today supports your energy and well-being tomorrow.</p>
+
+            <p><strong>Smart sugar consumption is all about balance—and that balance starts with understanding how much water your sweet treats really require.</strong></p>
+
+            <div class="disclaimer">
+                <strong>Medical Disclaimer:</strong> This content is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Individual hydration and sugar processing needs vary based on factors including age, weight, activity level, climate, and health conditions. People with diabetes, kidney problems, or other health conditions should consult their healthcare provider for personalized advice about sugar consumption and hydration strategies.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    💧 Daily Water Calculator - Stay hydrated, stay healthy!
+                </p>
+                <p class="footer-disclaimer">
+                    <a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation toggle functionality
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                sideNav.classList.add('show');
+                navToggle.style.left = '260px';
+                body.style.marginLeft = '250px';
+            } else {
+                sideNav.classList.add('closed');
+                sideNav.classList.remove('show');
+                navToggle.style.left = '1rem';
+                body.style.marginLeft = '0';
+            }
+        }
+
+        // Initialize navigation on mobile
+        function initializeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const body = document.body;
+            
+            if (window.innerWidth <= 768) {
+                sideNav.classList.add('closed');
+                body.style.marginLeft = '0';
+            } else {
+                sideNav.classList.remove('closed');
+                body.style.marginLeft = '250px';
+            }
+        }
+
+        // Initialize on load and resize
+        window.addEventListener('load', initializeNavigation);
+        window.addEventListener('resize', initializeNavigation);
+    </script>
+</body>
+</html>
