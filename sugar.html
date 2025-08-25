@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍬 Sweet Intake → Water Needs Calculator</title>
+    <meta name="description" content="Calculate how much extra water you need based on sugar intake. Get personalized hydration targets with health guidelines comparison.">
+    
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .main {
+            padding: 2rem;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Cards */
+        .card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Sweet Items */
+        .sweet-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .sweet-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sweet-name {
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .sugar-info {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .servings-input {
+            width: 80px;
+            margin-right: 0.5rem;
+        }
+        
+        .whole-fruit-check {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Custom Entry */
+        .custom-entry {
+            background: #fefce8;
+            border: 1px dashed #eab308;
+        }
+        
+        .custom-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 80px;
+            gap: 0.5rem;
+            align-items: end;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Advanced Settings */
+        .advanced-toggle {
+            background: none;
+            border: none;
+            color: #0ea5e9;
+            cursor: pointer;
+            font-size: 0.875rem;
+            text-decoration: underline;
+            margin-bottom: 1rem;
+        }
+        
+        .advanced-settings {
+            display: none;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .advanced-settings.show {
+            display: block;
+        }
+        
+        /* Helper */
+        .helper {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: #1e40af;
+            margin-top: 0.5rem;
+        }
+        
+        .converter {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #0ea5e9;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0284c7;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        /* Results */
+        .results {
+            grid-column: 1 / -1;
+            background: white;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .results.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .results h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+        
+        .status.safe {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status.danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        /* Tips */
+        .tips {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        /* Error */
+        .error {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            background: #f1f5f9;
+            border-radius: 8px;
+            height: 8px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #f59e0b 75%, #ef4444 100%);
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🍬 Sweet Intake → Water Needs</h1>
+            <p>See how much extra water to drink after sweets, plus your daily hydration target.</p>
+        </header>
+        
+        <main class="main">
+            <div class="grid">
+                <!-- User Details -->
+                <div class="card">
+                    <h2>👤 User Details</h2>
+                    
+                    <div class="form-group">
+                        <label for="weight">Weight (kg) *</label>
+                        <input type="number" id="weight" min="20" max="250" step="0.1" required aria-describedby="weight-error">
+                        <div id="weight-error" class="error" style="display: none;">Weight is required</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Sex (for sugar guideline)</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="sex-male" name="sex" value="male">
+                                <label for="sex-male">Male</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="sex-female" name="sex" value="female">
+                                <label for="sex-female">Female</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="sex-prefer" name="sex" value="prefer-not" checked>
+                                <label for="sex-prefer">Prefer not to say</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Health Context (optional)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pregnant">
+                                <label for="pregnant">Pregnant/Nursing</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="diabetes">
+                                <label for="diabetes">Diabetes or prediabetes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sweet Intake -->
+                <div class="card">
+                    <h2>🍭 Sweet Intake</h2>
+                    
+                    <div id="sweet-items">
+                        <!-- Preset items will be generated by JavaScript -->
+                    </div>
+                    
+                    <!-- Custom Entry -->
+                    <div class="sweet-item custom-entry">
+                        <div class="sweet-item-header">
+                            <span class="sweet-name">Custom Entry</span>
+                        </div>
+                        <div class="custom-row">
+                            <input type="text" id="custom-name" placeholder="Name (e.g., Cookie)" class="form-control">
+                            <input type="number" id="custom-sugar" placeholder="Sugar (g)" min="0" step="0.1" class="form-control">
+                            <input type="number" id="custom-servings" placeholder="Servings" min="0" step="0.1" class="form-control servings-input">
+                        </div>
+                        <div class="whole-fruit-check">
+                            <input type="checkbox" id="custom-whole-fruit">
+                            <label for="custom-whole-fruit">Whole fruit</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Units Helper -->
+                    <div class="helper">
+                        <strong>💡 Helper:</strong> 1 teaspoon sugar ≈ 4 g
+                        <div class="converter">
+                            <input type="number" id="tsp-input" placeholder="Teaspoons" min="0" step="0.25">
+                            <span>→</span>
+                            <input type="number" id="grams-output" placeholder="Grams" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Guidelines & Settings -->
+                <div class="card">
+                    <h2>📋 Guidelines & Settings</h2>
+                    
+                    <div class="form-group">
+                        <label for="guideline">Sugar guideline source</label>
+                        <select id="guideline">
+                            <option value="who">WHO (Free sugars): &lt;10% of energy; practical target 25 g/day</option>
+                            <option value="aha">AHA (Added sugars): 25 g/day (women), 36 g/day (men)</option>
+                            <option value="custom">Custom daily limit</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="custom-limit-group" style="display: none;">
+                        <label for="custom-limit">Custom daily limit (g)</label>
+                        <input type="number" id="custom-limit" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hydration-factor">Hydration baseline factor</label>
+                        <select id="hydration-factor">
+                            <option value="30">30 ml/kg</option>
+                            <option value="35" selected>35 ml/kg (default)</option>
+                            <option value="40">40 ml/kg</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="custom-hydration-group" style="display: none;">
+                        <label for="custom-hydration">Custom hydration factor (ml/kg)</label>
+                        <input type="number" id="custom-hydration" min="0" step="0.1">
+                    </div>
+                    
+                    <button type="button" class="advanced-toggle" onclick="toggleAdvanced()">
+                        Advanced Settings
+                    </button>
+                    
+                    <div class="advanced-settings" id="advanced-settings">
+                        <div class="form-group">
+                            <label for="sugar-multiplier">Sugar→Water multiplier (ml per g sugar)</label>
+                            <input type="number" id="sugar-multiplier" value="4" min="0" max="10" step="0.1">
+                            <div class="helper">
+                                This expresses extra water required for metabolizing sugar; keep 3–6 ml/g if unsure.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="card">
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary" onclick="calculate()">Calculate</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+                        <button type="button" class="btn btn-secondary" onclick="copyResult()" id="copy-btn" style="display: none;">Copy Result</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results -->
+            <div class="results" id="results">
+                <h3>💧 Your Hydration Plan</h3>
+                <div id="results-content"></div>
+                <div id="results-status"></div>
+                <div class="tips" id="tips"></div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            This calculator provides general educational guidance and is not medical advice.
+        </footer>
+    </div>
+
+    <script>
+        // Preset sweet items with default sugar values
+        const presetItems = [
+            { name: 'Soda (12 oz / 355 ml can)', sugar: 39, id: 'soda' },
+            { name: 'Chocolate bar (standard)', sugar: 24, id: 'chocolate' },
+            { name: 'Donut (glazed)', sugar: 10, id: 'donut' },
+            { name: 'Candy (small pack)', sugar: 17, id: 'candy' },
+            { name: 'Fruit juice (8 oz / 240 ml)', sugar: 20, id: 'juice', allowWholeFruit: true },
+            { name: 'Sweetened yogurt (cup)', sugar: 18, id: 'yogurt' }
+        ];
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            generateSweetItems();
+            setupEventListeners();
+        });
+        
+        function generateSweetItems() {
+            const container = document.getElementById('sweet-items');
+            
+            presetItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'sweet-item';
+                div.innerHTML = `
+                    <div class="sweet-item-header">
+                        <span class="sweet-name tooltip" data-tooltip="Actual labels may vary; use custom for exact grams">${item.name}</span>
+                        <span class="sugar-info">${item.sugar}g sugar per serving</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <label for="${item.id}-servings">Servings:</label>
+                        <input type="number" id="${item.id}-servings" class="servings-input" min="0" step="0.1" value="0">
+                        ${item.allowWholeFruit ? `
+                            <div class="whole-fruit-check">
+                                <input type="checkbox" id="${item.id}-whole-fruit">
+                                <label for="${item.id}-whole-fruit">Whole fruit</label>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function setupEventListeners() {
+            // Guideline change
+            document.getElementById('guideline').addEventListener('change', function() {
+                const customGroup = document.getElementById('custom-limit-group');
+                customGroup.style.display = this.value === 'custom' ? 'block' : 'none';
+            });
+            
+            // Hydration factor change
+            document.getElementById('hydration-factor').addEventListener('change', function() {
+                const customGroup = document.getElementById('custom-hydration-group');
+                customGroup.style.display = this.value === 'custom' ? 'block' : 'none';
+            });
+            
+            // Teaspoon converter
+            document.getElementById('tsp-input').addEventListener('input', function() {
+                const tsp = parseFloat(this.value) || 0;
+                const grams = tsp * 4;
+                document.getElementById('grams-output').value = grams.toFixed(1);
+                
+                // Optionally fill custom sugar field
+                if (grams > 0) {
+                    document.getElementById('custom-sugar').value = grams.toFixed(1);
+                }
+            });
+            
+            // Weight validation
+            document.getElementById('weight').addEventListener('blur', validateWeight);
+        }
+        
+        function validateWeight() {
+            const weight = document.getElementById('weight').value;
+            const error = document.getElementById('weight-error');
+            
+            if (!weight || weight < 20 || weight > 250) {
+                error.style.display = 'block';
+                return false;
+            } else {
+                error.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function toggleAdvanced() {
+            const settings = document.getElementById('advanced-settings');
+            settings.classList.toggle('show');
+        }
+        
+        // Core calculation functions
+        function getHydrationFactor() {
+            const factor = document.getElementById('hydration-factor').value;
+            if (factor === 'custom') {
+                return parseFloat(document.getElementById('custom-hydration').value) || 35;
+            }
+            return parseFloat(factor);
+        }
+        
+        function getGuidelineGrams() {
+            const guideline = document.getElementById('guideline').value;
+            const sex = document.querySelector('input[name="sex"]:checked').value;
+            
+            if (guideline === 'who') {
+                return 25; // WHO practical target
+            } else if (guideline === 'aha') {
+                if (sex === 'female') return 25;
+                if (sex === 'male') return 36;
+                return 25; // Default to lower limit for "prefer not to say"
+            } else if (guideline === 'custom') {
+                return parseFloat(document.getElementById('custom-limit').value) || 25;
+            }
+            return 25;
+        }
+        
+        function computeTotalSugar() {
+            let totalSugar = 0;
+            let extraWater = 0;
+            const multiplier = parseFloat(document.getElementById('sugar-multiplier').value) || 4;
+            
+            // Preset items
+            presetItems.forEach(item => {
+                const servings = parseFloat(document.getElementById(`${item.id}-servings`).value) || 0;
+                const itemSugar = servings * item.sugar;
+                let itemExtraWater = itemSugar * multiplier;
+                
+                // Check whole fruit modifier
+                const wholeFruitInput = document.getElementById(`${item.id}-whole-fruit`);
+                if (wholeFruitInput && wholeFruitInput.checked) {
+                    itemExtraWater *= 0.5; // 50% reduction for whole fruit
+                }
+                
+                totalSugar += itemSugar;
+                extraWater += itemExtraWater;
+            });
+            
+            // Custom item
+            const customServings = parseFloat(document.getElementById('custom-servings').value) || 0;
+            const customSugar = parseFloat(document.getElementById('custom-sugar').value) || 0;
+            const customItemSugar = customServings * customSugar;
+            let customExtraWater = customItemSugar * multiplier;
+            
+            // Check custom whole fruit modifier
+            if (document.getElementById('custom-whole-fruit').checked) {
+                customExtraWater *= 0.5;
+            }
+            
+            totalSugar += customItemSugar;
+            extraWater += customExtraWater;
+            
+            return { totalSugar, extraWater };
+        }
+        
+        function formatCups(ml) {
+            const cups = ml / 240;
+            return cups.toFixed(1);
+        }
+        
+        function calculate() {
+            // Validate weight first
+            if (!validateWeight()) {
+                document.getElementById('weight').focus();
+                return;
+            }
+            
+            const weight = parseFloat(document.getElementById('weight').value);
+            const hydrationFactor = getHydrationFactor();
+            const guidelineGrams = getGuidelineGrams();
+            const { totalSugar, extraWater } = computeTotalSugar();
+            
+            // Calculate daily water need
+            const dailyWaterNeed = weight * hydrationFactor;
+            const totalWaterTarget = dailyWaterNeed + extraWater;
+            
+            // Calculate guideline percentage
+            const percentOfGuideline = (totalSugar / guidelineGrams) * 100;
+            
+            // Render results
+            renderResults({
+                totalSugar,
+                guidelineGrams,
+                percentOfGuideline,
+                dailyWaterNeed,
+                extraWater,
+                totalWaterTarget
+            });
+        }
+        
+        function renderResults(data) {
+            const resultsDiv = document.getElementById('results');
+            const contentDiv = document.getElementById('results-content');
+            const statusDiv = document.getElementById('results-status');
+            const tipsDiv = document.getElementById('tips');
+            
+            // Show results section
+            resultsDiv.classList.add('show');
+            
+            // Generate content
+            let content = '';
+            
+            if (data.totalSugar === 0) {
+                content = `
+                    <div class="result-item">
+                        <span class="result-label">Total Sugar Consumed:</span>
+                        <span class="result-value">0 g</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Daily Water Need (baseline):</span>
+                        <span class="result-value">${data.dailyWaterNeed.toFixed(0)} ml (~${formatCups(data.dailyWaterNeed)} cups)</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Extra Water from Sweets:</span>
+                        <span class="result-value">0 ml (0.0 cups)</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Water Target Today:</span>
+                        <span class="result-value">${data.totalWaterTarget.toFixed(0)} ml (~${formatCups(data.totalWaterTarget)} cups)</span>
+                    </div>
+                `;
+            } else {
+                content = `
+                    <div class="result-item">
+                        <span class="result-label">Total Sugar Consumed:</span>
+                        <span class="result-value">${data.totalSugar.toFixed(0)} g</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Guideline Check:</span>
+                        <span class="result-value">${data.percentOfGuideline.toFixed(0)}% of ${data.guidelineGrams}g limit</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${Math.min(data.percentOfGuideline, 100)}%"></div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Daily Water Need (baseline):</span>
+                        <span class="result-value">${data.dailyWaterNeed.toFixed(0)} ml (~${formatCups(data.dailyWaterNeed)} cups)</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Extra Water from Sweets:</span>
+                        <span class="result-value">${data.extraWater.toFixed(0)} ml (~${formatCups(data.extraWater)} cups)</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Water Target Today:</span>
+                        <span class="result-value">${data.totalWaterTarget.toFixed(0)} ml (~${formatCups(data.totalWaterTarget)} cups)</span>
+                    </div>
+                `;
+            }
+            
+            contentDiv.innerHTML = content;
+            
+            // Generate status
+            let statusClass, statusText;
+            if (data.percentOfGuideline <= 75) {
+                statusClass = 'safe';
+                statusText = '✅ Within sugar target. Great job staying hydrated!';
+            } else if (data.percentOfGuideline <= 100) {
+                statusClass = 'warning';
+                statusText = '⚠️ Close to your sugar limit—consider swapping a soda for water.';
+            } else {
+                statusClass = 'danger';
+                statusText = '❌ Over the sugar limit—prioritize plain water and reduce added sugars.';
+            }
+            
+            if (data.extraWater === 0) {
+                statusText = '✅ No extra water needed from sweets. Keep up the healthy choices!';
+                statusClass = 'safe';
+            }
+            
+            statusDiv.innerHTML = `<div class="status ${statusClass}">${statusText}</div>`;
+            
+            // Generate tips
+            let tips = '<div class="tip-item">💡 <span>Tip: Prioritize plain water; unsweetened beverages also help.</span></div>';
+            
+            if (document.getElementById('diabetes').checked) {
+                tips += '<div class="tip-item">⚠️ <span>Note: For diabetes or prediabetes, individual targets vary. This tool is for general guidance only.</span></div>';
+            }
+            
+            if (document.getElementById('pregnant').checked) {
+                tips += '<div class="tip-item">🤱 <span>Pregnancy/nursing: focus on minimizing free sugars; prioritize water.</span></div>';
+            }
+            
+            tipsDiv.innerHTML = tips;
+            
+            // Show copy button
+            document.getElementById('copy-btn').style.display = 'block';
+        }
+        
+        function clearAll() {
+            // Reset all inputs
+            document.getElementById('weight').value = '';
+            document.querySelector('input[name="sex"][value="prefer-not"]').checked = true;
+            document.getElementById('pregnant').checked = false;
+            document.getElementById('diabetes').checked = false;
+            document.getElementById('guideline').value = 'who';
+            document.getElementById('custom-limit-group').style.display = 'none';
+            document.getElementById('hydration-factor').value = '35';
+            document.getElementById('custom-hydration-group').style.display = 'none';
+            document.getElementById('sugar-multiplier').value = '4';
+            document.getElementById('custom-name').value = '';
+            document.getElementById('custom-sugar').value = '';
+            document.getElementById('custom-servings').value = '';
+            document.getElementById('custom-whole-fruit').checked = false;
+            document.getElementById('tsp-input').value = '';
+            document.getElementById('grams-output').value = '';
+            
+            // Reset preset servings
+            presetItems.forEach(item => {
+                document.getElementById(`${item.id}-servings`).value = '0';
+                const wholeFruit = document.getElementById(`${item.id}-whole-fruit`);
+                if (wholeFruit) wholeFruit.checked = false;
+            });
+            
+            // Hide results and copy button
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('copy-btn').style.display = 'none';
+            
+            // Hide error
+            document.getElementById('weight-error').style.display = 'none';
+        }
+        
+        function copyResult() {
+            const totalSugar = document.querySelector('.result-value').textContent;
+            const waterTarget = document.querySelectorAll('.result-value')[document.querySelectorAll('.result-value').length - 1].textContent;
+            const status = document.querySelector('.status').textContent;
+            
+            const summary = `🍬 Sweet Intake Analysis:\nSugar consumed: ${totalSugar}\nWater target: ${waterTarget}\nStatus: ${status}\n\nGenerated by Sweet Intake → Water Needs Calculator`;
+            
+            navigator.clipboard.writeText(summary).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(() => {
+                alert('Copy failed. Please manually copy the results.');
+            });
+        }
+        
+        /*
+        Test Cases (for QA verification):
+        
+        1. Zero sweets:
+           Weight: 70 kg; all servings 0; WHO
+           Expected: Total sugar: 0 g; 0% used; Baseline: 2450 ml (~10.2 cups); Extra: 0 ml; Total: 2450 ml; Status: ✅ No extra water needed
+        
+        2. 1 soda:
+           Weight: 70 kg; Soda: 1; WHO (25 g target)
+           Expected: Sugar = 39 g; % ≈ 156% (Over); Baseline = 2450 ml; Extra = 156 ml (0.7 cups); Total = 2606 ml; Status: ❌ Over limit
+        
+        3. Chocolate 2 + Donut 1; AHA Male:
+           Weight: 80 kg; Chocolate: 2 (48 g), Donut: 1 (10 g) → 58 g; AHA male = 36 g → % ≈ 161%
+           Expected: Baseline = 2800 ml; Extra = 232 ml (1.0 cups); Total = 3032 ml; Status: ❌ Over limit
+        
+        4. Custom Whole Fruit:
+           Weight: 60 kg; Custom "Whole fruit bowl": 30 g sugar, 1 serving, "whole fruit" checked
+           Expected: Baseline = 2100 ml; Extra (with 50% reduction): 60 ml (0.3 cups); Total = 2160 ml; WHO: 120% → ❌ Over
+        
+        5. User changes multiplier:
+           Case 2 (1 soda), but multiplier set to 5 ml/g
+           Expected: Extra water = 39 × 5 = 195 ml
+        */
+    </script>
+</body>
+</html>
