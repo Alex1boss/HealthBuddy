@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do Coffee, Tea, and Soda Count as Water? The Truth About Caffeine and Hydration</title>
+    <meta name="description" content="Discover the truth about whether coffee, tea, and soda count toward your daily water intake. Learn how caffeine affects hydration and get science-backed answers to common myths.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Do Coffee, Tea, and Soda Count as Water? The Truth About Caffeine and Hydration">
+    <meta property="og:description" content="Discover the truth about whether coffee, tea, and soda count toward your daily water intake. Learn how caffeine affects hydration and get science-backed answers to common myths.">
+    <meta property="og:image" content="https://your-domain.com/static/images/caffeine-hydration-og.jpg">
+    <meta property="og:url" content="https://your-domain.com/caffeine-hydration-truth.html">
+    <meta property="og:type" content="article">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Truth About Coffee, Tea, and Hydration">
+    <meta name="twitter:description" content="Do caffeinated drinks count toward your daily water intake? Get the science-backed answers.">
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://your-domain.com/caffeine-hydration-truth.html">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background: #f8fafc;
+            margin-left: 250px;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .nav-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            flex-direction: column;
+            width: 40px;
+            height: 40px;
+        }
+
+        .hamburger {
+            width: 20px;
+            height: 2px;
+            background: white;
+            margin: 2px 0;
+            border-radius: 2px;
+        }
+
+        .nav-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 1rem;
+        }
+
+        .nav-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-close {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0.5rem 0;
+        }
+
+        .nav-link {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Article Container */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .article-header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .article-content {
+            padding: 3rem 2rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            color: #1a365d;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .article-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        /* Interactive Elements */
+        .caffeine-tip {
+            background: linear-gradient(135deg, #fff5ee 0%, #fef5e7 100%);
+            border-left: 4px solid #D2691E;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(210, 105, 30, 0.1);
+        }
+
+        .caffeine-tip h3 {
+            color: #D2691E;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .caffeine-tip h3::before {
+            content: "☕";
+            margin-right: 0.5rem;
+        }
+
+        .myth-buster {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .myth-buster::before {
+            content: "🔍";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .myth-buster h3 {
+            color: #0ea5e9;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .myth-buster p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Internal Links */
+        .internal-link {
+            color: #D2691E;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .internal-link:hover {
+            border-bottom-color: #D2691E;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fef5e7;
+            border: 1px solid #f6ad55;
+            padding: 1.5rem;
+            margin: 3rem 0 0 0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #744210;
+        }
+
+        .disclaimer strong {
+            color: #c05621;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                margin-left: 0;
+                padding: 0.5rem;
+            }
+            
+            .nav-toggle {
+                display: flex;
+            }
+            
+            .nav-close {
+                display: block;
+            }
+
+            .side-nav {
+                transform: translateX(-100%);
+            }
+
+            .side-nav.show {
+                transform: translateX(0);
+            }
+
+            .article-header {
+                padding: 2rem 1rem;
+            }
+
+            .article-header h1 {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 2rem 1rem;
+            }
+
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <h3>💧 Calculators</h3>
+            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
+            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+            <li><a href="caffeine-hydration-truth.html" class="nav-link active">☕ Caffeine Guide</a></li>
+        </ul>
+    </nav>
+
+    <div class="article-container">
+        <div class="article-header">
+            <h1>Do Coffee, Tea, and Soda Really Count as Water?</h1>
+            <p class="subtitle">The surprising truth about caffeine, hydration, and your daily water goals</p>
+        </div>
+
+        <div class="article-content">
+            <p>Picture this: It's 10 AM, and you're already on your second cup of coffee. Your coworker mentions they drink 8 glasses of water a day, and you think, "Well, I've had two cups of coffee—that's basically water, right?" This question has sparked countless debates in offices, gyms, and health forums worldwide. The answer might surprise you.</p>
+
+            <p>If you've ever wondered whether your morning latte, afternoon tea, or evening soda "counts" toward your daily water intake, you're not alone. With conflicting advice everywhere and persistent myths about caffeine being dehydrating, it's time to set the record straight with actual science.</p>
+
+            <!-- Google Ad Unit 1 - After Introduction -->
+            <div class="ad-container" style="text-align: center; margin: 2rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="6666666666"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>The Great Caffeine Myth: Does It Really Dehydrate You?</h2>
+
+            <p>Let's tackle the biggest myth first: "Caffeine dehydrates you." This belief is so widespread that many people avoid coffee and tea when they're trying to stay hydrated. But here's what the research actually shows: <strong>caffeinated beverages do contribute to your daily fluid intake.</strong></p>
+
+            <p>Yes, caffeine is technically a diuretic, meaning it can increase urine production. But the effect is much weaker than most people think. Studies show that regular caffeine consumers (that's most of us!) develop a tolerance to caffeine's diuretic effects within just 4-5 days. Your body adapts remarkably well.</p>
+
+            <div class="myth-buster">
+                <h3>Myth Buster Alert!</h3>
+                <p>A landmark study in the Journal of Human Nutrition found that coffee contributes to hydration status in a manner similar to water when consumed by habitual coffee drinkers. The fluid you gain from the beverage is significantly more than any fluid lost through increased urination.</p>
+            </div>
+
+            <p>Think about it logically: if coffee truly dehydrated you, wouldn't people who drink it regularly be walking around in a constant state of dehydration? The math simply doesn't add up. A 12-ounce coffee contains about 95mg of caffeine and 12 ounces of fluid. Even if caffeine caused you to lose an extra ounce or two of fluid, you're still gaining 10+ ounces of hydration.</p>
+
+            <!-- Google Ad Unit 2 - Between Sections -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="7777777777"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>What Actually Counts Toward Your Daily Water Intake?</h2>
+
+            <p>Here's the good news that might change how you think about hydration: <strong>almost all beverages count toward your daily fluid intake</strong>. This includes coffee, tea, soda, juice, milk, and even alcoholic beverages (though we'll get to the complications with alcohol in a moment).</p>
+
+            <p>The Institute of Medicine and most major health organizations count all fluids—not just plain water—when making hydration recommendations. This makes sense when you consider that your body doesn't care where the H2O molecules come from; it just needs adequate fluid to function properly.</p>
+
+            <p><strong>Here's the breakdown of how different beverages contribute:</strong></p>
+
+            <ul>
+                <li><strong>Water:</strong> 100% hydrating (obviously!)</li>
+                <li><strong>Coffee and Tea:</strong> About 95-98% as hydrating as water</li>
+                <li><strong>Regular Soda:</strong> About 95% as hydrating as water</li>
+                <li><strong>Milk:</strong> Actually more hydrating than water due to protein and electrolytes</li>
+                <li><strong>Fruit Juices:</strong> About 95% as hydrating as water</li>
+                <li><strong>Sports Drinks:</strong> Often more hydrating than water due to electrolyte content</li>
+            </ul>
+
+            <div class="caffeine-tip">
+                <h3>Pro Tip for Coffee Lovers</h3>
+                <p>If you drink 3 cups of coffee a day, you can count about 33 ounces toward your fluid intake goal. That's nearly half of most people's daily hydration needs! <a href="drinks.html" class="internal-link">Use our drinks calculator to see how your coffee habit affects your hydration goals</a>.</p>
+            </div>
+
+            <h2>The Sugar Factor: Why Soda Is Complicated</h2>
+
+            <p>While soda does technically count toward your fluid intake, there's more to the story. High-sugar beverages can actually increase your body's need for water due to how your body processes sugar. When you consume a lot of sugar at once, your body pulls water from other areas to help dilute and process it.</p>
+
+            <p>This doesn't mean soda dehydrates you—you're still getting a net gain of fluid. But it does mean that soda isn't as efficient at hydrating you as water or other low-sugar beverages. Plus, there are obviously many other health reasons to limit high-sugar drinks.</p>
+
+            <!-- Google Ad Unit 3 - Mid Article -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1.5rem; background: linear-gradient(135deg, #f8fafc 0%, #fff5ee 100%); border-radius: 12px; border: 1px solid #D2691E20;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="8888888888"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <p><strong>The sugar-hydration connection works like this:</strong></p>
+
+            <ol>
+                <li>You drink a high-sugar soda</li>
+                <li>Your blood sugar spikes</li>
+                <li>Your body uses water to dilute the excess sugar</li>
+                <li>You might feel thirsty despite having just consumed liquid</li>
+                <li>Your kidneys work harder to filter the excess sugar</li>
+            </ol>
+
+            <p><a href="sugar.html" class="internal-link">Check our sugar calculator to see how much sugar you're consuming</a> and how it might be affecting your hydration efficiency. Many people are shocked to discover they're drinking 10+ teaspoons of sugar in a single soda!</p>
+
+            <h2>The Temperature Factor You've Never Considered</h2>
+
+            <p>Here's something most people don't know: the temperature of your beverages can affect how hydrating they are. Room temperature and slightly cool beverages are actually absorbed faster by your body than ice-cold drinks. This is because your body doesn't have to spend energy warming the liquid to body temperature before it can be absorbed.</p>
+
+            <p>That said, if you're more likely to drink water when it's ice-cold, then by all means, keep it cold! The best hydration strategy is one you'll actually stick to consistently.</p>
+
+            <div class="myth-buster">
+                <h3>Temperature Science</h3>
+                <p>Studies show that beverages around 60-72°F (15-22°C) are absorbed most quickly by the intestines. However, cold beverages can help cool your core body temperature during hot weather or intense exercise, providing additional benefits beyond just hydration.</p>
+            </div>
+
+            <h2>Alcohol: The One Big Exception</h2>
+
+            <p>While we're being thorough, let's address the elephant in the room: alcohol. Unlike other beverages, alcoholic drinks can actually lead to a net loss of fluid from your body, especially at higher concentrations.</p>
+
+            <p>Alcohol suppresses the production of antidiuretic hormone (ADH), which tells your kidneys to hold onto water. Without enough ADH, you lose more water through urination than you're taking in through the alcoholic beverage. This is why you wake up thirsty after a night of drinking, even though you consumed plenty of liquid.</p>
+
+            <p><strong>The general rule for alcohol:</strong></p>
+            <ul>
+                <li><strong>Beer (3-5% alcohol):</strong> Slightly hydrating to neutral</li>
+                <li><strong>Wine (12-15% alcohol):</strong> Neutral to slightly dehydrating</li>
+                <li><strong>Spirits (40% alcohol):</strong> Definitely dehydrating</li>
+            </ul>
+
+            <!-- Google Ad Unit 4 - Between Major Sections -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #0ea5e920;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="9999999999"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <h2>Practical Guidelines for Real Life</h2>
+
+            <p>Now that we've covered the science, let's talk about practical applications. How should this information change how you approach hydration?</p>
+
+            <div class="caffeine-tip">
+                <h3>The 80/20 Rule</h3>
+                <p>Aim for 80% of your fluid intake to come from water, herbal tea, or other low-caffeine, low-sugar beverages. The remaining 20% can come from coffee, regular tea, or other beverages you enjoy. This ensures optimal hydration while still letting you enjoy your favorite drinks.</p>
+            </div>
+
+            <p><strong>Here's a realistic daily hydration strategy:</strong></p>
+
+            <ol>
+                <li><strong>Start with water:</strong> Begin your day with a large glass of water to jumpstart hydration after 6-8 hours without fluids.</li>
+                <li><strong>Count your coffee and tea:</strong> Yes, they contribute to your hydration goals, but don't let them be your only source of fluids.</li>
+                <li><strong>Be smart about soda:</strong> It counts toward hydration, but choose lower-sugar options when possible, or dilute regular soda with sparkling water.</li>
+                <li><strong>Monitor your urine:</strong> Pale yellow indicates good hydration, regardless of what beverages you've been drinking.</li>
+                <li><strong>Listen to your body:</strong> Thirst is still your best indicator. If you feel thirsty, drink something—anything (except high-alcohol beverages).</li>
+            </ol>
+
+            <h2>Special Considerations for Active People</h2>
+
+            <p>If you exercise regularly or live in a hot climate, you might need to adjust your beverage strategy. During and immediately after intense physical activity, your body absorbs water and low-sugar beverages more efficiently than high-sugar or high-caffeine drinks.</p>
+
+            <p>For workouts lasting longer than an hour, beverages containing electrolytes (sodium, potassium, magnesium) are actually more hydrating than plain water. This is why sports drinks exist, though you can also get electrolytes from natural sources like coconut water or adding a pinch of sea salt to your water.</p>
+
+            <p>Post-workout, that iced coffee can definitely contribute to your rehydration, but pair it with some plain water or a low-sugar beverage for optimal recovery.</p>
+
+            <h2>The Bottom Line: What This Means for You</h2>
+
+            <p>Here's what you can take away from all this research and apply to your daily life:</p>
+
+            <p><strong>✓ Your morning coffee absolutely counts toward your daily fluid intake</strong><br>
+            <strong>✓ That afternoon tea is helping you stay hydrated, not hurting</strong><br>
+            <strong>✓ Even soda contributes to your hydration, though it's not the most efficient choice</strong><br>
+            <strong>✓ You don't need to drink only plain water to stay properly hydrated</strong><br>
+            <strong>✓ The "8 glasses of water" rule can include other beverages</strong></p>
+
+            <p>The key is balance and paying attention to your body. If you're drinking a variety of beverages throughout the day and your urine is pale yellow, you're probably doing just fine in the hydration department.</p>
+
+            <!-- Google Ad Unit 5 - Before Conclusion -->
+            <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1.5rem; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; border: 2px solid #0ea5e930;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7136012713043150"
+                     data-ad-slot="1010101010"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <p>Remember, the best hydration strategy is one that fits your lifestyle and preferences. If forcing yourself to drink only plain water makes you consume less fluid overall, then adding some variety with coffee, tea, or other beverages is actually better for your hydration status.</p>
+
+            <p>So go ahead, count that morning coffee toward your daily fluid intake. Science says it's not only okay—it's accurate. Your body is getting the hydration it needs, and you're getting to enjoy the beverages you love. That's what we call a win-win situation.</p>
+
+            <p><strong>Stay hydrated, stay informed, and most importantly, stay realistic about what works for your lifestyle!</strong></p>
+
+            <div class="disclaimer">
+                <strong>Medical Disclaimer:</strong> This content is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Individual hydration needs vary based on factors including age, weight, activity level, climate, and health conditions. Always consult your healthcare provider for personalized advice, especially if you have kidney problems, heart conditions, or take medications that affect fluid balance.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    💧 Daily Water Calculator - Stay hydrated, stay healthy!
+                </p>
+                <p class="footer-disclaimer">
+                    <a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation toggle functionality
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                sideNav.classList.add('show');
+                navToggle.style.left = '260px';
+                body.style.marginLeft = '250px';
+            } else {
+                sideNav.classList.add('closed');
+                sideNav.classList.remove('show');
+                navToggle.style.left = '1rem';
+                body.style.marginLeft = '0';
+            }
+        }
+
+        // Initialize navigation on mobile
+        function initializeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const body = document.body;
+            
+            if (window.innerWidth <= 768) {
+                sideNav.classList.add('closed');
+                body.style.marginLeft = '0';
+            } else {
+                sideNav.classList.remove('closed');
+                body.style.marginLeft = '250px';
+            }
+        }
+
+        // Initialize on load and resize
+        window.addEventListener('load', initializeNavigation);
+        window.addEventListener('resize', initializeNavigation);
+    </script>
+</body>
+</html>
