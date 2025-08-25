@@ -15,6 +15,21 @@ def index():
 def drinks():
     return render_template('drinks.html')
 
+@app.route('/about')
+def about():
+    with open('about.html', 'r') as f:
+        return f.read()
+
+@app.route('/contact')
+def contact():
+    with open('contact.html', 'r') as f:
+        return f.read()
+
+@app.route('/privacy')
+def privacy():
+    with open('privacy.html', 'r') as f:
+        return f.read()
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('index.html'), 404
