@@ -1,11 +1,13 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Sitemap locations
 Sitemap: https://watercoach.netlify.app/sitemap.xml
+Sitemap: https://watercoach.netlify.app/sitemap-backup.xml
+Sitemap: https://watercoach.netlify.app/sitemap-clean.xml
 
 # Allow all pages to be crawled
-Disallow:
+# No disallowed directories
 
 # Allow crawling of static assets
 Allow: /static/
