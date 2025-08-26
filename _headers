@@ -3,5 +3,5 @@
   
 /*
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
   X-XSS-Protection: 1; mode=block
+  Content-Security-Policy: frame-ancestors 'self' https://web.telegram.org https://telegram.org
