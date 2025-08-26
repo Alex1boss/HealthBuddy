@@ -1,11 +1,14 @@
 import os
+import secrets
 from flask import Flask, render_template
 
 # create the app
 app = Flask(__name__, 
            template_folder='templates',
            static_folder='static')
-app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
+
+# Secure secret key generation for Replit environment
+app.secret_key = os.environ.get("SESSION_SECRET", secrets.token_hex(32))
 
 @app.route('/')
 def index():
