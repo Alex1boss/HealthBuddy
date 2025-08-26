@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Allow AdSense crawler
+User-agent: Mediapartners-Google
+Allow: /
+
 Sitemap: https://watercoach.netlify.app/sitemap.xml
