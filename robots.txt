@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://waterguide.netlify.app/sitemap.xml
+Sitemap: https://watercoach.netlify.app/sitemap.xml
 
 # Allow all pages to be crawled
 Disallow:
