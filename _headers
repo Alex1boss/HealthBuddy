@@ -1,10 +1,5 @@
 /sitemap.xml
-  Content-Type: application/xml; charset=utf-8
-  Cache-Control: public, max-age=3600
-
-/sitemap-backup.xml
-  Content-Type: application/xml; charset=utf-8
-  Cache-Control: public, max-age=3600
+  Content-Type: application/xml
   
 /*
   X-Content-Type-Options: nosniff
