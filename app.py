@@ -42,6 +42,14 @@ def sugar_hydration_guide():
     with open('sugar-hydration-guide.html', 'r') as f:
         return f.read()
 
+@app.route('/ads.txt')
+def ads_txt():
+    with open('ads.txt', 'r') as f:
+        content = f.read()
+    response = app.make_response(content)
+    response.headers['Content-Type'] = 'text/plain'
+    return response
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('index.html'), 404
