@@ -9,11 +9,11 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts with display=swap for performance -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Reset & Base Styles */
+        /* Reset & Base Styles - Optimized for Mobile */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
             color: #1e293b;
             line-height: 1.6;
             min-height: 100vh;
-            padding: 1rem;
+            padding: 0.5rem;
             margin: 0;
             transition: margin-left 0.3s ease;
         }
@@ -35,6 +35,7 @@
         @media (min-width: 769px) {
             body {
                 margin-left: 250px;
+                padding: 1rem;
             }
 
             body.nav-closed {
@@ -42,7 +43,7 @@
             }
         }
 
-        /* Toggle Button */
+        /* Toggle Button - Mobile First */
         .nav-toggle {
             position: fixed;
             top: 1rem;
@@ -55,13 +56,9 @@
             cursor: pointer;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
-            display: none;
+            display: flex;
             flex-direction: column;
             gap: 0.25rem;
-        }
-
-        .nav-toggle.show {
-            display: flex;
         }
 
         .nav-toggle:hover {
@@ -88,7 +85,7 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
 
-        /* Side Navigation */
+        /* Side Navigation - Mobile Optimized */
         .side-nav {
             position: fixed;
             left: 0;
@@ -101,10 +98,21 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease;
+            transform: translateX(-100%);
         }
 
-        .side-nav.closed {
-            transform: translateX(-100%);
+        @media (min-width: 769px) {
+            .side-nav {
+                transform: translateX(0);
+            }
+            
+            .side-nav.closed {
+                transform: translateX(-100%);
+            }
+        }
+
+        .side-nav.open {
+            transform: translateX(0);
         }
 
         .nav-header {
@@ -175,43 +183,67 @@
             padding: 1rem;
         }
 
-        /* Header */
+        /* Header - Mobile Optimized */
         .header {
             background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             color: white;
-            padding: 2rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             border-radius: 16px 16px 0 0;
         }
         
         .header h1 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
         
         .header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
-        /* Cards */
+        @media (min-width: 769px) {
+            .header {
+                padding: 2rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Cards - Mobile First */
         .card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.25rem;
             margin-bottom: 1rem;
         }
         
         .card h2 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #0f172a;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        @media (min-width: 769px) {
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .card h2 {
+                font-size: 1.25rem;
+            }
         }
         
         .form-group {
@@ -223,6 +255,7 @@
             font-weight: 500;
             margin-bottom: 0.5rem;
             color: #374151;
+            font-size: 0.9rem;
         }
         
         .form-group input,
@@ -259,7 +292,7 @@
             border: 1px solid #bfdbfe;
             border-radius: 6px;
             padding: 0.75rem;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: #1e40af;
             margin-top: 0.5rem;
         }
@@ -279,6 +312,8 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
         }
         
         .btn-primary {
@@ -304,7 +339,7 @@
             background: white;
             border: 2px solid #0ea5e9;
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             margin-top: 2rem;
             opacity: 0;
             transform: translateY(20px);
@@ -318,12 +353,14 @@
         
         .grid {
             display: grid;
-            gap: 2rem;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
         }
         
         @media (min-width: 768px) {
             .grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 2rem;
             }
         }
         
@@ -376,7 +413,13 @@
         
         /* Main */
         .main {
-            padding: 2rem;
+            padding: 1rem;
+        }
+
+        @media (min-width: 769px) {
+            .main {
+                padding: 2rem;
+            }
         }
 
         /* Footer */
@@ -397,39 +440,10 @@
             text-decoration: underline;
         }
 
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            body {
-                margin-left: 0 !important;
-                padding: 0.5rem;
-            }
-            
-            .side-nav {
-                transform: translateX(-100%);
-            }
-            
-            .side-nav.open {
-                transform: translateX(0);
-            }
-            
+        /* Hide navigation toggle on desktop */
+        @media (min-width: 769px) {
             .nav-toggle {
-                display: flex !important;
-            }
-            
-            .grid {
-                grid-template-columns: 1fr !important;
-            }
-            
-            .header {
-                padding: 1.5rem 1rem;
-            }
-            
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .main {
-                padding: 1rem;
+                display: none;
             }
         }
     </style>
@@ -540,11 +554,11 @@
                         
                         <div class="helper">
                             <strong>🧮 Quick Add:</strong>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
-                                <button type="button" class="btn btn-secondary" onclick="addSugar(39)" style="padding: 0.5rem; font-size: 0.875rem;">🥤 Soda (39g)</button>
-                                <button type="button" class="btn btn-secondary" onclick="addSugar(24)" style="padding: 0.5rem; font-size: 0.875rem;">🍫 Chocolate (24g)</button>
-                                <button type="button" class="btn btn-secondary" onclick="addSugar(10)" style="padding: 0.5rem; font-size: 0.875rem;">🍩 Donut (10g)</button>
-                                <button type="button" class="btn btn-secondary" onclick="addSugar(20)" style="padding: 0.5rem; font-size: 0.875rem;">🧃 Juice (20g)</button>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+                                <button type="button" class="btn btn-secondary" onclick="addSugar(39)" style="padding: 0.5rem; font-size: 0.8rem;">🥤 Soda (39g)</button>
+                                <button type="button" class="btn btn-secondary" onclick="addSugar(24)" style="padding: 0.5rem; font-size: 0.8rem;">🍫 Chocolate (24g)</button>
+                                <button type="button" class="btn btn-secondary" onclick="addSugar(10)" style="padding: 0.5rem; font-size: 0.8rem;">🍩 Donut (10g)</button>
+                                <button type="button" class="btn btn-secondary" onclick="addSugar(20)" style="padding: 0.5rem; font-size: 0.8rem;">🧃 Juice (20g)</button>
                             </div>
                         </div>
                         
@@ -580,32 +594,19 @@
     </div>
 
     <!-- Featured Article Section -->
-    <section class="featured-article" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 3rem 0; margin: 3rem 0;">
+    <section class="featured-article" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 2rem 0; margin: 2rem 0;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
-            <div class="article-preview" style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden; display: grid; grid-template-columns: 1fr 300px; gap: 0; align-items: center;">
-                <div style="padding: 2.5rem;">
+            <div class="article-preview" style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                <div style="padding: 2rem 1.5rem;">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                         <span style="background: linear-gradient(135deg, #FF1493, #FF69B4); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">🍬 FEATURED ARTICLE</span>
                     </div>
-                    <h2 style="font-size: 1.75rem; font-weight: 700; color: #1a365d; margin-bottom: 1rem; line-height: 1.3;">How Sugar Affects Your Hydration (And How Much Water You Really Need After Sweets)</h2>
-                    <p style="color: #4a5568; font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem;">Ever wonder why you feel thirsty after eating sweets? Discover the science behind sugar's impact on your hydration and learn exactly how much extra water you need. Stop guessing and start hydrating smartly!</p>
-                    <ul style="color: #4a5568; margin-bottom: 2rem; list-style: none; padding: 0;">
-                        <li style="display: flex; align-items: center; margin-bottom: 0.5rem;"><span style="color: #FF1493; margin-right: 0.5rem; font-weight: bold;">✓</span> Why sugar makes you thirsty (the surprising science)</li>
-                        <li style="display: flex; align-items: center; margin-bottom: 0.5rem;"><span style="color: #FF1493; margin-right: 0.5rem; font-weight: bold;">✓</span> Exact water amounts needed for different sweets</li>
-                        <li style="display: flex; align-items: center; margin-bottom: 0.5rem;"><span style="color: #FF1493; margin-right: 0.5rem; font-weight: bold;">✓</span> Hidden sugars that secretly dehydrate you</li>
-                        <li style="display: flex; align-items: center;"><span style="color: #FF1493; margin-right: 0.5rem; font-weight: bold;">✓</span> Smart strategies for sugar lovers to stay hydrated</li>
-                    </ul>
-                    <a href="sugar-hydration-guide.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #FF1493, #FF69B4); color: white; text-decoration: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);">
-                        🍬 Read the Complete Sugar Guide
-                        <span style="transition: transform 0.3s ease;">→</span>
+                    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a365d; margin-bottom: 1rem; line-height: 1.3;">How Sugar Affects Your Hydration (And How Much Water You Really Need After Sweets)</h2>
+                    <p style="color: #4a5568; font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Ever wonder why you feel thirsty after eating sweets? Discover the science behind sugar's impact on your hydration and learn exactly how much extra water you need.</p>
+                    <a href="sugar-hydration-guide.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #FF1493, #FF69B4); color: white; text-decoration: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: transform 0.3s ease;">
+                        🍬 Read the Complete Guide
+                        <span>→</span>
                     </a>
-                </div>
-                <div style="background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%); height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem;">
-                    <div style="text-align: center; color: white;">
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">🍬</div>
-                        <div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">1,700+ Words</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">Complete Sugar Guide</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -626,53 +627,6 @@
     </footer>
 
     <script>
-        // Navigation toggle functionality
-        function toggleNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
-            
-            if (sideNav.classList.contains('closed')) {
-                sideNav.classList.remove('closed');
-                body.classList.remove('nav-closed');
-                navToggle.classList.remove('show');
-            } else {
-                sideNav.classList.add('closed');
-                body.classList.add('nav-closed');
-                navToggle.classList.add('show');
-            }
-            navToggle.classList.toggle('active');
-        }
-        
-        // Initialize navigation state
-        function initializeNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
-            
-            // Start with navigation closed and toggle button visible
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
-        }
-        
-        // Close navigation when clicking outside on mobile
-        document.addEventListener('click', function(e) {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            
-            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
-                if (!sideNav.classList.contains('closed')) {
-                    toggleNavigation();
-                }
-            }
-        });
-
-        // Initialize navigation when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeNavigation();
-        });
-
         // Add sugar from quick buttons
         function addSugar(amount) {
             const totalSugarInput = document.getElementById('total-sugar');
@@ -681,13 +635,18 @@
         }
 
         // Teaspoon converter
-        document.getElementById('tsp-input').addEventListener('input', function() {
-            const tsp = parseFloat(this.value) || 0;
-            const grams = tsp * 4;
-            document.getElementById('grams-output').value = grams.toFixed(1);
-            
-            if (grams > 0) {
-                document.getElementById('total-sugar').value = grams.toFixed(1);
+        document.addEventListener('DOMContentLoaded', function() {
+            const tspInput = document.getElementById('tsp-input');
+            if (tspInput) {
+                tspInput.addEventListener('input', function() {
+                    const tsp = parseFloat(this.value) || 0;
+                    const grams = tsp * 4;
+                    document.getElementById('grams-output').value = grams.toFixed(1);
+                    
+                    if (grams > 0) {
+                        document.getElementById('total-sugar').value = grams.toFixed(1);
+                    }
+                });
             }
         });
 
@@ -762,13 +721,12 @@
             
             const totalWater = baseWater + extraWater;
             const glasses = totalWater / 250; // 250ml glasses
-            const cups = totalWater / 237; // US cups
             
             // Generate results
-            displayResults(weight, ageGroup, ageInfo, sugar, totalWater, extraWater, glasses, cups, activityLevel, mealTiming, poorSleep, sugarType);
+            displayResults(weight, ageGroup, ageInfo, sugar, totalWater, extraWater, glasses, activityLevel, mealTiming, poorSleep, sugarType);
         }
 
-        function displayResults(weight, ageGroup, ageInfo, sugar, totalWater, extraWater, glasses, cups, activityLevel, mealTiming, poorSleep, sugarType) {
+        function displayResults(weight, ageGroup, ageInfo, sugar, totalWater, extraWater, glasses, activityLevel, mealTiming, poorSleep, sugarType) {
             // Main results
             const contentDiv = document.getElementById('results-content');
             contentDiv.innerHTML = `
@@ -906,25 +864,19 @@
             }
         }
 
-        // Show navigation toggle on mobile
-        function checkMobile() {
-            const navToggle = document.getElementById('navToggle');
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
             const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
             
-            if (window.innerWidth <= 768) {
-                navToggle.classList.add('show');
-                sideNav.classList.remove('closed');
+            if (window.innerWidth <= 768 && 
+                sideNav.classList.contains('open') && 
+                !sideNav.contains(event.target) && 
+                !navToggle.contains(event.target)) {
                 sideNav.classList.remove('open');
-                document.body.classList.remove('nav-closed');
-            } else {
-                navToggle.classList.remove('show');
-                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
             }
-        }
-
-        // Initialize on load and resize
-        window.addEventListener('load', checkMobile);
-        window.addEventListener('resize', checkMobile);
+        });
     </script>
 </body>
 </html>
