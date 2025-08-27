@@ -52,16 +52,40 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin-left: 250px;
+    margin: 0;
     transition: margin-left 0.3s ease;
 }
 
-body.nav-closed {
-    margin-left: 0;
+/* Desktop: Apply side navigation margin */
+@media (min-width: 769px) {
+    body {
+        margin-left: 250px;
+    }
+
+    body.nav-closed {
+        margin-left: 0;
+    }
 }
+
 
 /* Mobile-First Responsive Design */
 @media (max-width: 768px) {
+    body {
+        margin-left: 0 !important;
+    }
+    
+    .side-nav {
+        transform: translateX(-100%);
+    }
+    
+    .side-nav.open {
+        transform: translateX(0);
+    }
+    
+    .nav-toggle {
+        display: flex !important;
+    }
+    
     .footer-disclaimer {
         font-size: 0.75rem !important;
         line-height: 1.5 !important;

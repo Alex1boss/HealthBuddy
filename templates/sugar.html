@@ -18,12 +18,19 @@
     <style>
         /* Navigation and responsive styles */
         body {
-            margin-left: 250px;
+            margin: 0;
             transition: margin-left 0.3s ease;
         }
 
-        body.nav-closed {
-            margin-left: 0;
+        /* Desktop: Apply side navigation margin */
+        @media (min-width: 769px) {
+            body {
+                margin-left: 250px;
+            }
+
+            body.nav-closed {
+                margin-left: 0;
+            }
         }
 
         /* Toggle Button */
@@ -162,11 +169,19 @@
         /* Mobile responsive */
         @media (max-width: 768px) {
             body {
-                margin-left: 0;
+                margin-left: 0 !important;
             }
             
-            .nav-toggle.show {
-                display: flex;
+            .side-nav {
+                transform: translateX(-100%);
+            }
+            
+            .side-nav.open {
+                transform: translateX(0);
+            }
+            
+            .nav-toggle {
+                display: flex !important;
             }
             
             .grid {
@@ -734,34 +749,54 @@
             document.getElementById('results').classList.remove('show');
         }
 
-        // Navigation toggle functionality (same as other pages)
+        // Navigation toggle functionality (mobile optimized)
         function toggleNavigation() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            if (sideNav.classList.contains('closed')) {
-                sideNav.classList.remove('closed');
-                body.classList.remove('nav-closed');
-                navToggle.classList.remove('show');
+            // For mobile
+            if (window.innerWidth <= 768) {
+                if (sideNav.classList.contains('open')) {
+                    sideNav.classList.remove('open');
+                    navToggle.classList.remove('active');
+                } else {
+                    sideNav.classList.add('open');
+                    navToggle.classList.add('active');
+                }
             } else {
-                sideNav.classList.add('closed');
-                body.classList.add('nav-closed');
-                navToggle.classList.add('show');
+                // For desktop
+                if (sideNav.classList.contains('closed')) {
+                    sideNav.classList.remove('closed');
+                    body.classList.remove('nav-closed');
+                    navToggle.classList.remove('active');
+                } else {
+                    sideNav.classList.add('closed');
+                    body.classList.add('nav-closed');
+                    navToggle.classList.add('active');
+                }
             }
-            navToggle.classList.toggle('active');
         }
-        
-        // Initialize navigation when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            const sideNav = document.getElementById('sideNav');
+
+        // Show navigation toggle on mobile
+        function checkMobile() {
             const navToggle = document.getElementById('navToggle');
-            const body = document.body;
+            const sideNav = document.getElementById('sideNav');
             
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
-        });
+            if (window.innerWidth <= 768) {
+                navToggle.classList.add('show');
+                sideNav.classList.remove('closed');
+                sideNav.classList.remove('open');
+                document.body.classList.remove('nav-closed');
+            } else {
+                navToggle.classList.remove('show');
+                sideNav.classList.remove('open');
+            }
+        }
+
+        // Initialize on load and resize
+        window.addEventListener('load', checkMobile);
+        window.addEventListener('resize', checkMobile);
     </script>
 </body>
 </html>
