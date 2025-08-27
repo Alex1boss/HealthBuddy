@@ -281,34 +281,52 @@
     <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
     
     <script>
-        // Navigation toggle functionality
+        // Navigation toggle functionality (responsive)
         function toggleNavigation() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            if (sideNav.classList.contains('closed')) {
-                sideNav.classList.remove('closed');
-                body.classList.remove('nav-closed');
-                navToggle.classList.remove('show');
+            // For mobile (768px and below)
+            if (window.innerWidth <= 768) {
+                if (sideNav.classList.contains('open')) {
+                    sideNav.classList.remove('open');
+                    navToggle.classList.remove('active');
+                } else {
+                    sideNav.classList.add('open');
+                    navToggle.classList.add('active');
+                }
             } else {
-                sideNav.classList.add('closed');
-                body.classList.add('nav-closed');
-                navToggle.classList.add('show');
+                // For desktop/tablet
+                if (sideNav.classList.contains('closed')) {
+                    sideNav.classList.remove('closed');
+                    body.classList.remove('nav-closed');
+                    navToggle.classList.remove('active');
+                } else {
+                    sideNav.classList.add('closed');
+                    body.classList.add('nav-closed');
+                    navToggle.classList.add('active');
+                }
             }
-            navToggle.classList.toggle('active');
         }
         
-        // Initialize navigation state
+        // Initialize navigation state based on screen size
         function initializeNavigation() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            // Start with navigation closed and toggle button visible
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
+            if (window.innerWidth <= 768) {
+                // Mobile: navigation hidden by default
+                sideNav.classList.remove('closed', 'open');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('active');
+            } else {
+                // Desktop: navigation visible by default
+                sideNav.classList.remove('closed', 'open');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('active');
+            }
         }
         
         // Close navigation when clicking outside on mobile
@@ -316,11 +334,18 @@
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             
-            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
-                if (!sideNav.classList.contains('closed')) {
-                    toggleNavigation();
-                }
+            if (window.innerWidth <= 768 && 
+                sideNav.classList.contains('open') && 
+                !sideNav.contains(e.target) && 
+                !navToggle.contains(e.target)) {
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
             }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            initializeNavigation();
         });
 
         // Initialize navigation when page loads

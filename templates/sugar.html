@@ -749,13 +749,13 @@
             document.getElementById('results').classList.remove('show');
         }
 
-        // Navigation toggle functionality (mobile optimized)
+        // Navigation toggle functionality (responsive)
         function toggleNavigation() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            // For mobile
+            // For mobile (768px and below)
             if (window.innerWidth <= 768) {
                 if (sideNav.classList.contains('open')) {
                     sideNav.classList.remove('open');
@@ -765,7 +765,7 @@
                     navToggle.classList.add('active');
                 }
             } else {
-                // For desktop
+                // For desktop/tablet
                 if (sideNav.classList.contains('closed')) {
                     sideNav.classList.remove('closed');
                     body.classList.remove('nav-closed');
@@ -777,26 +777,49 @@
                 }
             }
         }
-
-        // Show navigation toggle on mobile
-        function checkMobile() {
-            const navToggle = document.getElementById('navToggle');
+        
+        // Initialize navigation state based on screen size
+        function initializeNavigation() {
             const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
             
             if (window.innerWidth <= 768) {
-                navToggle.classList.add('show');
-                sideNav.classList.remove('closed');
-                sideNav.classList.remove('open');
-                document.body.classList.remove('nav-closed');
+                // Mobile: navigation hidden by default
+                sideNav.classList.remove('closed', 'open');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('active');
             } else {
-                navToggle.classList.remove('show');
-                sideNav.classList.remove('open');
+                // Desktop: navigation visible by default
+                sideNav.classList.remove('closed', 'open');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('active');
             }
         }
 
-        // Initialize on load and resize
-        window.addEventListener('load', checkMobile);
-        window.addEventListener('resize', checkMobile);
+        // Close navigation when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            
+            if (window.innerWidth <= 768 && 
+                sideNav.classList.contains('open') && 
+                !sideNav.contains(e.target) && 
+                !navToggle.contains(e.target)) {
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            initializeNavigation();
+        });
+
+        // Initialize navigation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+        });
     </script>
 </body>
 </html>

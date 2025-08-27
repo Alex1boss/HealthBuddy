@@ -1177,16 +1177,23 @@
             }
         }
         
-        // Initialize navigation state
+        // Initialize navigation state based on screen size
         function initializeNavigation() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            // Start with navigation closed and toggle button visible
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
+            if (window.innerWidth <= 768) {
+                // Mobile: navigation hidden by default
+                sideNav.classList.remove('closed', 'open');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('active');
+            } else {
+                // Desktop: navigation visible by default
+                sideNav.classList.remove('closed', 'open');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('active');
+            }
         }
         
         // Close navigation when clicking outside on mobile
@@ -1194,11 +1201,18 @@
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             
-            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
-                if (!sideNav.classList.contains('closed')) {
-                    toggleNavigation();
-                }
+            if (window.innerWidth <= 768 && 
+                sideNav.classList.contains('open') && 
+                !sideNav.contains(e.target) && 
+                !navToggle.contains(e.target)) {
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
             }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            initializeNavigation();
         });
     </script>
 
