@@ -6,8 +6,9 @@
     <title>About Us - Daily Water Calculator</title>
     <meta name="description" content="About Daily Water Calculator - Learn about our mission to help people stay hydrated with personalized water intake recommendations.">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts with preload for performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-7136012713043150">
@@ -41,12 +42,19 @@
             line-height: 1.6;
             min-height: 100vh;
             padding: 1rem;
-            margin-left: 250px;
+            margin: 0;
             transition: margin-left 0.3s ease;
         }
 
-        body.nav-closed {
-            margin-left: 0;
+        /* Desktop: Apply side navigation margin */
+        @media (min-width: 769px) {
+            body {
+                margin-left: 250px;
+            }
+
+            body.nav-closed {
+                margin-left: 0;
+            }
         }
 
         .nav-toggle {
@@ -61,13 +69,16 @@
             cursor: pointer;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
-            display: none;
+            display: flex;
             flex-direction: column;
             gap: 0.25rem;
         }
 
-        .nav-toggle.show {
-            display: flex;
+        /* Hide navigation toggle on desktop */
+        @media (min-width: 769px) {
+            .nav-toggle {
+                display: none;
+            }
         }
 
         .nav-toggle:hover {
