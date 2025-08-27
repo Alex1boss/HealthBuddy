@@ -53,6 +53,10 @@
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            transform: translateZ(0);
+            contain: layout style;
         }
 
         /* Hide navigation toggle on desktop */
@@ -72,6 +76,8 @@
             height: 2px;
             background: white;
             transition: all 0.2s ease;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .nav-toggle.active .hamburger:nth-child(1) {
@@ -99,6 +105,9 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease;
+            transform: translateZ(0);
+            contain: layout style;
+            will-change: transform;
         }
 
         .side-nav.closed {
@@ -645,7 +654,7 @@
 <body>
     <div class="container">
         <!-- Toggle Button -->
-        <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
             <span class="hamburger"></span>
             <span class="hamburger"></span>
             <span class="hamburger"></span>
@@ -655,7 +664,7 @@
         <nav class="side-nav" id="sideNav">
             <div class="nav-header">
                 <h3>💧 Calculators</h3>
-                <button class="nav-close" onclick="toggleNavigation()">✕</button>
+                <button class="nav-close" id="navClose" aria-label="Close Navigation">✕</button>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
@@ -1056,77 +1065,123 @@
             document.getElementById('errorMessage').classList.add('hidden');
         }
 
-        // Navigation toggle functionality
-        function toggleNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
+        // Robust Navigation Controller
+        class NavigationController {
+            constructor() {
+                this.sideNav = null;
+                this.navToggle = null;
+                this.navClose = null;
+                this.body = null;
+                this.isInitialized = false;
+                
+                this.init();
+            }
             
-            // For mobile
-            if (window.innerWidth <= 768) {
-                if (sideNav.classList.contains('open')) {
-                    sideNav.classList.remove('open');
-                    navToggle.classList.remove('active');
+            init() {
+                // Wait for DOM to be fully loaded
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => this.setup());
                 } else {
-                    sideNav.classList.add('open');
-                    navToggle.classList.add('active');
+                    this.setup();
                 }
-            } else {
-                // For desktop
-                if (sideNav.classList.contains('closed')) {
-                    sideNav.classList.remove('closed');
-                    body.classList.remove('nav-closed');
-                    navToggle.classList.remove('active');
+            }
+            
+            setup() {
+                // Get DOM elements
+                this.sideNav = document.getElementById('sideNav');
+                this.navToggle = document.getElementById('navToggle');
+                this.navClose = document.getElementById('navClose');
+                this.body = document.body;
+                
+                if (!this.sideNav || !this.navToggle) {
+                    console.warn('Navigation elements not found');
+                    return;
+                }
+                
+                // Set up event listeners
+                this.navToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.toggleNavigation();
+                });
+                
+                if (this.navClose) {
+                    this.navClose.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.closeNavigation();
+                    });
+                }
+                
+                // Close navigation when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (this.isMobile() && 
+                        this.sideNav.classList.contains('open') && 
+                        !this.sideNav.contains(e.target) && 
+                        !this.navToggle.contains(e.target)) {
+                        this.closeNavigation();
+                    }
+                });
+                
+                // Handle window resize
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => this.handleResize(), 100);
+                });
+                
+                // Initialize navigation state
+                this.initializeNavigation();
+                this.isInitialized = true;
+            }
+            
+            isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            toggleNavigation() {
+                if (this.isMobile()) {
+                    this.sideNav.classList.toggle('open');
+                    this.navToggle.classList.toggle('active');
                 } else {
-                    sideNav.classList.add('closed');
-                    body.classList.add('nav-closed');
-                    navToggle.classList.add('active');
+                    this.sideNav.classList.toggle('closed');
+                    this.body.classList.toggle('nav-closed');
+                    this.navToggle.classList.toggle('active');
                 }
+            }
+            
+            closeNavigation() {
+                if (this.isMobile()) {
+                    this.sideNav.classList.remove('open');
+                    this.navToggle.classList.remove('active');
+                } else {
+                    this.sideNav.classList.add('closed');
+                    this.body.classList.add('nav-closed');
+                    this.navToggle.classList.add('active');
+                }
+            }
+            
+            initializeNavigation() {
+                // Reset all classes first
+                this.sideNav.classList.remove('closed', 'open');
+                this.body.classList.remove('nav-closed');
+                this.navToggle.classList.remove('active');
+                
+                // Show/hide toggle button based on screen size
+                if (this.isMobile()) {
+                    this.navToggle.style.display = 'flex';
+                } else {
+                    this.navToggle.style.display = 'none';
+                }
+            }
+            
+            handleResize() {
+                this.initializeNavigation();
             }
         }
-
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function(event) {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            
-            if (window.innerWidth <= 768 && 
-                sideNav.classList.contains('open') && 
-                !sideNav.contains(event.target) && 
-                !navToggle.contains(event.target)) {
-                sideNav.classList.remove('open');
-                navToggle.classList.remove('active');
-            }
-        });
         
-        // Initialize navigation state
-        function initializeNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
-            
-            // Start with navigation closed and toggle button visible
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
-        }
-        
-        // Close navigation when clicking outside on mobile
-        document.addEventListener('click', function(e) {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            
-            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
-                if (!sideNav.classList.contains('closed')) {
-                    toggleNavigation();
-                }
-            }
-        });
-
-        // Initialize navigation when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeNavigation();
-        });
+        // Initialize navigation controller
+        window.navigationController = new NavigationController();
     </script>
 
     <!-- Featured Article Section -->

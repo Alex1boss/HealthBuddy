@@ -60,27 +60,58 @@
     }
     </script>
     
-    <!-- Google Fonts with preload for performance -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Critical CSS preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Google AdSense -->
+    <!-- Deferred Analytics -->
     <meta name="google-adsense-account" content="ca-pub-7136012713043150">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7136012713043150"
-         crossorigin="anonymous"></script>
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLQH7WFSWK"></script>
+    <!-- Google tag (gtag.js) - Deferred loading -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-PLQH7WFSWK');
+      
+      // Load analytics after page load
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-PLQH7WFSWK';
+          document.head.appendChild(script);
+          
+          var adsScript = document.createElement('script');
+          adsScript.async = true;
+          adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7136012713043150';
+          adsScript.crossOrigin = 'anonymous';
+          document.head.appendChild(adsScript);
+        }, 1000);
+      });
     </script>
     
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="static/css/main.css">
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical styles to prevent layout shifts */
+        body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 50%,#F0FDF4 100%);color:#1F2937;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:margin-left 0.3s ease;contain:layout style;will-change:margin-left}
+        .nav-toggle{position:fixed;top:1rem;left:1rem;z-index:1001;background:#1E90FF;border:none;border-radius:0.5rem;padding:0.75rem;cursor:pointer;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);transition:all 0.2s ease-in-out;display:none;flex-direction:column;gap:0.25rem;min-height:44px;min-width:44px;contain:layout style;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}
+        .hamburger{width:20px;height:2px;background:white;transition:all 0.2s ease-in-out;will-change:transform;transform:translateZ(0)}
+        .side-nav{position:fixed;left:0;top:0;width:250px;height:100vh;background:white;box-shadow:2px 0 10px rgba(0,0,0,0.1);z-index:1000;display:flex;flex-direction:column;transition:transform 0.3s ease;transform:translateZ(0);contain:layout style;will-change:transform}
+        .header{padding:3rem 0 2rem;text-align:center}
+        .title{font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,#1E90FF 0%,#0066CC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.75rem;line-height:1.2}
+        .subtitle{font-size:1.125rem;color:#6B7280;font-weight:400;margin-bottom:0}
+        .ad-container{min-height:90px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px}
+        @media (max-width:768px){body{margin-left:0!important;padding:0.5rem}.nav-toggle{display:flex!important}.side-nav{width:85%;max-width:300px;transform:translateX(-100%);transition:transform 0.3s ease}.side-nav.open{transform:translateX(0)}.title{font-size:1.75rem}.header{padding:2rem 0 1.5rem}}
+        @media (min-width:769px) and (max-width:1024px){body{margin-left:220px}.side-nav{width:220px}}
+        @media (min-width:1025px){body{margin-left:250px}.side-nav{width:250px}}
+    </style>
+    
+    <!-- Main CSS loaded after critical styles -->
+    <link rel="stylesheet" href="static/css/main.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="static/css/main.css"></noscript>
     
     <style>
         /* Override external CSS for consistent footer styling */
@@ -116,7 +147,7 @@
 </head>
 <body>
     <!-- Toggle Button -->
-    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
         <span class="hamburger"></span>
         <span class="hamburger"></span>
         <span class="hamburger"></span>
@@ -126,7 +157,7 @@
     <nav class="side-nav" id="sideNav">
         <div class="nav-header">
             <h3>💧 Calculators</h3>
-            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+            <button class="nav-close" id="navClose" aria-label="Close Navigation">✕</button>
         </div>
         <ul class="nav-menu">
             <li><a href="index.html" class="nav-link active">💧 Water Calculator</a></li>
@@ -145,17 +176,14 @@
         </div>
     </header>
 
-    <!-- Google Ad Unit 3 - Top Banner -->
-    <div class="ad-container" style="text-align: center; margin: 1rem 0; padding: 0.5rem;">
-        <ins class="adsbygoogle"
+    <!-- Google Ad Unit 3 - Top Banner (Lazy loaded) -->
+    <div class="ad-container" style="text-align: center; margin: 1rem 0; padding: 0.5rem; min-height: 90px;">
+        <ins class="adsbygoogle lazy-ad"
              style="display:block"
              data-ad-client="ca-pub-7136012713043150"
              data-ad-slot="1122334455"
              data-ad-format="horizontal"
              data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
 
     <!-- Main Calculator -->
@@ -241,26 +269,23 @@
             <div class="quick-actions" id="quickActions" style="display: none;">
                 <h3>🚀 Quick Actions</h3>
                 <div class="action-buttons">
-                    <button class="action-btn" onclick="recalculate()">
+                    <button class="action-btn" id="recalculateBtn">
                         🔄 Calculate Again
                     </button>
-                    <button class="action-btn" onclick="shareResult()">
+                    <button class="action-btn" id="shareBtn">
                         📱 Share Result
                     </button>
                 </div>
             </div>
 
-            <!-- Google Ad Unit 1 - After Calculator Results -->
-            <div class="ad-container" style="text-align: center; margin: 2rem 0; padding: 1rem;">
-                <ins class="adsbygoogle"
+            <!-- Google Ad Unit 1 - After Calculator Results (Lazy loaded) -->
+            <div class="ad-container" style="text-align: center; margin: 2rem 0; padding: 1rem; min-height: 250px;">
+                <ins class="adsbygoogle lazy-ad"
                      style="display:block"
                      data-ad-client="ca-pub-7136012713043150"
                      data-ad-slot="1234567890"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
 
         </div>
@@ -298,17 +323,14 @@
         </div>
     </section>
 
-    <!-- Google Ad Unit 2 - Before Footer -->
-    <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 1rem;">
-        <ins class="adsbygoogle"
+    <!-- Google Ad Unit 2 - Before Footer (Lazy loaded) -->
+    <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 1rem; min-height: 250px;">
+        <ins class="adsbygoogle lazy-ad"
              style="display:block"
              data-ad-client="ca-pub-7136012713043150"
              data-ad-slot="0987654321"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
 
     <!-- Footer -->
@@ -325,55 +347,170 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="static/js/calculator.js"></script>
+    <!-- Deferred JavaScript loading -->
+    <script>
+        // Load main calculator script after page load
+        window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = "static/js/calculator.js";
+            script.async = true;
+            document.head.appendChild(script);
+            
+            // Load and initialize ads after everything else
+            setTimeout(function() {
+                if (window.adsbygoogle) {
+                    var lazyAds = document.querySelectorAll('.lazy-ad');
+                    lazyAds.forEach(function(ad) {
+                        try {
+                            (adsbygoogle).push({});
+                        } catch(e) {
+                            console.log('Ad loading error:', e);
+                        }
+                    });
+                }
+            }, 2000);
+        });
+    </script>
     
     <script>
-        // Navigation toggle functionality
-        function toggleNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
-            
-            if (sideNav.classList.contains('closed')) {
-                sideNav.classList.remove('closed');
-                body.classList.remove('nav-closed');
-                navToggle.classList.remove('show');
-            } else {
-                sideNav.classList.add('closed');
-                body.classList.add('nav-closed');
-                navToggle.classList.add('show');
+        // Robust Navigation Controller
+        class NavigationController {
+            constructor() {
+                this.sideNav = null;
+                this.navToggle = null;
+                this.navClose = null;
+                this.body = null;
+                this.isInitialized = false;
+                
+                this.init();
             }
-            navToggle.classList.toggle('active');
-        }
-        
-        // Initialize navigation state
-        function initializeNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
             
-            // Start with navigation closed and toggle button visible
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
-        }
-        
-        // Close navigation when clicking outside on mobile
-        document.addEventListener('click', function(e) {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            
-            if (window.innerWidth <= 768 && !sideNav.contains(e.target) && !navToggle.contains(e.target)) {
-                if (!sideNav.classList.contains('closed')) {
-                    toggleNavigation();
+            init() {
+                // Wait for DOM to be fully loaded
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => this.setup());
+                } else {
+                    this.setup();
                 }
             }
-        });
-
-        // Initialize navigation when page loads
+            
+            setup() {
+                // Get DOM elements
+                this.sideNav = document.getElementById('sideNav');
+                this.navToggle = document.getElementById('navToggle');
+                this.navClose = document.getElementById('navClose');
+                this.body = document.body;
+                
+                if (!this.sideNav || !this.navToggle) {
+                    console.warn('Navigation elements not found');
+                    return;
+                }
+                
+                // Set up event listeners
+                this.navToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.toggleNavigation();
+                });
+                
+                if (this.navClose) {
+                    this.navClose.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.closeNavigation();
+                    });
+                }
+                
+                // Close navigation when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (this.isMobile() && 
+                        this.sideNav.classList.contains('open') && 
+                        !this.sideNav.contains(e.target) && 
+                        !this.navToggle.contains(e.target)) {
+                        this.closeNavigation();
+                    }
+                });
+                
+                // Handle window resize
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => this.handleResize(), 100);
+                });
+                
+                // Initialize navigation state
+                this.initializeNavigation();
+                this.isInitialized = true;
+            }
+            
+            isMobile() {
+                return window.innerWidth <= 768;
+            }
+            
+            toggleNavigation() {
+                if (this.isMobile()) {
+                    this.sideNav.classList.toggle('open');
+                    this.navToggle.classList.toggle('active');
+                } else {
+                    this.sideNav.classList.toggle('closed');
+                    this.body.classList.toggle('nav-closed');
+                    this.navToggle.classList.toggle('active');
+                }
+            }
+            
+            closeNavigation() {
+                if (this.isMobile()) {
+                    this.sideNav.classList.remove('open');
+                    this.navToggle.classList.remove('active');
+                } else {
+                    this.sideNav.classList.add('closed');
+                    this.body.classList.add('nav-closed');
+                    this.navToggle.classList.add('active');
+                }
+            }
+            
+            initializeNavigation() {
+                // Reset all classes first
+                this.sideNav.classList.remove('closed', 'open');
+                this.body.classList.remove('nav-closed');
+                this.navToggle.classList.remove('active');
+                
+                // Show/hide toggle button based on screen size
+                if (this.isMobile()) {
+                    this.navToggle.style.display = 'flex';
+                } else {
+                    this.navToggle.style.display = 'none';
+                }
+            }
+            
+            handleResize() {
+                this.initializeNavigation();
+            }
+        }
+        
+        // Initialize navigation controller
+        window.navigationController = new NavigationController();
+        
+        // Setup action button handlers
         document.addEventListener('DOMContentLoaded', function() {
-            initializeNavigation();
+            const recalculateBtn = document.getElementById('recalculateBtn');
+            const shareBtn = document.getElementById('shareBtn');
+            
+            if (recalculateBtn) {
+                recalculateBtn.addEventListener('click', function() {
+                    if (window.waterCalculator) {
+                        window.waterCalculator.reset();
+                    }
+                });
+            }
+            
+            if (shareBtn) {
+                shareBtn.addEventListener('click', function() {
+                    if (window.waterCalculator) {
+                        window.waterCalculator.shareResult();
+                    }
+                });
+            }
         });
     </script>
 </body>
