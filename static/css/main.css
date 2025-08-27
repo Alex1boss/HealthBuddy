@@ -56,8 +56,22 @@ body {
     transition: margin-left 0.3s ease;
 }
 
-/* Desktop: Apply side navigation margin */
-@media (min-width: 769px) {
+/* Navigation Responsive Breakpoints */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        margin-left: 220px;
+    }
+
+    body.nav-closed {
+        margin-left: 0;
+    }
+    
+    .side-nav {
+        width: 220px;
+    }
+}
+
+@media (min-width: 1025px) {
     body {
         margin-left: 250px;
     }
@@ -65,17 +79,31 @@ body {
     body.nav-closed {
         margin-left: 0;
     }
+    
+    .side-nav {
+        width: 250px;
+    }
 }
 
 
-/* Mobile-First Responsive Design */
+/* Mobile-First Navigation Design */
 @media (max-width: 768px) {
     body {
         margin-left: 0 !important;
+        padding: 0.5rem;
     }
     
     .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 85%;
+        max-width: 300px;
+        height: 100vh;
         transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
     }
     
     .side-nav.open {
@@ -106,8 +134,25 @@ body {
     }
     
     .nav-toggle {
-        padding: 1rem !important;
-        font-size: 1.1rem !important;
+        padding: 0.875rem !important;
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+    
+    /* Mobile overlay for navigation */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+    
+    .nav-overlay.show {
+        display: block;
     }
 }
 
@@ -127,6 +172,10 @@ body {
     display: none;
     flex-direction: column;
     gap: 0.25rem;
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .nav-toggle.show {
@@ -238,22 +287,28 @@ body {
     border-left-color: var(--primary-blue);
 }
 
+/* Mobile Navigation Override */
 @media (max-width: 768px) {
-    body {
-        margin-left: 0;
+    .side-nav {
+        position: fixed !important;
+        width: 85% !important;
+        max-width: 300px !important;
+        height: 100vh !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: translateX(-100%) !important;
+        z-index: 1000 !important;
     }
     
-    .side-nav {
-        width: 100%;
-        height: auto;
-        position: relative;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    .side-nav.open {
+        transform: translateX(0) !important;
     }
     
     .nav-menu {
         display: flex;
-        overflow-x: auto;
-        padding: 0.5rem;
+        flex-direction: column;
+        padding: 1rem 0;
+        overflow-y: auto;
     }
     
     .nav-menu li {
@@ -261,15 +316,19 @@ body {
     }
     
     .nav-link {
-        padding: 0.75rem 1rem;
+        padding: 1rem 1.5rem;
         white-space: nowrap;
-        border-left: none;
-        border-bottom: 3px solid transparent;
+        border-left: 3px solid transparent;
+        border-bottom: none;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
     }
     
     .nav-link.active {
-        border-left: none;
-        border-bottom-color: var(--primary-blue);
+        border-left-color: var(--primary-blue);
+        border-bottom: none;
+        background: rgba(30, 144, 255, 0.1);
     }
 }
 
@@ -339,12 +398,25 @@ body {
     font-size: 1rem;
 }
 
-/* Form Styles */
+/* Form Styles - Responsive */
 .calculator-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     margin-bottom: 2rem;
+}
+
+/* Form Grid for larger screens */
+@media (min-width: 769px) {
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
 }
 
 .form-group {
@@ -422,7 +494,7 @@ body {
     box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
 }
 
-/* Button Styles */
+/* Button Styles - Responsive */
 .calculate-btn {
     background: var(--gradient-primary);
     color: var(--white);
@@ -439,6 +511,29 @@ body {
     justify-content: center;
     gap: 0.5rem;
     min-height: 3.5rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile touch targets */
+@media (max-width: 768px) {
+    .calculate-btn {
+        min-height: 48px;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+    .action-btn {
+        min-height: 44px;
+        padding: 0.75rem 1.25rem;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .nav-link {
+        min-height: 48px;
+    }
 }
 
 .calculate-btn:hover {
@@ -508,6 +603,25 @@ body {
     border-radius: var(--radius-xl);
     padding: 2rem;
     border: 1px solid var(--neutral-200);
+}
+
+/* Responsive Tips Section */
+@media (max-width: 480px) {
+    .tips-section {
+        padding: 1.25rem;
+        border-radius: var(--radius-lg);
+    }
+    
+    .tips-section h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .tips-section {
+        padding: 1.75rem;
+    }
 }
 
 .tips-section h4 {
@@ -649,8 +763,61 @@ body {
     animation: pulse 1s infinite;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
+/* Tablet (Portrait) - 481px to 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+        max-width: 90%;
+    }
+    
+    .header {
+        padding: 2.5rem 0 2rem;
+    }
+    
+    .title {
+        font-size: 2.25rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .calculator-card {
+        padding: 2rem;
+        margin-bottom: 1.75rem;
+    }
+    
+    .calculator-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .calculator-form {
+        gap: 1.25rem;
+    }
+    
+    .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .action-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .action-btn {
+        flex: 1;
+        min-width: 140px;
+    }
+    
+    .side-nav {
+        width: 280px;
+    }
+}
+
+/* Mobile (Small Screens) - up to 480px */
+@media (max-width: 480px) {
     .container {
         padding: 0 0.75rem;
     }
@@ -660,56 +827,33 @@ body {
     }
     
     .title {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        line-height: 1.3;
     }
     
     .subtitle {
-        font-size: 1rem;
-    }
-    
-    .calculator-card {
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .calculator-header h2 {
-        font-size: 1.5rem;
-    }
-    
-    .result-card {
-        padding: 2rem 1.5rem;
-    }
-    
-    .result-amount {
-        font-size: 3rem;
-    }
-    
-    .tips-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .quick-actions {
-        padding: 1.5rem;
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .action-btn {
-        width: 100%;
-        max-width: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 1.75rem;
+        font-size: 0.95rem;
     }
     
     .calculator-card {
         padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        border-radius: var(--radius-xl);
+    }
+    
+    .calculator-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .form-input, .form-select {
+        padding: 0.75rem 2.5rem 0.75rem 0.875rem;
+        font-size: 0.95rem;
+    }
+    
+    .calculate-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        min-height: 3rem;
     }
     
     .result-card {
@@ -720,12 +864,172 @@ body {
         font-size: 2.5rem;
     }
     
-    .tips-section {
-        padding: 1.5rem;
+    .result-icon {
+        font-size: 3rem;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+    }
+    
+    .tip-card {
+        padding: 1rem;
+    }
+    
+    .tip-emoji {
+        font-size: 1.75rem;
     }
     
     .quick-actions {
         padding: 1.25rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .action-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* Mobile (Medium Screens) - 481px to 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .header {
+        padding: 2.25rem 0 1.75rem;
+    }
+    
+    .title {
+        font-size: 2.1rem;
+    }
+    
+    .subtitle {
+        font-size: 1.05rem;
+    }
+    
+    .calculator-card {
+        padding: 1.75rem;
+        margin-bottom: 1.75rem;
+    }
+    
+    .calculator-header h2 {
+        font-size: 1.55rem;
+    }
+    
+    .result-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .result-amount {
+        font-size: 3.25rem;
+    }
+    
+    .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .quick-actions {
+        padding: 1.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .action-btn {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+/* Tablet (Landscape) - 769px to 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        margin-left: 220px;
+    }
+    
+    .side-nav {
+        width: 220px;
+    }
+    
+    .container {
+        max-width: 42rem;
+        padding: 0 1.5rem;
+    }
+    
+    .header {
+        padding: 2.75rem 0 2.25rem;
+    }
+    
+    .title {
+        font-size: 2.4rem;
+    }
+    
+    .subtitle {
+        font-size: 1.15rem;
+    }
+    
+    .calculator-card {
+        padding: 2.25rem;
+    }
+    
+    .tips-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .action-buttons {
+        gap: 1.25rem;
+    }
+    
+    .nav-toggle {
+        display: none !important;
+    }
+}
+
+/* Large Desktop - 1025px and above */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 52rem;
+        padding: 0 2rem;
+    }
+    
+    .header {
+        padding: 3.5rem 0 2.5rem;
+    }
+    
+    .title {
+        font-size: 2.75rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .calculator-card {
+        padding: 3rem;
+    }
+    
+    .tips-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .quick-actions {
+        padding: 2.5rem;
+    }
+    
+    .action-buttons {
+        gap: 1.5rem;
     }
 }
 
