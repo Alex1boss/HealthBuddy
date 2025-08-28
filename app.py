@@ -42,6 +42,32 @@ def sugar_hydration_guide():
     with open('sugar-hydration-guide.html', 'r') as f:
         return f.read()
 
+@app.route('/hydration-tips')
+def hydration_tips():
+    with open('hydration-tips.html', 'r') as f:
+        return f.read()
+
+@app.route('/caffeine-hydration-truth')
+def caffeine_hydration_truth():
+    with open('caffeine-hydration-truth.html', 'r') as f:
+        return f.read()
+
+@app.route('/sitemap.xml')
+def sitemap():
+    with open('sitemap.xml', 'r') as f:
+        content = f.read()
+    response = app.make_response(content)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
+
+@app.route('/robots.txt')
+def robots():
+    with open('robots.txt', 'r') as f:
+        content = f.read()
+    response = app.make_response(content)
+    response.headers['Content-Type'] = 'text/plain'
+    return response
+
 @app.route('/ads.txt')
 def ads_txt():
     with open('ads.txt', 'r') as f:
