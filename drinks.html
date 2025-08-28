@@ -10,6 +10,33 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://watercoach.netlify.app/drinks">
     
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Drinks & Caffeine Hydration Calculator",
+        "description": "Calculate caffeine intake and hydration from coffee, tea, soda, energy drinks. Track net hydration effect from beverages.",
+        "url": "https://watercoach.netlify.app/drinks",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Water Coach"
+        },
+        "mainEntity": {
+            "@type": "Calculator",
+            "name": "Drinks Hydration Calculator",
+            "description": "Calculate net hydration effect from caffeinated and non-caffeinated beverages"
+        }
+    }
+    </script>
+    
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
     
@@ -671,9 +698,9 @@
                 <button class="nav-close" id="navClose" aria-label="Close Navigation">✕</button>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
-                <li><a href="drinks.html" class="nav-link active">☕ Drinks Calculator</a></li>
-                <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+                <li><a href="/" class="nav-link">💧 Water Calculator</a></li>
+                <li><a href="/drinks" class="nav-link active">☕ Drinks Calculator</a></li>
+                <li><a href="/sugar" class="nav-link">🍬 Sweet Calculator</a></li>
             </ul>
         </nav>
 
@@ -1204,7 +1231,7 @@
                         <li style="display: flex; align-items: center; margin-bottom: 0.5rem;"><span style="color: #D2691E; margin-right: 0.5rem; font-weight: bold;">✓</span> How sugar affects your hydration efficiency</li>
                         <li style="display: flex; align-items: center;"><span style="color: #D2691E; margin-right: 0.5rem; font-weight: bold;">✓</span> Practical guidelines for coffee and tea lovers</li>
                     </ul>
-                    <a href="caffeine-hydration-truth.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #8B4513, #D2691E); color: white; text-decoration: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);">
+                    <a href="/caffeine-hydration-truth" style="display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #8B4513, #D2691E); color: white; text-decoration: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);">
                         ☕ Read the Truth About Caffeine
                         <span style="transition: transform 0.3s ease;">→</span>
                     </a>
@@ -1228,7 +1255,7 @@
                     💧 Daily Water Calculator - Stay hydrated, stay healthy!
                 </p>
                 <p class="footer-disclaimer">
-                    <a href="privacy.html">💧 Privacy Policy</a> | <a href="about.html">💧 About Us</a> | <a href="contact.html">💧 Contact Us</a>
+                    <a href="/privacy">💧 Privacy Policy</a> | <a href="/about">💧 About Us</a> | <a href="/contact">💧 Contact Us</a>
                 </p>
             </div>
         </div>

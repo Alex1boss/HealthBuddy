@@ -10,6 +10,33 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://watercoach.netlify.app/sugar">
     
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Sugar Intake Water Needs Calculator",
+        "description": "Calculate extra water needed for sugar intake. Get personalized hydration targets with health guidelines comparison.",
+        "url": "https://watercoach.netlify.app/sugar",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Water Coach"
+        },
+        "mainEntity": {
+            "@type": "Calculator",
+            "name": "Sugar Water Calculator",
+            "description": "Calculate how much extra water you need after consuming sugar and sweets"
+        }
+    }
+    </script>
+    
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
     
@@ -475,9 +502,9 @@
             <button class="nav-close" id="navClose" aria-label="Close Navigation">✕</button>
         </div>
         <ul class="nav-menu">
-            <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
-            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
-            <li><a href="sugar.html" class="nav-link active">🍬 Sweet Calculator</a></li>
+            <li><a href="/" class="nav-link">💧 Water Calculator</a></li>
+            <li><a href="/drinks" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="/sugar" class="nav-link active">🍬 Sweet Calculator</a></li>
         </ul>
     </nav>
 
@@ -632,7 +659,7 @@
                     💧 Daily Water Calculator - Stay hydrated, stay healthy!
                 </p>
                 <p class="footer-disclaimer">
-                    <a href="privacy.html">💧 Privacy Policy</a> | <a href="about.html">💧 About Us</a> | <a href="contact.html">💧 Contact Us</a>
+                    <a href="/privacy">💧 Privacy Policy</a> | <a href="/about">💧 About Us</a> | <a href="/contact">💧 Contact Us</a>
                 </p>
             </div>
         </div>
