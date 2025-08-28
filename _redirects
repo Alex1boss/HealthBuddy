@@ -1,3 +1,14 @@
+# 301 redirects for duplicate content prevention
+/sugar.html                 /sugar                   301!
+/drinks.html                /drinks                  301!
+/about.html                 /about                   301!
+/contact.html               /contact                 301!
+/privacy.html               /privacy                 301!
+/sugar-hydration-guide.html /sugar-hydration-guide   301!
+/caffeine-hydration-truth.html /caffeine-hydration-truth 301!
+/hydration-tips.html        /hydration-tips          301!
+
+# Static file serving
 /robots.txt    /robots.txt    200
 /sitemap.xml   /sitemap.xml   200
 /test-sitemap.xml  /test-sitemap.xml  200
