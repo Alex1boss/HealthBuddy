@@ -5,4 +5,8 @@ Allow: /
 User-agent: Mediapartners-Google
 Allow: /
 
+# Sitemap
 Sitemap: https://watercoach.netlify.app/sitemap.xml
+
+# Canonical domain preference
+Host: watercoach.netlify.app
