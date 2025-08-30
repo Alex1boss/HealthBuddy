@@ -493,7 +493,7 @@
 </head>
 <body>
     <!-- Toggle Button -->
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
         <span class="hamburger"></span>
         <span class="hamburger"></span>
         <span class="hamburger"></span>
@@ -878,119 +878,32 @@
             resultsDiv.classList.remove('show');
         }
 
-        // Robust Navigation Controller
-        class NavigationController {
-            constructor() {
-                this.sideNav = null;
-                this.navToggle = null;
-                this.navClose = null;
-                this.body = null;
-                this.isInitialized = false;
-                
-                this.init();
-            }
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
             
-            init() {
-                // Wait for DOM to be fully loaded
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', () => this.setup());
-                } else {
-                    this.setup();
-                }
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
             }
-            
-            setup() {
-                // Get DOM elements
-                this.sideNav = document.getElementById('sideNav');
-                this.navToggle = document.getElementById('navToggle');
-                this.navClose = document.getElementById('navClose');
-                this.body = document.body;
-                
-                if (!this.sideNav || !this.navToggle) {
-                    console.warn('Navigation elements not found');
-                    return;
-                }
-                
-                // Set up event listeners
-                this.navToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.toggleNavigation();
-                });
-                
-                if (this.navClose) {
-                    this.navClose.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        this.closeNavigation();
-                    });
-                }
-                
-                // Close navigation when clicking outside on mobile
-                document.addEventListener('click', (e) => {
-                    if (this.isMobile() && 
-                        this.sideNav.classList.contains('open') && 
-                        !this.sideNav.contains(e.target) && 
-                        !this.navToggle.contains(e.target)) {
-                        this.closeNavigation();
-                    }
-                });
-                
-                // Handle window resize
-                let resizeTimeout;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => this.handleResize(), 100);
-                });
-                
-                // Initialize navigation state
-                this.initializeNavigation();
-                this.isInitialized = true;
-            }
-            
-            isMobile() {
-                return window.innerWidth <= 768;
-            }
-            
-            toggleNavigation() {
-                if (this.isMobile()) {
-                    this.sideNav.classList.toggle('open');
-                    this.navToggle.classList.toggle('active');
-                } else {
-                    this.sideNav.classList.toggle('closed');
-                    this.body.classList.toggle('nav-closed');
-                    this.navToggle.classList.toggle('active');
-                }
-            }
-            
-            closeNavigation() {
-                if (this.isMobile()) {
-                    this.sideNav.classList.remove('open');
-                    this.navToggle.classList.remove('active');
-                } else {
-                    this.sideNav.classList.add('closed');
-                    this.body.classList.add('nav-closed');
-                    this.navToggle.classList.add('active');
-                }
-            }
-            
-            initializeNavigation() {
-                // Reset all classes first
-                this.sideNav.classList.remove('closed', 'open');
-                this.body.classList.remove('nav-closed');
-                this.navToggle.classList.remove('active');
-                
-                // Always show toggle button and let CSS handle visibility
-                this.navToggle.classList.add('show');
-            }
-            
-            handleResize() {
-                this.initializeNavigation();
-            }
+            navToggle.classList.toggle('active');
         }
         
-        // Initialize navigation controller
-        window.navigationController = new NavigationController();
+        document.addEventListener('DOMContentLoaded', function() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            sideNav.classList.add('closed');
+            body.classList.add('nav-closed');
+            navToggle.classList.add('show');
+        });
     </script>
 </body>
 </html>
