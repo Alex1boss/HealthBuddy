@@ -81,7 +81,7 @@
             cursor: pointer;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
-            display: flex;
+            display: none;
             flex-direction: column;
             gap: 0.25rem;
             touch-action: manipulation;
@@ -89,13 +89,11 @@
             transform: translateZ(0);
             contain: layout style;
         }
-
-        /* Hide navigation toggle on desktop */
-        @media (min-width: 769px) {
-            .nav-toggle {
-                display: none;
-            }
+        
+        .nav-toggle.show {
+            display: flex !important;
         }
+
 
         .nav-toggle:hover {
             background: #0284c7;
@@ -1198,12 +1196,8 @@
                 this.body.classList.remove('nav-closed');
                 this.navToggle.classList.remove('active');
                 
-                // Show/hide toggle button based on screen size
-                if (this.isMobile()) {
-                    this.navToggle.style.display = 'flex';
-                } else {
-                    this.navToggle.style.display = 'none';
-                }
+                // Always show toggle button and let CSS handle visibility
+                this.navToggle.classList.add('show');
             }
             
             handleResize() {

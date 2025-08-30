@@ -98,7 +98,7 @@
         /* Critical styles to prevent layout shifts */
         body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 50%,#F0FDF4 100%);color:#1F2937;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:margin-left 0.3s ease;contain:layout style;will-change:margin-left}
         .nav-toggle{position:fixed;top:1rem;left:1rem;z-index:1001;background:#1E90FF;border:none;border-radius:0.5rem;padding:0.75rem;cursor:pointer;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);transition:all 0.2s ease-in-out;display:none;flex-direction:column;gap:0.25rem;min-height:44px;min-width:44px;contain:layout style;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}
-        .nav-toggle.show{display:flex}
+        .nav-toggle.show{display:flex!important}
         .hamburger{width:20px;height:2px;background:white;transition:all 0.2s ease-in-out;will-change:transform;transform:translateZ(0)}
         .side-nav{position:fixed;left:0;top:0;width:250px;height:100vh;background:white;box-shadow:2px 0 10px rgba(0,0,0,0.1);z-index:1000;display:flex;flex-direction:column;transition:transform 0.3s ease;transform:translateZ(0);contain:layout style;will-change:transform}
         .header{padding:3rem 0 2rem;text-align:center}
@@ -106,8 +106,8 @@
         .subtitle{font-size:1.125rem;color:#6B7280;font-weight:400;margin-bottom:0}
         .ad-container{min-height:90px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px}
         @media (max-width:768px){body{margin-left:0!important;padding:0.5rem}.nav-toggle{display:flex!important}.side-nav{width:85%;max-width:300px;transform:translateX(-100%);transition:transform 0.3s ease}.side-nav.open{transform:translateX(0)}.title{font-size:1.75rem}.header{padding:2rem 0 1.5rem}.article-preview{grid-template-columns:1fr!important}}
-        @media (min-width:769px) and (max-width:1024px){body{margin-left:220px}.side-nav{width:220px}.nav-toggle{display:none}}
-        @media (min-width:1025px){body{margin-left:250px}.side-nav{width:250px}.nav-toggle{display:none}}
+        @media (min-width:769px) and (max-width:1024px){body{margin-left:220px}.side-nav{width:220px}}
+        @media (min-width:1025px){body{margin-left:250px}.side-nav{width:250px}}
     </style>
     
     <!-- Main CSS loaded after critical styles -->
