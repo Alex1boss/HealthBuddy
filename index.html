@@ -240,15 +240,15 @@
     </button>
 
     <!-- Side Navigation -->
-    <nav class="side-nav" id="sideNav">
-        <div class="nav-header">
-            <h3>💧 Calculators</h3>
-            <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()">✕</button>
+    <nav class="side-nav" id="sideNav" style="display: flex; flex-direction: column;">
+        <div class="nav-header" style="flex-shrink: 0; padding: 2rem 1.5rem 1rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0; font-size: 1.25rem; font-weight: 600; color: #1e293b;">💧 Calculators</h3>
+            <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()" style="background: none; border: none; font-size: 1.5rem; color: #64748b; cursor: pointer; padding: 0.25rem; border-radius: 0.25rem;">✕</button>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html" class="nav-link active">💧 Water Calculator</a></li>
-            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
-            <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+        <ul class="nav-menu" style="list-style: none; padding: 1rem 0; margin: 0; flex: 1; overflow-y: auto;">
+            <li style="margin: 0;"><a href="index.html" class="nav-link active" style="display: block; padding: 1rem 1.5rem; color: #0ea5e9; text-decoration: none; font-weight: 500; background: rgba(14,165,233,0.1); border-left: 3px solid #0ea5e9;">💧 Water Calculator</a></li>
+            <li style="margin: 0;"><a href="drinks.html" class="nav-link" style="display: block; padding: 1rem 1.5rem; color: #64748b; text-decoration: none; font-weight: 500; border-left: 3px solid transparent;">☕ Drinks Calculator</a></li>
+            <li style="margin: 0;"><a href="sugar.html" class="nav-link" style="display: block; padding: 1rem 1.5rem; color: #64748b; text-decoration: none; font-weight: 500; border-left: 3px solid transparent;">🍬 Sweet Calculator</a></li>
         </ul>
     </nav>
 
