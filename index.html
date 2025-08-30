@@ -105,9 +105,42 @@
         .title{font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,#1E90FF 0%,#0066CC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.75rem;line-height:1.2}
         .subtitle{font-size:1.125rem;color:#6B7280;font-weight:400;margin-bottom:0}
         .ad-container{min-height:90px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px}
+        /* Desktop: Apply side navigation margin */
+        @media (min-width: 769px) {
+            body {
+                margin-left: 250px;
+            }
+
+            body.nav-closed {
+                margin-left: 0;
+            }
+            
+            .nav-toggle {
+                display: none;
+            }
+            
+            .nav-toggle.show {
+                display: flex !important;
+            }
+        }
+
+        .side-nav.closed {
+            transform: translateX(-100%);
+        }
+
+        .nav-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
         @media (max-width:768px){body{margin-left:0!important;padding:0.5rem}.nav-toggle{display:flex!important}.side-nav{width:85%;max-width:300px;transform:translateX(-100%);transition:transform 0.3s ease}.side-nav.open{transform:translateX(0)}.title{font-size:1.75rem}.header{padding:2rem 0 1.5rem}.article-preview{grid-template-columns:1fr!important}}
-        @media (min-width:769px) and (max-width:1024px){body{margin-left:220px}.side-nav{width:220px}}
-        @media (min-width:1025px){body{margin-left:250px}.side-nav{width:250px}}
     </style>
     
     <!-- Main CSS loaded after critical styles -->
@@ -347,6 +380,55 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('closed')) {
+                sideNav.classList.remove('closed');
+                body.classList.remove('nav-closed');
+                navToggle.classList.remove('show');
+            } else {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+            navToggle.classList.toggle('active');
+        }
+        
+        // Close navigation function (for close button)
+        function closeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (window.innerWidth <= 768) {
+                // Mobile: close navigation
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
+            } else {
+                // Desktop: close navigation
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (window.innerWidth > 768) {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+        });
+    </script>
 
     <!-- Water Calculator Script - Embedded for Netlify compatibility -->
     <script>
