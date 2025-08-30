@@ -251,29 +251,36 @@
             text-decoration: underline !important;
         }
         
+        /* NAVIGATION WHITE SPACE FIX ONLY */
+        .nav-menu {
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: auto !important;
+            height: auto !important;
+        }
+        
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Toggle Button -->
-        <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-        </button>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+    </button>
 
-        <!-- Side Navigation -->
-        <nav class="side-nav" id="sideNav">
-            <div class="nav-header">
-                <h3>💧 Calculators</h3>
-                <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()">✕</button>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">💧 Water Calculator</a></li>
-                <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
-                <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
-            </ul>
-        </nav>
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <h3>💧 Calculators</h3>
+            <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link active">💧 Water Calculator</a></li>
+            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+        </ul>
+    </nav>
 
     <!-- Header -->
     <header class="header">
@@ -863,6 +870,5 @@
             navToggle.classList.add('show');
         });
     </script>
-    </div>
 </body>
 </html>
