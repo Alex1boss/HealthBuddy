@@ -210,23 +210,6 @@
     <noscript><link rel="stylesheet" href="static/css/main.css"></noscript>
     
     <style>
-        /* CRITICAL: Navigation compact layout override */
-        .side-nav .nav-menu {
-            list-style: none !important;
-            padding: 1rem 0 !important;
-            margin: 0 !important;
-            flex: 1 !important;
-            overflow-y: auto !important;
-        }
-        
-        .side-nav .nav-header {
-            padding: 2rem 1.5rem 1rem !important;
-            border-bottom: 1px solid #e2e8f0 !important;
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            flex-shrink: 0 !important;
-        }
 
         /* Override external CSS for consistent footer styling */
         .footer {
@@ -258,21 +241,6 @@
             text-decoration: underline !important;
         }
         
-        /* FINAL OVERRIDE: Force compact navigation layout */
-        body .side-nav .nav-menu {
-            flex: 1 !important;
-            overflow-y: auto !important;
-            max-height: calc(100vh - 200px) !important;
-        }
-        
-        body .side-nav {
-            display: flex !important;
-            flex-direction: column !important;
-        }
-        
-        body .side-nav .nav-header {
-            flex-shrink: 0 !important;
-        }
     </style>
 </head>
 <body>
