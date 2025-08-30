@@ -720,7 +720,7 @@
 
         <!-- Buttons -->
         <div class="button-group">
-            <button class="btn btn-primary" onclick="calculateResults()">💧 Calculate</button>
+            <button class="btn btn-primary" onclick="calculateResults(); loadAd();">💧 Calculate</button>
             <button class="btn btn-secondary" onclick="resetForm()">🔄 Reset</button>
         </div>
 
@@ -771,10 +771,15 @@
         </div>
     </div>
 
+    <script type='text/javascript' src='//pl27540264.revenuecpmgate.com/a8/25/73/a825737b61d5c6af6de0be99f5238392.js'></script>
     <script>
         // Array to store all added drinks
         let addedDrinks = [];
         let drinkIdCounter = 0;
+        
+        function loadAd() {
+            // Ad script is already loaded above
+        }
 
         // Predefined drink data
         const drinkPresets = {

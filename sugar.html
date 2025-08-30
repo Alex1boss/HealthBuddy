@@ -620,7 +620,7 @@
                     <!-- Calculate Button -->
                     <div class="card">
                         <div class="button-group">
-                            <button type="button" class="btn btn-primary" onclick="calculate()">💧 Get My Hydration Plan</button>
+                            <button type="button" class="btn btn-primary" onclick="calculate(); loadAd();">💧 Get My Hydration Plan</button>
                             <button type="button" class="btn btn-secondary" onclick="clearAll()">🔄 Reset</button>
                         </div>
                     </div>
@@ -671,7 +671,12 @@
         </div>
     </footer>
 
+    <script type='text/javascript' src='//pl27540264.revenuecpmgate.com/a8/25/73/a825737b61d5c6af6de0be99f5238392.js'></script>
     <script>
+        function loadAd() {
+            // Ad script is already loaded above
+        }
+        
         // Add sugar from quick buttons
         function addSugar(amount) {
             const totalSugarInput = document.getElementById('total-sugar');
