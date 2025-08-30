@@ -1111,6 +1111,24 @@
             navToggle.classList.toggle('active');
         }
         
+        // Close navigation function (for close button)
+        function closeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (window.innerWidth <= 768) {
+                // Mobile: close navigation
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
+            } else {
+                // Desktop: close navigation
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');

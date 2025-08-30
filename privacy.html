@@ -332,7 +332,7 @@
     <nav class="side-nav" id="sideNav">
         <div class="nav-header">
             <h3>💧 Calculators</h3>
-            <button class="nav-close" onclick="toggleNavigation()">✕</button>
+            <button class="nav-close" onclick="closeNavigation()">✕</button>
         </div>
         <ul class="nav-menu">
             <li><a href="index.html" class="nav-link">💧 Water Calculator</a></li>
@@ -461,6 +461,24 @@
                 navToggle.classList.add('show');
             }
             navToggle.classList.toggle('active');
+        }
+        
+        // Close navigation function (for close button)
+        function closeNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (window.innerWidth <= 768) {
+                // Mobile: close navigation
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
+            } else {
+                // Desktop: close navigation
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
         }
         
         document.addEventListener('DOMContentLoaded', function() {
