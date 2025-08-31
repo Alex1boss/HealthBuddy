@@ -377,9 +377,13 @@
             }
             
             toggleNavigation() {
+                console.log('Toggle navigation clicked, isMobile:', this.isMobile());
                 if (this.isMobile()) {
                     this.sideNav.classList.toggle('open');
                     this.navToggle.classList.toggle('active');
+                    
+                    // Add/remove overlay
+                    this.toggleOverlay();
                 } else {
                     this.sideNav.classList.toggle('closed');
                     this.body.classList.toggle('nav-closed');
@@ -391,10 +395,34 @@
                 if (this.isMobile()) {
                     this.sideNav.classList.remove('open');
                     this.navToggle.classList.remove('active');
+                    this.removeOverlay();
                 } else {
                     this.sideNav.classList.add('closed');
                     this.body.classList.add('nav-closed');
                     this.navToggle.classList.add('active');
+                }
+            }
+            
+            toggleOverlay() {
+                let overlay = document.querySelector('.nav-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'nav-overlay';
+                    overlay.addEventListener('click', () => this.closeNavigation());
+                    document.body.appendChild(overlay);
+                }
+                
+                if (this.sideNav.classList.contains('open')) {
+                    overlay.classList.add('show');
+                } else {
+                    overlay.classList.remove('show');
+                }
+            }
+            
+            removeOverlay() {
+                const overlay = document.querySelector('.nav-overlay');
+                if (overlay) {
+                    overlay.classList.remove('show');
                 }
             }
             
