@@ -485,6 +485,21 @@
             text-decoration: underline;
         }
 
+        /* Mobile: Show navigation toggle */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex !important;
+            }
+            
+            .side-nav {
+                transform: translateX(-100%);
+            }
+            
+            .side-nav.open {
+                transform: translateX(0);
+            }
+        }
+        
         /* Hide navigation toggle on desktop */
         @media (min-width: 769px) {
             .nav-toggle {
