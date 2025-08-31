@@ -1200,6 +1200,9 @@
                 body.classList.add('nav-closed');
                 navToggle.classList.add('show');
             }
+            
+            // Ensure toggle starts in proper state (not active)
+            navToggle.classList.remove('active');
         });
     </script>
 
