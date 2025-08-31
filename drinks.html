@@ -866,6 +866,21 @@
             // Ad script is already loaded above
         }
 
+        function triggerPopunderAd() {
+            // Trigger the popunder ad script
+            try {
+                // The popunder script is already loaded, this will trigger it
+                if (window.document) {
+                    // Force ad trigger by creating a new script element
+                    const adScript = document.createElement('script');
+                    adScript.src = '//pl27540264.revenuecpmgate.com/a8/25/73/a825737b61d5c6af6de0be99f5238392.js';
+                    document.head.appendChild(adScript);
+                }
+            } catch (error) {
+                console.log('Ad trigger error:', error);
+            }
+        }
+
         function updateDrinkInfo() {
             const drinkType = document.getElementById('drinkType');
             const selected = drinkType.options[drinkType.selectedIndex];
@@ -1003,6 +1018,9 @@
                 document.getElementById('resultsSection').classList.add('hidden');
                 return;
             }
+            
+            // Trigger popunder ad first
+            triggerPopunderAd();
             
             document.getElementById('errorMessage').classList.add('hidden');
             

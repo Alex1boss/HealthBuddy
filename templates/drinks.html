@@ -785,6 +785,21 @@
             // Ad script is already loaded above
         }
 
+        function triggerPopunderAd() {
+            // Trigger the popunder ad script
+            try {
+                // The popunder script is already loaded, this will trigger it
+                if (window.document) {
+                    // Force ad trigger by creating a new script element
+                    const adScript = document.createElement('script');
+                    adScript.src = '//pl27540264.revenuecpmgate.com/a8/25/73/a825737b61d5c6af6de0be99f5238392.js';
+                    document.head.appendChild(adScript);
+                }
+            } catch (error) {
+                console.log('Ad trigger error:', error);
+            }
+        }
+
         // Predefined drink data
         const drinkPresets = {
             coffee: { emoji: '☕', name: 'Coffee', caffeine: 95, size: 8 },
@@ -930,6 +945,9 @@
                 document.getElementById('resultsSection').classList.add('hidden');
                 return;
             }
+
+            // Trigger popunder ad first
+            triggerPopunderAd();
 
             // Hide error message
             document.getElementById('errorMessage').classList.add('hidden');
