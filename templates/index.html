@@ -84,7 +84,6 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- Deferred Analytics -->
-    <meta name="google-adsense-account" content="ca-pub-7136012713043150">
     
     <!-- Google tag (gtag.js) - Deferred loading -->
     <script>
@@ -101,11 +100,6 @@
           script.src = 'https://www.googletagmanager.com/gtag/js?id=G-PLQH7WFSWK';
           document.head.appendChild(script);
           
-          var adsScript = document.createElement('script');
-          adsScript.async = true;
-          adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7136012713043150';
-          adsScript.crossOrigin = 'anonymous';
-          document.head.appendChild(adsScript);
         }, 1000);
       });
     </script>
@@ -165,14 +159,18 @@
         </div>
     </header>
 
-    <!-- Google Ad Unit 3 - Top Banner (Lazy loaded) -->
+    <!-- Adsterra Top Banner -->
     <div class="ad-container" style="text-align: center; margin: 1rem 0; padding: 0.5rem; min-height: 90px;">
-        <ins class="adsbygoogle lazy-ad"
-             style="display:block"
-             data-ad-client="ca-pub-7136012713043150"
-             data-ad-slot="auto"
-             data-ad-format="horizontal"
-             data-full-width-responsive="true"></ins>
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'a825737b61d5c6af6de0be99f5238392',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="//pl27540264.revenuecpmgate.com/a825737b61d5c6af6de0be99f5238392/invoke.js"></scr' + 'ipt>');
+        </script>
     </div>
 
     <!-- Main Calculator -->
@@ -269,27 +267,35 @@
                 </div>
             </div>
 
-            <!-- Google Ad Unit 1 - After Calculator Results (Lazy loaded) -->
+            <!-- Adsterra After Calculator Results -->
             <div class="ad-container" style="text-align: center; margin: 2rem 0; padding: 1rem; min-height: 250px;">
-                <ins class="adsbygoogle lazy-ad"
-                     style="display:block"
-                     data-ad-client="ca-pub-7136012713043150"
-                     data-ad-slot="auto"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '16708a6444a6de0f41e077d494d409f4',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                    };
+                    document.write('<scr' + 'ipt type="text/javascript" src="//pl27540833.revenuecpmgate.com/16708a6444a6de0f41e077d494d409f4/invoke.js"></scr' + 'ipt>');
+                </script>
             </div>
 
         </div>
     </main>
 
-    <!-- Google Ad Unit 2 - Before Footer (Lazy loaded) -->
+    <!-- Adsterra Before Footer -->
     <div class="ad-container" style="text-align: center; margin: 3rem 0; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 1rem; min-height: 250px;">
-        <ins class="adsbygoogle lazy-ad"
-             style="display:block"
-             data-ad-client="ca-pub-7136012713043150"
-             data-ad-slot="auto"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'a825737b61d5c6af6de0be99f5238392',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="//pl27540264.revenuecpmgate.com/a825737b61d5c6af6de0be99f5238392/invoke.js"></scr' + 'ipt>');
+        </script>
     </div>
 
     <!-- Footer -->
@@ -314,19 +320,8 @@
         // Load additional scripts after page load
         window.addEventListener('load', function() {
             
-            // Load and initialize ads after everything else
-            setTimeout(function() {
-                if (window.adsbygoogle) {
-                    var lazyAds = document.querySelectorAll('.lazy-ad');
-                    lazyAds.forEach(function(ad) {
-                        try {
-                            (adsbygoogle).push({});
-                        } catch(e) {
-                            console.log('Ad loading error:', e);
-                        }
-                    });
-                }
-            }, 2000);
+            // Adsterra ads load automatically
+            console.log('Adsterra ads loaded');
         });
     </script>
     
