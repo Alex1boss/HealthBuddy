@@ -975,9 +975,11 @@
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
+            if (window.innerWidth > 768) {
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
+            }
         });
     </script>
 </body>
