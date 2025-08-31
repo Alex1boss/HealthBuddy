@@ -180,6 +180,15 @@ body {
         min-width: 40px !important;
     }
     
+    /* Mobile Ad Container Optimization */
+    .ad-container {
+        margin: 1.5rem 0 !important;
+        padding: 0.75rem !important;
+        border-radius: 8px !important;
+        overflow: hidden;
+        min-height: 80px;
+    }
+    
     /* Mobile overlay for navigation */
     .nav-overlay {
         position: fixed;
@@ -364,10 +373,48 @@ body {
     padding: 0 1rem;
 }
 
-/* Header */
+/* Header - Mobile Responsive */
 .header {
-    padding: 3rem 0 2rem;
+    background: transparent;
+    position: relative;
+    z-index: 2;
     text-align: center;
+    padding: 3rem 0 2rem;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1.5rem 0 1rem;
+    }
+    
+    .header .title {
+        font-size: 1.875rem;
+        line-height: 1.2;
+        margin-bottom: 0.75rem;
+        padding: 0 0.5rem;
+    }
+    
+    .header .subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+        padding: 0 1rem;
+        color: var(--neutral-600);
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 1.25rem 0 0.75rem;
+    }
+    
+    .header .title {
+        font-size: 1.625rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .header .subtitle {
+        font-size: 0.95rem;
+    }
 }
 
 .header-content {
@@ -541,24 +588,70 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Mobile touch targets */
+/* Mobile touch targets - Enhanced */
 @media (max-width: 768px) {
     .calculate-btn {
-        min-height: 48px;
-        padding: 0.875rem 1.5rem;
-        font-size: 1rem;
+        min-height: 52px;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
         width: 100%;
+        font-weight: 600;
+        letter-spacing: 0.025em;
+        box-shadow: 0 4px 12px rgba(30, 144, 255, 0.25);
+        transition: all 0.2s ease;
+    }
+    
+    .calculate-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 8px rgba(30, 144, 255, 0.25);
     }
     
     .action-btn {
-        min-height: 44px;
-        padding: 0.75rem 1.25rem;
+        min-height: 48px;
+        padding: 0.875rem 1.25rem;
         width: 100%;
         max-width: none;
+        font-weight: 500;
     }
     
     .nav-link {
         min-height: 48px;
+        padding: 1rem 1.5rem;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* Enhanced Form Inputs for Mobile */
+    .form-input, .form-select {
+        min-height: 50px;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        border-radius: var(--radius-lg);
+        border: 2px solid var(--neutral-200);
+        background: var(--white);
+        transition: all 0.2s ease;
+        -webkit-appearance: none;
+        appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .form-input:focus, .form-select:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+        outline: none;
+    }
+    
+    .form-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--neutral-700);
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .form-group {
+        margin-bottom: 1.25rem;
     }
 }
 
@@ -623,30 +716,84 @@ body {
     font-weight: 500;
 }
 
-/* Tips Section */
+/* Tips Section - Enhanced Typography */
 .tips-section {
-    background: var(--neutral-50);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: var(--radius-xl);
     padding: 2rem;
-    border: 1px solid var(--neutral-200);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    margin: 2.5rem 0;
 }
 
-/* Responsive Tips Section */
+.tips-section:hover {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(30, 144, 255, 0.2);
+}
+
+.tips-section h4 {
+    color: var(--neutral-800);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1.4;
+}
+
+.tips-section h4::before {
+    content: "💡";
+    font-size: 1.5rem;
+}
+
+.tips-section p {
+    line-height: 1.6;
+    color: var(--neutral-600);
+    margin-bottom: 1rem;
+}
+
+.tips-section ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.tips-section li {
+    line-height: 1.6;
+    color: var(--neutral-600);
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Tips Section - Enhanced */
 @media (max-width: 480px) {
     .tips-section {
-        padding: 1.25rem;
+        padding: 1rem;
         border-radius: var(--radius-lg);
+        margin: 1.5rem 0;
     }
     
     .tips-section h4 {
         font-size: 1.1rem;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
+    .tips-section p, .tips-section li {
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
     .tips-section {
-        padding: 1.75rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .tips-section h4 {
+        font-size: 1.15rem;
     }
 }
 
@@ -849,12 +996,13 @@ body {
     }
     
     .header {
-        padding: 2rem 0 1.5rem;
+        padding: 1.5rem 0 1rem;
     }
     
     .title {
         font-size: 1.75rem;
         line-height: 1.3;
+        margin-bottom: 0.5rem;
     }
     
     .subtitle {
@@ -862,45 +1010,56 @@ body {
     }
     
     .calculator-card {
-        padding: 1.25rem;
-        margin-bottom: 1.5rem;
+        padding: 1rem;
+        margin-bottom: 1.25rem;
         border-radius: var(--radius-xl);
     }
     
     .calculator-header h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
     }
     
     .form-input, .form-select {
-        padding: 0.75rem 2.5rem 0.75rem 0.875rem;
-        font-size: 0.95rem;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        border-radius: var(--radius-lg);
+        min-height: 48px;
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .calculate-btn {
-        padding: 0.875rem 1.5rem;
-        font-size: 1rem;
-        min-height: 3rem;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        min-height: 52px;
+        border-radius: var(--radius-lg);
+        width: 100%;
+        margin-top: 0.5rem;
     }
     
     .result-card {
-        padding: 1.5rem 1rem;
+        padding: 1.25rem 1rem;
+        margin-bottom: 1rem;
     }
     
     .result-amount {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
     }
     
     .result-icon {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     
     .tips-grid {
         grid-template-columns: 1fr;
-        gap: 0.875rem;
+        gap: 0.75rem;
     }
     
     .tip-card {
         padding: 1rem;
+        border-radius: var(--radius-lg);
     }
     
     .tip-emoji {
@@ -908,7 +1067,8 @@ body {
     }
     
     .quick-actions {
-        padding: 1.25rem;
+        padding: 1rem;
+        margin-top: 1rem;
     }
     
     .action-buttons {
@@ -919,7 +1079,23 @@ body {
     
     .action-btn {
         width: 100%;
-        max-width: 200px;
+        max-width: 280px;
+        min-height: 48px;
+        padding: 0.875rem 1.25rem;
+        border-radius: var(--radius-lg);
+    }
+    
+    /* Mobile Ad Container Optimization */
+    .ad-container {
+        margin: 1rem 0 !important;
+        padding: 0.5rem !important;
+        border-radius: 6px !important;
+    }
+    
+    /* Mobile Touch Optimization */
+    input, select, button {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
 }
 
@@ -930,11 +1106,11 @@ body {
     }
     
     .header {
-        padding: 2.25rem 0 1.75rem;
+        padding: 2rem 0 1.5rem;
     }
     
     .title {
-        font-size: 2.1rem;
+        font-size: 2rem;
     }
     
     .subtitle {
@@ -942,38 +1118,65 @@ body {
     }
     
     .calculator-card {
-        padding: 1.75rem;
-        margin-bottom: 1.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .calculator-header h2 {
-        font-size: 1.55rem;
+        font-size: 1.5rem;
+    }
+    
+    .form-input, .form-select {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        min-height: 48px;
+        border-radius: var(--radius-lg);
+    }
+    
+    .calculate-btn {
+        min-height: 50px;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: var(--radius-lg);
+        width: 100%;
     }
     
     .result-card {
-        padding: 2rem 1.5rem;
+        padding: 1.75rem 1.25rem;
     }
     
     .result-amount {
-        font-size: 3.25rem;
+        font-size: 3rem;
     }
     
     .tips-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
     
     .quick-actions {
-        padding: 1.5rem;
+        padding: 1.25rem;
     }
     
     .action-buttons {
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 0.75rem;
     }
     
     .action-btn {
         flex: 1;
-        min-width: 120px;
+        min-width: 140px;
+        min-height: 48px;
+        padding: 0.875rem 1.25rem;
+        border-radius: var(--radius-lg);
+    }
+    
+    /* Mobile Ad Container Optimization */
+    .ad-container {
+        margin: 1.25rem 0 !important;
+        padding: 0.75rem !important;
+        border-radius: 8px !important;
     }
 }
 
