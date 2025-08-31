@@ -129,6 +129,10 @@
     <!-- Main CSS loaded after critical styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"></noscript>
+    
+    <!-- Adsterra Ad Scripts -->
+    <script type='text/javascript' src='//pl27540264.revenuecpmgate.com/a8/25/73/a825737b61d5c6af6de0be99f5238392.js'></script>
+    <script async="async" data-cfasync="false" src="//pl27540833.revenuecpmgate.com/16708a6444a6de0f41e077d494d409f4/invoke.js"></script>
 </head>
 <body>
     <!-- Toggle Button -->
@@ -210,10 +214,13 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="calculate-btn">
+                    <button type="submit" class="calculate-btn" onclick="loadAd();">
                         <span class="btn-text">💧 Calculate My Water Goal</span>
                     </button>
                 </form>
+
+                <!-- Ad Container -->
+                <div id="container-16708a6444a6de0f41e077d494d409f4" style="text-align: center; margin: 2rem 0;"></div>
 
                 <div class="result-section" id="resultSection" style="display: none;">
                     <div class="result-card">
@@ -441,6 +448,11 @@
         
         // Initialize navigation controller
         window.navigationController = new NavigationController();
+        
+        // Ad loading function
+        function loadAd() {
+            // Ad scripts are already loaded above
+        }
         
         // Setup action button handlers
         document.addEventListener('DOMContentLoaded', function() {
