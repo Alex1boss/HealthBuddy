@@ -1,10 +1,6 @@
 /sitemap.xml
   Content-Type: application/xml
 
-/ads.txt
-  Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=86400
-  
 /*
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 1; mode=block
