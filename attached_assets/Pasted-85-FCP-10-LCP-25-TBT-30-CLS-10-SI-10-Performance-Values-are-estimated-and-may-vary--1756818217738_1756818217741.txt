@@ -1,0 +1,112 @@
+85
+FCP
++10
+LCP
++25
+TBT
++30
+CLS
++10
+SI
++10
+Performance
+Values are estimated and may vary. The performance score is calculated directly from these metrics.See calculator.
+0–49
+50–89
+90–100
+Final Screenshot
+
+Metrics
+Expand view
+First Contentful Paint
+0.9 s
+Largest Contentful Paint
+1.6 s
+Total Blocking Time
+60 ms
+Cumulative Layout Shift
+0.293
+Speed Index
+1.8 s
+Captured at Sep 2, 2025, 6:27 PM GMT+5:30
+Emulated Moto G Power with Lighthouse 12.8.2
+Single page session
+Initial page load
+Slow 4G throttling
+Using HeadlessChromium 137.0.7151.119 with lr
+View Treemap
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Later this year, insights will replace performance audits. Learn more and provide feedback here.
+Go back to audits
+Show audits relevant to:
+
+All
+
+FCP
+
+LCP
+
+TBT
+
+CLS
+Insights
+Document request latency Est savings of 640 ms
+Your first network request is the most important. Reduce its latency by avoiding redirects, ensuring a fast server response, and enabling text compression.LCPFCP
+Avoids redirects
+Server responded slowly (observed 735 ms)
+Applies text compression
+Layout shift culprits
+Layout shifts occur when elements move absent any user interaction. Investigate the causes of layout shifts, such as elements being added, removed, or their fonts changing as the page loads.CLS
+Element
+Layout shift score
+Total
+0.293
+🎯 Calculate Your Water Goal Enter your details below to get your personalized …
+<main class="main">
+0.291
+Calculate your personalized daily water intake goal in seconds
+<p class="subtitle">
+0.001
+…v19/UcC73FwrK….woff2(fonts.gstatic.com)
+Web font
+💧 Calculate My Water Goal
+<span class="btn-text">
+0.000
+💧 Calculate My Water Goal
+<span class="btn-text">
+0.000
+💧 Calculate My Water Goal
+<span class="btn-text">
+0.000
+Forced reflow
+A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been invalidated by a change to the DOM state. This can result in poor performance. Learn more about forced reflows and possible mitigations.
+Source
+Total reflow time
+[unattributed]
+54 ms
+Optimize DOM size
+LCP breakdown
+3rd parties
+These insights are also available in the Chrome DevTools Performance Panel - record a trace to view more detailed information.
+Diagnostics
+Reduce unused JavaScript Est savings of 54 KiB
+Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity. Learn how to reduce unused JavaScript.LCPFCP
+URL
+Transfer Size
+Est Savings
+Google Tag Manager tag-manager 
+136.0 KiB	54.1 KiB
+/gtag/js?id=G-PLQH7WFSWK(www.googletagmanager.com)
+136.0 KiB
+54.1 KiB
+Avoid long main-thread tasks 3 long tasks found
+More information about the performance of your application. These numbers don't directly affect the Performance score.
+Passed audits (22)
+Show
