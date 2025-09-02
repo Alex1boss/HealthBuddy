@@ -60,11 +60,10 @@
     }
     </script>
     
-    <!-- Critical CSS preconnect for fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <!-- Optimized font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
     <!-- Deferred Analytics -->
     
@@ -75,22 +74,26 @@
       gtag('js', new Date());
       gtag('config', 'G-PLQH7WFSWK');
       
-      // Load analytics after page load
+      // Load analytics after critical resources
       window.addEventListener('load', function() {
         setTimeout(function() {
           var script = document.createElement('script');
           script.async = true;
+          script.defer = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=G-PLQH7WFSWK';
           document.head.appendChild(script);
-          
-        }, 1000);
+        }, 2000);
       });
     </script>
     
     <!-- Critical CSS for above-the-fold content -->
     <style>
         /* Critical styles to prevent layout shifts */
-        body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 50%,#F0FDF4 100%);color:#1F2937;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:margin-left 0.3s ease;contain:layout style;will-change:margin-left}
+        body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 50%,#F0FDF4 100%);color:#1F2937;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;contain:layout style}
+        /* Remove transition to prevent layout shift */
+        @media (min-width: 769px) {
+            body { transition:margin-left 0.3s ease;will-change:margin-left }
+        }
         .nav-toggle{position:fixed;top:1rem;left:1rem;z-index:1001;background:#1E90FF;border:none;border-radius:0.5rem;padding:0.5rem;cursor:pointer;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);transition:all 0.2s ease-in-out;display:none;flex-direction:column;gap:0.25rem;min-height:40px;min-width:40px;contain:layout style;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}
         .nav-toggle.show{display:flex!important}
         .hamburger{width:20px;height:2px;background:white;transition:all 0.2s ease-in-out;will-change:transform;transform:translateZ(0)}
@@ -113,9 +116,9 @@
         .nav-link:hover{background:#f8fafc !important;color:#0ea5e9 !important}
         
         .nav-link.active{background:rgba(14,165,233,0.1) !important;color:#0ea5e9 !important;border-left-color:#0ea5e9 !important}
-        .header{padding:3rem 0 2rem;text-align:center}
-        .title{font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,#1E90FF 0%,#0066CC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.75rem;line-height:1.2}
-        .subtitle{font-size:1.125rem;color:#6B7280;font-weight:400;margin-bottom:0}
+        .header{padding:3rem 0 2rem;text-align:center;contain:layout style}
+        .title{font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,#1E90FF 0%,#0066CC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.75rem;line-height:1.2;min-height:3rem}
+        .subtitle{font-size:1.125rem;color:#6B7280;font-weight:400;margin-bottom:0;min-height:1.5rem}
         .ad-container{min-height:90px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px}
         /* Desktop: Apply side navigation margin */
         @media (min-width: 769px) {
@@ -157,8 +160,8 @@
         @media (min-width:1025px){body{margin-left:250px}.side-nav{width:250px}.nav-toggle{display:none}}
     </style>
     
-    <!-- Main CSS loaded after critical styles -->
-    <link rel="stylesheet" href="static/css/main.css" media="print" onload="this.media='all'">
+    <!-- Main CSS with resource hint -->
+    <link rel="preload" href="static/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="static/css/main.css"></noscript>
     
     <style>
@@ -230,10 +233,10 @@
 </head>
 <body>
     <!-- Toggle Button -->
-    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()">
-        <span class="hamburger"></span>
-        <span class="hamburger"></span>
-        <span class="hamburger"></span>
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger" aria-hidden="true"></span>
+        <span class="hamburger" aria-hidden="true"></span>
+        <span class="hamburger" aria-hidden="true"></span>
     </button>
 
     <!-- Side Navigation -->
@@ -251,12 +254,8 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="title">💧 Water Calculator</h1>
-                <p class="subtitle">Calculate your personalized daily water intake goal in seconds</p>
-            </div>
-        </div>
+        <h1 class="title">💧 Water Calculator</h1>
+        <p class="subtitle">Calculate your personalized daily water intake goal in seconds</p>
     </header>
 
 
@@ -299,9 +298,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="calculate-btn">
-                        <span class="btn-text">💧 Calculate My Water Goal</span>
-                    </button>
+                    <button type="submit" class="calculate-btn">💧 Calculate My Water Goal</button>
                 </form>
 
                 <div class="result-section" id="resultSection" style="display: none;">
@@ -771,14 +768,7 @@
         });
     </script>
     
-    <!-- Deferred JavaScript loading -->
-    <script>
-        // Load additional scripts after page load
-        window.addEventListener('load', function() {
-            
-            // Ads removed
-        });
-    </script>
+    <!-- Optimized JavaScript loading -->
     
     <script>
         function toggleNavigation() {
