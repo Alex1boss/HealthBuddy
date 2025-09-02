@@ -8,5 +8,4 @@ Allow: /
 # Sitemap
 Sitemap: https://waincal.com/sitemap.xml
 
-# Canonical domain preference
-Host: waincal.com
+# Robots.txt for waincal.com
