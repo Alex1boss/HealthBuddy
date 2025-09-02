@@ -32,8 +32,7 @@ class WaterCalculator {
             return;
         }
         
-        // Trigger popunder ad first
-        this.triggerPopunderAd();
+        // Ads removed
         
         this.showLoading();
         
@@ -44,20 +43,6 @@ class WaterCalculator {
         }, 1000);
     }
     
-    triggerPopunderAd() {
-        // Trigger the popunder ad script
-        try {
-            // The popunder script is already loaded, this will trigger it
-            if (window.document) {
-                // Force ad trigger by creating a new script element
-                const adScript = document.createElement('script');
-                adScript.src = '//pl27540264.revenuecpmgate.com/a8/25/73/a825737b61d5c6af6de0be99f5238392.js';
-                document.head.appendChild(adScript);
-            }
-        } catch (error) {
-            console.log('Ad trigger error:', error);
-        }
-    }
     
     validateForm(weight, activity) {
         let isValid = true;
