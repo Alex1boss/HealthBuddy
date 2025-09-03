@@ -8,6 +8,9 @@
 /caffeine-hydration-truth.html /caffeine-hydration-truth 301!
 /hydration-tips.html        /hydration-tips          301!
 
+# Ads.txt redirect for Ezoic
+/ads.txt    https://srv.adstxtmanager.com/19390/waincal.com    301!
+
 # Static file serving
 /robots.txt    /robots.txt    200
 /sitemap.xml   /sitemap.xml   200
