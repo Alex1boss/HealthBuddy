@@ -3,6 +3,6 @@ Allow: /
 
 
 # Sitemap
-Sitemap: https://waincal.com/sitemap.xml
+Sitemap: https://www.waincal.com/sitemap.xml
 
 # Robots.txt for waincal.com
