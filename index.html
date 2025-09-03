@@ -538,6 +538,17 @@
             submitBtn.innerHTML = '<span class="btn-text">💧 Calculating...</span>';
             submitBtn.disabled = true;
             
+            // Refresh ads when showing new results content
+            try {
+                if (window.ezstandalone) {
+                    ezstandalone.cmd.push(function () {
+                        ezstandalone.showAds();
+                    });
+                }
+            } catch (error) {
+                console.log('Ad refresh error:', error);
+            }
+            
             // Calculate water intake after a brief delay
             setTimeout(() => {
                 // Base water intake: 35ml per kg of body weight
