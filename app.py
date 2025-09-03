@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 # create the app
 app = Flask(__name__, 
@@ -67,6 +67,10 @@ def robots():
     response = app.make_response(content)
     response.headers['Content-Type'] = 'text/plain'
     return response
+
+@app.route('/ads.txt')
+def ads_txt():
+    return redirect('https://srv.adstxtmanager.com/19390/waincal.com', code=301)
 
 
 @app.errorhandler(404)
