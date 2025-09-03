@@ -68,13 +68,6 @@ def robots():
     response.headers['Content-Type'] = 'text/plain'
     return response
 
-@app.route('/ads.txt')
-def ads_txt():
-    with open('ads.txt', 'r') as f:
-        content = f.read()
-    response = app.make_response(content)
-    response.headers['Content-Type'] = 'text/plain'
-    return response
 
 @app.errorhandler(404)
 def not_found_error(error):
