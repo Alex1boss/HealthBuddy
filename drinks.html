@@ -14,6 +14,25 @@
     <script>
         window.ezstandalone = window.ezstandalone || {};
         ezstandalone.cmd = ezstandalone.cmd || [];
+        
+        // Debug helper for ad troubleshooting
+        function enableEzoicDebug() {
+            const url = new URL(window.location);
+            url.searchParams.set('ez_js_debugger', '1');
+            window.location.href = url.toString();
+        }
+        
+        // Console logging for debugging
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (window.ezstandalone) {
+                    console.log('✅ Ezoic standalone loaded on drinks page');
+                    console.log('📊 Placeholder count:', document.querySelectorAll('[id^="ezoic-pub-ad-placeholder"]').length);
+                } else {
+                    console.log('❌ Ezoic standalone not detected on drinks page');
+                }
+            }, 2000);
+        });
     </script>
     <meta name="description" content="Calculate caffeine intake and hydration from coffee, tea, soda, energy drinks. Track net hydration effect from beverages.">
     <meta name="keywords" content="caffeine intake calculator, coffee hydration effects, tea water content, soda hydration impact, energy drink analysis, beverage caffeine tracker, drinks water calculator, net hydration calculator, coffee dehydration myth, liquid intake tracker, beverage hydration guide, caffeine consumption monitor">

@@ -191,6 +191,28 @@
     <link rel="preload" href="static/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="static/css/main.css"></noscript>
     
+    <!-- Ezoic Debug Helper -->
+    <script>
+        // Add debug parameter to URL when needed
+        function enableEzoicDebug() {
+            const url = new URL(window.location);
+            url.searchParams.set('ez_js_debugger', '1');
+            window.location.href = url.toString();
+        }
+        
+        // Console log for debugging ad status
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (window.ezstandalone) {
+                    console.log('✅ Ezoic standalone loaded successfully');
+                    console.log('📊 Placeholder count:', document.querySelectorAll('[id^="ezoic-pub-ad-placeholder"]').length);
+                } else {
+                    console.log('❌ Ezoic standalone not detected');
+                }
+            }, 2000);
+        });
+    </script>
+    
     <style>
         /* CRITICAL: Navigation compact layout override */
         .side-nav .nav-menu {
