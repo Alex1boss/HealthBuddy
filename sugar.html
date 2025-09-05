@@ -655,13 +655,6 @@
                     
                     <!-- Calculate Button -->
                     <div class="card">
-                        <!-- Ezoic Ad Placement -->
-                        <div id="ezoic-pub-ad-placeholder-108" style="margin: 20px 0; text-align: center;"></div>
-                        <script>
-                            ezstandalone.cmd.push(function () {
-                                ezstandalone.showAds(108);
-                            });
-                        </script>
                         
                         <div class="button-group">
                             <button type="button" class="btn btn-primary" onclick="calculate(); loadAd();">💧 Get My Hydration Plan</button>
@@ -718,17 +711,7 @@
 
     <script>
         function loadAd() {
-            // Refresh ads when new content is loaded (results section)
-            try {
-                if (window.ezstandalone) {
-                    ezstandalone.cmd.push(function () {
-                        // Refresh existing ads to ensure they display properly with new content
-                        ezstandalone.showAds();
-                    });
-                }
-            } catch (error) {
-                console.log('Ad refresh error:', error);
-            }
+            // Function kept for compatibility
         }
 
         function triggerPopunderAd() {
