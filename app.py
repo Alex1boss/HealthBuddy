@@ -1,11 +1,15 @@
 import os
 import secrets
 from flask import Flask, render_template, redirect
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # create the app
 app = Flask(__name__, 
            template_folder='templates',
            static_folder='static')
+
+# Trust proxy headers for Replit environment
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 # Secure secret key generation for Replit environment
 app.secret_key = os.environ.get("SESSION_SECRET", secrets.token_hex(32))
