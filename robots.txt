@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 
+# Block utility files that shouldn't be indexed
+Disallow: /sitemap-simple.xml
+Disallow: /test-sitemap.xml
+Disallow: /ads.php
 
 # Sitemap
 Sitemap: https://waincal.com/sitemap.xml
