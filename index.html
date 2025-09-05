@@ -9,8 +9,7 @@
     <meta name="keywords" content="water intake calculator, daily water goal, hydration calculator, how much water to drink, personal hydration needs, water consumption tracker, daily fluid intake, weight-based water calculator, activity water requirements, dehydration prevention, optimal hydration levels, water tracking app, free hydration tool">
     
     <!-- Site Verification & Canonical -->
-    <meta name="google-site-verification" content="YOUR_GSC_VERIFICATION_CODE_HERE" />
-    <link rel="canonical" href="https://www.waincal.com/">
+    <link rel="canonical" href="https://waincal.com/">
     <meta name="author" content="Daily Water Calculator">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     
@@ -18,7 +17,7 @@
     <meta property="og:title" content="Daily Water Calculator - Personal Hydration Goal">
     <meta property="og:description" content="Calculate your daily water intake goal based on weight and activity level. Free, fast, and accurate hydration calculator.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.waincal.com/">
+    <meta property="og:url" content="https://waincal.com/">
     <meta property="og:site_name" content="Daily Water Calculator">
     <meta property="og:image" content="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=630&fit=crop&q=80">
     <meta property="og:image:width" content="1200">
@@ -197,25 +196,13 @@
     <link rel="preload" href="static/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="static/css/main.css"></noscript>
     
-    <!-- Ezoic Debug Helper -->
+    <!-- Performance Monitor -->
     <script>
-        // Add debug parameter to URL when needed
-        function enableEzoicDebug() {
-            const url = new URL(window.location);
-            url.searchParams.set('ez_js_debugger', '1');
-            window.location.href = url.toString();
-        }
-        
-        // Console log for debugging ad status
+        // Simple performance tracking
         window.addEventListener('load', function() {
             setTimeout(function() {
-                if (window.ezstandalone) {
-                    console.log('✅ Ezoic standalone loaded successfully');
-                    console.log('📊 Placeholder count:', document.querySelectorAll('[id^="ezoic-pub-ad-placeholder"]').length);
-                } else {
-                    console.log('❌ Ezoic standalone not detected');
-                }
-            }, 2000);
+                console.log('✅ Page loaded successfully');
+            }, 1000);
         });
     </script>
     
@@ -318,13 +305,10 @@
     <main class="main">
         <div class="container">
             <div class="calculator-card">
-                <!-- Ezoic Ad Placement 1 -->
-                <div id="ezoic-pub-ad-placeholder-106" style="margin: 20px 0; text-align: center;"></div>
-                <script>
-                    ezstandalone.cmd.push(function () {
-                        ezstandalone.showAds(106);
-                    });
-                </script>
+                <!-- Ad Placement 1 -->
+                <div id="ad-placeholder-106" style="margin: 20px 0; text-align: center; min-height: 90px; background: #f8fafc; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 0.875rem;">
+                    Advertisement
+                </div>
                 
                 <div class="calculator-header">
                     <h2>💧 Water Intake Calculator</h2>
