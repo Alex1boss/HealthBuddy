@@ -1,12 +1,13 @@
-# 301 redirects for duplicate content prevention
-/sugar.html                 /sugar                   301!
-/drinks.html                /drinks                  301!
-/about.html                 /about                   301!
-/contact.html               /contact                 301!
-/privacy.html               /privacy                 301!
-/sugar-hydration-guide.html /sugar-hydration-guide   301!
-/caffeine-hydration-truth.html /caffeine-hydration-truth 301!
-/hydration-tips.html        /hydration-tips          301!
+# 301 redirects for duplicate content prevention - redirect TO .html for consistency
+/sugar                      /sugar.html              301!
+/drinks                     /drinks.html             301!
+/about                      /about.html              301!
+/contact                    /contact.html            301!
+/privacy                    /privacy.html            301!
+/sugar-hydration-guide      /sugar-hydration-guide.html   301!
+/caffeine-hydration-truth   /caffeine-hydration-truth.html 301!
+/hydration-tips             /hydration-tips.html     301!
+/                           /index.html              301!
 
 # Ads.txt redirect for Ezoic
 /ads.txt    https://srv.adstxtmanager.com/19390/waincal.com    301!

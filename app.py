@@ -16,11 +16,13 @@ app.secret_key = os.environ.get("SESSION_SECRET", secrets.token_hex(32))
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    with open('index.html', 'r') as f:
+        return f.read()
 
 @app.route('/drinks')
 def drinks():
-    return render_template('drinks.html')
+    with open('drinks.html', 'r') as f:
+        return f.read()
 
 @app.route('/about')
 def about():
@@ -39,7 +41,8 @@ def privacy():
 
 @app.route('/sugar')
 def sugar():
-    return render_template('sugar.html')
+    with open('sugar.html', 'r') as f:
+        return f.read()
 
 @app.route('/sugar-hydration-guide')
 def sugar_hydration_guide():
@@ -79,11 +82,13 @@ def ads_txt():
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('index.html'), 404
+    with open('index.html', 'r') as f:
+        return f.read(), 404
 
 @app.errorhandler(500)
 def internal_error(error):
-    return render_template('index.html'), 500
+    with open('index.html', 'r') as f:
+        return f.read(), 500
 
 # Vercel requires the app variable to be exposed
 if __name__ == '__main__':
