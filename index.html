@@ -108,10 +108,53 @@
         @media (min-width: 769px) {
             /* Transitions handled by main.css */
         }
-        .nav-toggle{position:fixed;top:1rem;left:1rem;z-index:1001;background:#1E90FF;border:none;border-radius:0.5rem;padding:0.5rem;cursor:pointer;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);transition:all 0.2s ease-in-out;display:none;flex-direction:column;gap:0.25rem;min-height:40px;min-width:40px;contain:layout style;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}
-        .nav-toggle.show{display:flex!important}
-        .hamburger{width:20px;height:2px;background:white;transition:all 0.2s ease-in-out;will-change:transform;transform:translateZ(0)}
-        .side-nav{position:fixed;left:0;top:0;width:250px;height:100vh;background:white;box-shadow:2px 0 10px rgba(0,0,0,0.1);z-index:1000;display:flex;flex-direction:column;transition:transform 0.3s ease;transform:translateZ(0);contain:layout style;will-change:transform}
+        /* Clean Navigation Styles - No Conflicts */
+        .nav-toggle {
+            position: fixed !important;
+            top: 1rem !important;
+            left: 1rem !important;
+            z-index: 1001 !important;
+            background: #1E90FF !important;
+            border: none !important;
+            border-radius: 0.5rem !important;
+            padding: 0.5rem !important;
+            cursor: pointer !important;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1) !important;
+            transition: all 0.2s ease-in-out !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.25rem !important;
+            min-height: 40px !important;
+            min-width: 40px !important;
+        }
+        
+        .hamburger {
+            width: 20px !important;
+            height: 2px !important;
+            background: white !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+        
+        /* Navigation - Hidden by Default */
+        .side-nav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 250px !important;
+            height: 100vh !important;
+            background: white !important;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1) !important;
+            z-index: 1000 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s ease !important;
+        }
+        
+        /* Navigation - Open State */
+        .side-nav.open {
+            transform: translateX(0) !important;
+        }
         
         .nav-header{padding:1rem 1.5rem 0.75rem !important;border-bottom:1px solid #e2e8f0 !important;display:flex !important;justify-content:space-between !important;align-items:center !important;flex-shrink:0 !important}
         
@@ -159,40 +202,6 @@
                 padding: 0.5rem;
             }
             
-            .nav-toggle {
-                display: flex !important;
-            }
-            
-            .side-nav {
-                transform: translateX(-100%);
-            }
-            
-            .side-nav.open {
-                transform: translateX(0);
-            }
-            
-            .nav-menu {
-                display: flex;
-                overflow-x: auto;
-                padding: 0.5rem;
-            }
-            
-            .nav-menu li {
-                flex-shrink: 0;
-            }
-            
-            .nav-link {
-                padding: 0.75rem 1rem;
-                white-space: nowrap;
-                border-left: none;
-                border-bottom: 3px solid transparent;
-            }
-            
-            .nav-link.active {
-                border-left: none;
-                border-bottom-color: #0ea5e9;
-            }
-
             .container {
                 padding: 0.5rem;
             }
@@ -278,25 +287,6 @@
             flex-shrink: 0 !important;
         }
         
-        /* CLEAN IMPLEMENTATION: No complex responsive rules */
-        
-        /* Side navigation - slide from LEFT like original design */
-        .side-nav {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 250px !important;
-            height: 100% !important;
-            background: #fff !important;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.2) !important;
-            transform: translateX(-100%) !important;
-            transition: transform 0.3s ease-in-out !important;
-            z-index: 9999 !important;
-            overflow-y: auto !important;
-        }
-        .side-nav.open {
-            transform: translateX(0) !important;
-        }
 
         /* Overlay should cover the full viewport */
         .overlay {
@@ -816,16 +806,11 @@
     <script>
         // Simple working navigation - matching drinks.html implementation
         function toggleNavigation() {
-            console.log('toggleNavigation called');
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            console.log('sideNav element:', sideNav);
-            console.log('sideNav classes before:', sideNav.className);
-            
             if (sideNav.classList.contains('open')) {
-                console.log('Navigation is open, closing it');
                 // Close navigation
                 sideNav.classList.remove('open');
                 navToggle.classList.remove('active');
@@ -837,7 +822,6 @@
                     overlay.style.display = 'none';
                 }
             } else {
-                console.log('Navigation is closed, opening it');
                 // Open navigation
                 sideNav.classList.add('open');
                 navToggle.classList.add('active');
@@ -854,18 +838,13 @@
                 }
                 overlay.style.display = 'block';
             }
-            
-            console.log('sideNav classes after:', sideNav.className);
         }
 
         // Close navigation function (for close button)
         function closeNavigation() {
-            console.log('closeNavigation called');
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
-            
-            console.log('sideNav before close:', sideNav.className);
             
             sideNav.classList.remove('open');
             navToggle.classList.remove('active');
@@ -876,8 +855,6 @@
             if (overlay) {
                 overlay.style.display = 'none';
             }
-            
-            console.log('sideNav after close:', sideNav.className);
         }
     </script>
 </body>
