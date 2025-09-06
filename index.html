@@ -290,6 +290,31 @@
             body.nav-closed {
                 margin-left: 0 !important;
             }
+            
+            .nav-toggle {
+                display: none !important;
+            }
+            
+            .nav-toggle.show {
+                display: flex !important;
+            }
+        }
+        
+        /* Overlay for proper navigation behavior */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        /* Prevent body scroll when nav is open */
+        body.nav-open {
+            overflow: hidden !important;
         }
         
         
@@ -524,7 +549,6 @@
             if (!overlay) {
                 overlay = document.createElement('div');
                 overlay.className = 'nav-overlay';
-                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;display:none;';
                 overlay.addEventListener('click', closeNavigation);
                 document.body.appendChild(overlay);
             }
@@ -532,8 +556,10 @@
             const sideNav = document.getElementById('sideNav');
             if (sideNav.classList.contains('open')) {
                 overlay.style.display = 'block';
+                document.body.classList.add('nav-open');
             } else {
                 overlay.style.display = 'none';
+                document.body.classList.remove('nav-open');
             }
         }
         
@@ -549,6 +575,7 @@
                 navToggle.classList.remove('active');
                 const overlay = document.querySelector('.nav-overlay');
                 if (overlay) overlay.style.display = 'none';
+                document.body.classList.remove('nav-open');
             } else {
                 // Desktop: close navigation
                 sideNav.classList.add('closed');
@@ -886,7 +913,6 @@
             if (!overlay) {
                 overlay = document.createElement('div');
                 overlay.className = 'nav-overlay';
-                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;display:none;';
                 overlay.addEventListener('click', closeNavigation);
                 document.body.appendChild(overlay);
             }
@@ -894,8 +920,10 @@
             const sideNav = document.getElementById('sideNav');
             if (sideNav.classList.contains('open')) {
                 overlay.style.display = 'block';
+                document.body.classList.add('nav-open');
             } else {
                 overlay.style.display = 'none';
+                document.body.classList.remove('nav-open');
             }
         }
         
@@ -911,6 +939,7 @@
                 navToggle.classList.remove('active');
                 const overlay = document.querySelector('.nav-overlay');
                 if (overlay) overlay.style.display = 'none';
+                document.body.classList.remove('nav-open');
             } else {
                 // Desktop: close navigation
                 sideNav.classList.add('closed');
@@ -924,12 +953,11 @@
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            // Only initialize as closed on desktop if screen is wide enough
+            // Initialize desktop navigation as closed like drinks page
             if (window.innerWidth > 768) {
-                // Don't start closed - let the navigation be open by default on desktop like drinks page
-                navToggle.classList.remove('show');
-                body.classList.remove('nav-closed');
-                sideNav.classList.remove('closed');
+                sideNav.classList.add('closed');
+                body.classList.add('nav-closed');
+                navToggle.classList.add('show');
             }
             
             // Font loading optimization
