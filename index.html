@@ -283,21 +283,21 @@
         
         /* CLEAN IMPLEMENTATION: No complex responsive rules */
         
-        /* Side navigation */
+        /* Side navigation - slide from LEFT like original design */
         .side-nav {
             position: fixed;
             top: 0;
-            right: -250px; /* keep hidden initially */
+            left: -250px; /* keep hidden initially on LEFT */
             width: 250px;
             height: 100%;
             background: #fff;
-            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
-            transition: right 0.3s ease-in-out;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            transition: left 0.3s ease-in-out;
             z-index: 9999; /* above overlay */
             overflow-y: auto;
         }
         .side-nav.open {
-            right: 0;
+            left: 0; /* slide to left: 0 */
         }
 
         /* Overlay should cover the full viewport */
