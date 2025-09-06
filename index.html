@@ -175,9 +175,8 @@
         /* Remove duplicate responsive rules - main.css handles these */
     </style>
     
-    <!-- Main CSS with resource hint -->
-    <link rel="preload" href="static/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="static/css/main.css"></noscript>
+    <!-- Main CSS loaded immediately -->
+    <link rel="stylesheet" href="static/css/main.css">
     
     <!-- Performance Monitor -->
     <script>
