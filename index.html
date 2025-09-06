@@ -108,18 +108,14 @@
         @media (min-width: 769px) {
             /* Transitions handled by main.css */
         }
-        /* Clean Navigation Styles - No Conflicts */
+        /* Navigation Toggle inside header */
         .nav-toggle {
-            position: fixed !important;
-            top: 1rem !important;
-            left: 1rem !important;
-            z-index: 1001 !important;
             background: #1E90FF !important;
             border: none !important;
             border-radius: 0.5rem !important;
             padding: 0.5rem !important;
             cursor: pointer !important;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1) !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
             transition: all 0.2s ease-in-out !important;
             display: flex !important;
             flex-direction: column !important;
@@ -165,6 +161,23 @@
         
         .side-nav.open {
             transform: translateX(0) !important;
+        }
+        
+        .nav-header {
+            padding: 1rem 1.5rem 0.75rem !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 1rem !important;
+            flex-shrink: 0 !important;
+        }
+        
+        .nav-header h3 {
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            margin: 0 !important;
+            flex: 1 !important;
         }
         
         .nav-menu {
@@ -324,15 +337,16 @@
     </style>
 </head>
 <body>
-    <!-- Toggle Button -->
-    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="hamburger" aria-hidden="true"></span>
-        <span class="hamburger" aria-hidden="true"></span>
-        <span class="hamburger" aria-hidden="true"></span>
-    </button>
-
     <!-- Side Navigation -->
     <nav class="side-nav" id="sideNav">
+        <div class="nav-header">
+            <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger" aria-hidden="true"></span>
+                <span class="hamburger" aria-hidden="true"></span>
+                <span class="hamburger" aria-hidden="true"></span>
+            </button>
+            <h3>💧 Calculators</h3>
+        </div>
         <ul class="nav-menu">
             <li><a href="index.html" class="nav-link active">💧 Water Intake Calculator</a></li>
             <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
@@ -815,16 +829,27 @@
     <!-- Optimized JavaScript loading -->
     
     <script>
-        // Hamburger button animation only (no navigation panel)
+        // Toggle navigation panel
         function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             
-            if (navToggle.classList.contains('active')) {
+            if (sideNav.classList.contains('open')) {
+                // Close navigation
+                sideNav.classList.remove('open');
                 navToggle.classList.remove('active');
             } else {
+                // Open navigation
+                sideNav.classList.add('open');
                 navToggle.classList.add('active');
             }
         }
+        
+        // Show navigation by default on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sideNav = document.getElementById('sideNav');
+            sideNav.classList.add('open');
+        });
     </script>
 </body>
 </html>
