@@ -24,3 +24,8 @@ psycopg2-binary
 flask
 gunicorn
 werkzeug
+email_validator
+flask
+flask-sqlalchemy
+gunicorn
+psycopg2-binary
