@@ -143,7 +143,7 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
         
-        /* Side Navigation */
+        /* Side Navigation - Override main.css white background */
         .side-nav {
             position: fixed !important;
             top: 0 !important;
@@ -151,12 +151,28 @@
             width: 250px !important;
             height: 100vh !important;
             background: transparent !important;
+            box-shadow: none !important;
             z-index: 1000 !important;
             display: flex !important;
             flex-direction: column !important;
             transform: translateX(-100%) !important;
             transition: transform 0.3s ease !important;
             pointer-events: none !important;
+        }
+        
+        /* Force override of main.css background */
+        body .side-nav {
+            background: transparent !important;
+        }
+        
+        html body .side-nav {
+            background: transparent !important;
+        }
+        
+        /* Maximum specificity override */
+        html body nav.side-nav#sideNav {
+            background: transparent !important;
+            box-shadow: none !important;
         }
         
         .side-nav.open {
