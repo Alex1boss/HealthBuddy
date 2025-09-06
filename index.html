@@ -127,6 +127,11 @@
             min-height: 40px !important;
             min-width: 40px !important;
         }
+
+        /* Hide nav toggle when navigation is open */
+        .nav-toggle.hidden {
+            display: none !important;
+        }
         
         .hamburger {
             width: 20px !important;
@@ -814,6 +819,7 @@
                 // Close navigation
                 sideNav.classList.remove('open');
                 navToggle.classList.remove('active');
+                navToggle.classList.remove('hidden');
                 body.classList.remove('nav-open');
                 
                 // Hide overlay
@@ -825,6 +831,7 @@
                 // Open navigation
                 sideNav.classList.add('open');
                 navToggle.classList.add('active');
+                navToggle.classList.add('hidden');
                 body.classList.add('nav-open');
                 
                 // Create/show overlay
@@ -848,6 +855,7 @@
             
             sideNav.classList.remove('open');
             navToggle.classList.remove('active');
+            navToggle.classList.remove('hidden');
             body.classList.remove('nav-open');
             
             // Hide overlay
