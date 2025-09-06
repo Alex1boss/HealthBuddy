@@ -253,6 +253,22 @@
             flex-shrink: 0 !important;
         }
         
+        /* OVERRIDE: Simple desktop navigation like drinks page */
+        @media (min-width: 769px) {
+            body {
+                margin-left: 250px !important;
+                transition: margin-left 0.3s ease;
+            }
+            body.nav-closed {
+                margin-left: 0 !important;
+            }
+            .nav-toggle {
+                display: none !important;
+            }
+            .nav-toggle.show {
+                display: flex !important;
+            }
+        }
         
     </style>
 </head>
