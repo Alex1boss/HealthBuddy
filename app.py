@@ -79,6 +79,43 @@ def robots():
 def ads_txt():
     return redirect('https://srv.adstxtmanager.com/19390/waincal.com', code=301)
 
+# Redirect .html versions to clean URLs
+@app.route('/index.html')
+def index_html():
+    return redirect('/', code=301)
+
+@app.route('/drinks.html')
+def drinks_html():
+    return redirect('/drinks', code=301)
+
+@app.route('/about.html')
+def about_html():
+    return redirect('/about', code=301)
+
+@app.route('/contact.html')
+def contact_html():
+    return redirect('/contact', code=301)
+
+@app.route('/privacy.html')
+def privacy_html():
+    return redirect('/privacy', code=301)
+
+@app.route('/sugar.html')
+def sugar_html():
+    return redirect('/sugar', code=301)
+
+@app.route('/sugar-hydration-guide.html')
+def sugar_hydration_guide_html():
+    return redirect('/sugar-hydration-guide', code=301)
+
+@app.route('/hydration-tips.html')
+def hydration_tips_html():
+    return redirect('/hydration-tips', code=301)
+
+@app.route('/caffeine-hydration-truth.html')
+def caffeine_hydration_truth_html():
+    return redirect('/caffeine-hydration-truth', code=301)
+
 
 @app.errorhandler(404)
 def not_found_error(error):
