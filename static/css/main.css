@@ -251,9 +251,13 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
-    transform: translateZ(0); /* Force hardware acceleration */
+    transform: translateX(-100%); /* Start hidden by default */
     contain: layout style;
     will-change: transform;
+}
+
+.side-nav.open {
+    transform: translateX(0);
 }
 
 .side-nav.closed {
