@@ -150,13 +150,13 @@
             left: 0 !important;
             width: 250px !important;
             height: 100vh !important;
-            background: white !important;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1) !important;
+            background: transparent !important;
             z-index: 1000 !important;
             display: flex !important;
             flex-direction: column !important;
             transform: translateX(-100%) !important;
             transition: transform 0.3s ease !important;
+            pointer-events: none !important;
         }
         
         .side-nav.open {
@@ -170,6 +170,9 @@
             align-items: center !important;
             gap: 1rem !important;
             flex-shrink: 0 !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            pointer-events: auto !important;
         }
         
         .nav-header h3 {
@@ -186,6 +189,9 @@
             margin: 0 !important;
             flex: 1 !important;
             overflow-y: auto !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            pointer-events: auto !important;
         }
         
         .nav-menu li {
