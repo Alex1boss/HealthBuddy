@@ -320,7 +320,7 @@
 </head>
 <body>
     <!-- Toggle Button -->
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()" aria-label="Toggle navigation menu" aria-expanded="false">
         <span class="hamburger" aria-hidden="true"></span>
         <span class="hamburger" aria-hidden="true"></span>
         <span class="hamburger" aria-hidden="true"></span>
@@ -330,7 +330,7 @@
     <nav class="side-nav" id="sideNav">
         <div class="nav-header">
             <h3>💧 Calculators</h3>
-            <button class="nav-close" id="navClose" aria-label="Close Navigation">✕</button>
+            <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()">✕</button>
         </div>
         <ul class="nav-menu">
             <li><a href="index.html" class="nav-link active">💧 Water Intake Calculator</a></li>
@@ -814,96 +814,58 @@
     <!-- Optimized JavaScript loading -->
     
     <script>
-        // CLEAN JAVASCRIPT: Exact implementation from your solution
-        const nav = document.querySelector('.side-nav');
-        let overlay;
-        
-        function openNavigation() {
-            console.log('openNavigation function called');
-            console.log('Nav before open:', nav.classList.toString());
-            nav.classList.add('open');
-            console.log('Nav after add open:', nav.classList.toString());
-            if (overlay) {
+        // Simple working navigation - matching drinks.html implementation
+        function toggleNavigation() {
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            if (sideNav.classList.contains('open')) {
+                // Close navigation
+                sideNav.classList.remove('open');
+                navToggle.classList.remove('active');
+                body.classList.remove('nav-open');
+                
+                // Hide overlay
+                const overlay = document.querySelector('.overlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                }
+            } else {
+                // Open navigation
+                sideNav.classList.add('open');
+                navToggle.classList.add('active');
+                body.classList.add('nav-open');
+                
+                // Create/show overlay
+                let overlay = document.querySelector('.overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'overlay';
+                    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;display:none;';
+                    overlay.addEventListener('click', closeNavigation);
+                    document.body.appendChild(overlay);
+                }
                 overlay.style.display = 'block';
-                console.log('Overlay shown');
             }
-            document.body.classList.add('nav-open');
-            console.log('Body nav-open class added');
         }
 
+        // Close navigation function (for close button)
         function closeNavigation() {
-            console.log('closeNavigation function called');
-            console.log('Nav before close:', nav.classList.toString());
-            nav.classList.remove('open');
-            console.log('Nav after remove open:', nav.classList.toString());
+            const sideNav = document.getElementById('sideNav');
+            const navToggle = document.getElementById('navToggle');
+            const body = document.body;
+            
+            sideNav.classList.remove('open');
+            navToggle.classList.remove('active');
+            body.classList.remove('nav-open');
+            
+            // Hide overlay
+            const overlay = document.querySelector('.overlay');
             if (overlay) {
                 overlay.style.display = 'none';
-                console.log('Overlay hidden');
-            }
-            document.body.classList.remove('nav-open');
-            console.log('Body nav-open class removed');
-        }
-
-        function toggleNavigation() {
-            if (nav.classList.contains('open')) {
-                closeNavigation();
-            } else {
-                openNavigation();
             }
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create overlay element
-            overlay = document.createElement('div');
-            overlay.className = 'overlay';
-            document.body.appendChild(overlay);
-            
-            // Toggle button
-            const toggleBtn = document.querySelector('.nav-toggle');
-            console.log('Toggle button found:', toggleBtn);
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function(e) {
-                    console.log('Toggle button clicked');
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleNavigation();
-                });
-                console.log('Toggle button event listener attached');
-            }
-            
-            // Close button inside nav - check if it exists
-            const closeBtn = document.querySelector('.nav-close');
-            console.log('Close button found:', closeBtn);
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function(e) {
-                    console.log('Close button clicked - event triggered');
-                    console.log('Nav element:', nav);
-                    console.log('Nav classes before:', nav.className);
-                    e.preventDefault();
-                    e.stopPropagation();
-                    closeNavigation();
-                    console.log('Nav classes after:', nav.className);
-                });
-                console.log('Close button event listener attached successfully');
-            } else {
-                console.error('Close button NOT found');
-            }
-            
-            // Clicking overlay closes nav
-            overlay.addEventListener('click', closeNavigation);
-            
-            // Font loading optimization
-            if ('fonts' in document) {
-                Promise.all([
-                    document.fonts.load('400 1em Inter'),
-                    document.fonts.load('600 1em Inter')
-                ]).then(() => {
-                    document.documentElement.classList.add('font-loaded');
-                }).catch(() => {
-                    // Fallback fonts are already applied
-                });
-            }
-        });
     </script>
 </body>
 </html>
