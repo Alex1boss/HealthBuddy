@@ -140,9 +140,6 @@
         .calculate-btn{transition:opacity 0.2s ease;will-change:opacity}
         /* Remove conflicting desktop margins - let main.css handle this */
 
-        .side-nav.closed {
-            transform: translateX(-100%);
-        }
 
         .nav-toggle.active .hamburger:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
@@ -285,19 +282,20 @@
         
         /* Side navigation - slide from LEFT like original design */
         .side-nav {
-            position: fixed;
-            top: 0;
-            left: -250px; /* keep hidden initially on LEFT */
-            width: 250px;
-            height: 100%;
-            background: #fff;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-            transition: left 0.3s ease-in-out;
-            z-index: 9999; /* above overlay */
-            overflow-y: auto;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 250px !important;
+            height: 100% !important;
+            background: #fff !important;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2) !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s ease-in-out !important;
+            z-index: 9999 !important;
+            overflow-y: auto !important;
         }
         .side-nav.open {
-            left: 0; /* slide to left: 0 */
+            transform: translateX(0) !important;
         }
 
         /* Overlay should cover the full viewport */
@@ -855,10 +853,11 @@
             // Close button inside nav - check if it exists
             const closeBtn = document.querySelector('.nav-close');
             if (closeBtn) {
-                closeBtn.addEventListener('click', closeNavigation);
-                console.log('Close button event listener attached');
-            } else {
-                console.error('Close button not found');
+                closeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeNavigation();
+                });
             }
             
             // Clicking overlay closes nav
