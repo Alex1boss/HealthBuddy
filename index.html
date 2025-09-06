@@ -147,6 +147,59 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
         
+        /* Side Navigation */
+        .side-nav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 250px !important;
+            height: 100vh !important;
+            background: white !important;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1) !important;
+            z-index: 1000 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s ease !important;
+        }
+        
+        .side-nav.open {
+            transform: translateX(0) !important;
+        }
+        
+        .nav-menu {
+            list-style: none !important;
+            padding: 1rem 0 !important;
+            margin: 0 !important;
+            flex: 1 !important;
+            overflow-y: auto !important;
+        }
+        
+        .nav-menu li {
+            margin: 0 !important;
+        }
+        
+        .nav-link {
+            display: block !important;
+            padding: 0.75rem 1.5rem !important;
+            color: #64748b !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            transition: all 0.2s ease !important;
+            border-left: 3px solid transparent !important;
+        }
+        
+        .nav-link:hover {
+            background: #f8fafc !important;
+            color: #0ea5e9 !important;
+        }
+        
+        .nav-link.active {
+            background: rgba(14,165,233,0.1) !important;
+            color: #0ea5e9 !important;
+            border-left-color: #0ea5e9 !important;
+        }
+        
         .header{padding:3rem 0 2rem;text-align:center;contain:layout style}
         .title{font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,#1E90FF 0%,#0066CC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.75rem;line-height:1.2;min-height:3rem;font-display:swap}
         .subtitle{font-size:1.125rem;color:#6B7280;font-weight:400;margin-bottom:0;min-height:1.5rem;font-display:swap}
@@ -278,6 +331,14 @@
         <span class="hamburger" aria-hidden="true"></span>
     </button>
 
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link active">💧 Water Intake Calculator</a></li>
+            <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
+            <li><a href="sugar.html" class="nav-link">🍬 Sweet Calculator</a></li>
+        </ul>
+    </nav>
 
     <!-- Header -->
     <header class="header">
