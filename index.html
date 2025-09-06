@@ -254,6 +254,23 @@
             flex-shrink: 0 !important;
         }
         
+        /* Overlay should cover the full viewport */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            display: none;
+        }
+        
+        /* Prevent body scroll when nav is open */
+        body.nav-open {
+            overflow: hidden;
+        }
+        
     </style>
 </head>
 <body>
@@ -828,77 +845,46 @@
     <!-- Optimized JavaScript loading -->
     
     <script>
-        function toggleNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
-            
-            if (window.innerWidth <= 768) {
-                // Mobile: toggle open class
-                sideNav.classList.toggle('open');
-                navToggle.classList.toggle('active');
-                toggleOverlay();
-            } else {
-                // Desktop: toggle closed class
-                if (sideNav.classList.contains('closed')) {
-                    sideNav.classList.remove('closed');
-                    body.classList.remove('nav-closed');
-                    navToggle.classList.remove('show');
-                } else {
-                    sideNav.classList.add('closed');
-                    body.classList.add('nav-closed');
-                    navToggle.classList.add('show');
-                }
-                navToggle.classList.toggle('active');
-            }
+        // Create overlay element once DOM is loaded
+        let overlay;
+        
+        function openNavigation() {
+            const nav = document.querySelector('.side-nav');
+            nav.classList.add('open');
+            overlay.style.display = 'block';
+            document.body.classList.add('nav-open');
         }
         
-        function toggleOverlay() {
-            let overlay = document.querySelector('.nav-overlay');
-            if (!overlay) {
-                overlay = document.createElement('div');
-                overlay.className = 'nav-overlay';
-                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999;display:none;';
-                overlay.addEventListener('click', closeNavigation);
-                document.body.appendChild(overlay);
-            }
-            
-            const sideNav = document.getElementById('sideNav');
-            if (sideNav.classList.contains('open')) {
-                overlay.style.display = 'block';
-            } else {
-                overlay.style.display = 'none';
-            }
-        }
-        
-        // Close navigation function (for close button)
         function closeNavigation() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
-            
-            if (window.innerWidth <= 768) {
-                // Mobile: close navigation
-                sideNav.classList.remove('open');
-                navToggle.classList.remove('active');
-                const overlay = document.querySelector('.nav-overlay');
-                if (overlay) overlay.style.display = 'none';
+            const nav = document.querySelector('.side-nav');
+            nav.classList.remove('open');
+            overlay.style.display = 'none';
+            document.body.classList.remove('nav-open');
+        }
+        
+        function toggleNavigation() {
+            const nav = document.querySelector('.side-nav');
+            if (nav.classList.contains('open')) {
+                closeNavigation();
             } else {
-                // Desktop: close navigation
-                sideNav.classList.add('closed');
-                body.classList.add('nav-closed');
-                navToggle.classList.add('show');
+                openNavigation();
             }
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            const sideNav = document.getElementById('sideNav');
-            const navToggle = document.getElementById('navToggle');
-            const body = document.body;
+            // Create overlay element
+            overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            document.body.appendChild(overlay);
             
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
+            // Toggle button
+            document.querySelector('.nav-toggle').addEventListener('click', openNavigation);
+            
+            // Close button inside nav
+            document.querySelector('.nav-close').addEventListener('click', closeNavigation);
+            
+            // Clicking overlay closes nav
+            overlay.addEventListener('click', closeNavigation);
             
             // Font loading optimization
             if ('fonts' in document) {

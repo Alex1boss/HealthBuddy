@@ -1,0 +1,90 @@
+The white space issue in your toggle menu is most likely coming from the overlay + nav container CSS.
+
+Here’s what’s happening:
+
+Your side-nav (.side-nav) is position: fixed and slides in.
+
+But your overlay doesn’t cover the entire screen properly, leaving a white gap when the nav opens.
+
+Also, if you don’t lock scrolling on <body>, the page shifts when the nav is open.
+
+✅ Fix for White Space in Toggle Nav
+
+Update your CSS:
+
+/* Overlay should cover the full viewport */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* dark overlay */
+  z-index: 9998; /* just below the nav */
+  display: none;
+}
+
+/* Side navigation */
+.side-nav {
+  position: fixed;
+  top: 0;
+  right: -250px; /* keep hidden initially */
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  transition: right 0.3s ease-in-out;
+  z-index: 9999; /* above overlay */
+  overflow-y: auto;
+}
+.side-nav.open {
+  right: 0;
+}
+
+/* Prevent body scroll when nav is open */
+body.nav-open {
+  overflow: hidden;
+}
+
+✅ Fix JavaScript for Toggle
+
+Replace your broken script with this:
+
+<script>
+  const nav = document.querySelector('.side-nav');
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  document.body.appendChild(overlay);
+
+  function openNavigation() {
+    nav.classList.add('open');
+    overlay.style.display = 'block';
+    document.body.classList.add('nav-open');
+  }
+
+  function closeNavigation() {
+    nav.classList.remove('open');
+    overlay.style.display = 'none';
+    document.body.classList.remove('nav-open');
+  }
+
+  // Toggle button
+  document.querySelector('.nav-toggle').addEventListener('click', openNavigation);
+
+  // Close button inside nav
+  document.querySelector('.nav-close').addEventListener('click', closeNavigation);
+
+  // Clicking overlay closes nav
+  overlay.addEventListener('click', closeNavigation);
+</script>
+
+
+👉 This will:
+
+Slide in nav without leaving white space.
+
+Cover the entire page with dark overlay.
+
+Lock body scrolling when menu is open.
+
+Close properly when clicking overlay or close button.
