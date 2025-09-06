@@ -819,15 +819,29 @@
         let overlay;
         
         function openNavigation() {
+            console.log('openNavigation function called');
+            console.log('Nav before open:', nav.classList.toString());
             nav.classList.add('open');
-            overlay.style.display = 'block';
+            console.log('Nav after add open:', nav.classList.toString());
+            if (overlay) {
+                overlay.style.display = 'block';
+                console.log('Overlay shown');
+            }
             document.body.classList.add('nav-open');
+            console.log('Body nav-open class added');
         }
 
         function closeNavigation() {
+            console.log('closeNavigation function called');
+            console.log('Nav before close:', nav.classList.toString());
             nav.classList.remove('open');
-            overlay.style.display = 'none';
+            console.log('Nav after remove open:', nav.classList.toString());
+            if (overlay) {
+                overlay.style.display = 'none';
+                console.log('Overlay hidden');
+            }
             document.body.classList.remove('nav-open');
+            console.log('Body nav-open class removed');
         }
 
         function toggleNavigation() {
@@ -846,18 +860,33 @@
             
             // Toggle button
             const toggleBtn = document.querySelector('.nav-toggle');
+            console.log('Toggle button found:', toggleBtn);
             if (toggleBtn) {
-                toggleBtn.addEventListener('click', toggleNavigation);
+                toggleBtn.addEventListener('click', function(e) {
+                    console.log('Toggle button clicked');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleNavigation();
+                });
+                console.log('Toggle button event listener attached');
             }
             
             // Close button inside nav - check if it exists
             const closeBtn = document.querySelector('.nav-close');
+            console.log('Close button found:', closeBtn);
             if (closeBtn) {
                 closeBtn.addEventListener('click', function(e) {
+                    console.log('Close button clicked - event triggered');
+                    console.log('Nav element:', nav);
+                    console.log('Nav classes before:', nav.className);
                     e.preventDefault();
                     e.stopPropagation();
                     closeNavigation();
+                    console.log('Nav classes after:', nav.className);
                 });
+                console.log('Close button event listener attached successfully');
+            } else {
+                console.error('Close button NOT found');
             }
             
             // Clicking overlay closes nav
