@@ -103,10 +103,10 @@
     <!-- Critical CSS for above-the-fold content -->
     <style>
         /* Critical styles to prevent layout shifts */
-        body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 50%,#F0FDF4 100%);color:#1F2937;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;contain:layout style}
+        /* Let main.css handle body styles */
         /* Remove transition to prevent layout shift */
         @media (min-width: 769px) {
-            body { transition:margin-left 0.3s ease;will-change:margin-left }
+            /* Transitions handled by main.css */
         }
         .nav-toggle{position:fixed;top:1rem;left:1rem;z-index:1001;background:#1E90FF;border:none;border-radius:0.5rem;padding:0.5rem;cursor:pointer;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);transition:all 0.2s ease-in-out;display:none;flex-direction:column;gap:0.25rem;min-height:40px;min-width:40px;contain:layout style;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}
         .nav-toggle.show{display:flex!important}
@@ -138,20 +138,7 @@
         .ad-container{min-height:90px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px}
         .btn-disabled{opacity:0.6!important;pointer-events:none}
         .calculate-btn{transition:opacity 0.2s ease;will-change:opacity}
-        /* Desktop: Apply side navigation margin */
-        @media (min-width: 769px) {
-            body.nav-closed {
-                margin-left: 0;
-            }
-            
-            .nav-toggle {
-                display: none;
-            }
-            
-            .nav-toggle.show {
-                display: flex !important;
-            }
-        }
+        /* Remove conflicting desktop margins - let main.css handle this */
 
         .side-nav.closed {
             transform: translateX(-100%);
@@ -185,8 +172,7 @@
             .calculator-card{min-height:300px}
             .article-preview{grid-template-columns:1fr!important}
         }
-        @media (min-width:769px) and (max-width:1024px){.side-nav{width:220px}.nav-toggle{display:none}}
-        @media (min-width:1025px){.side-nav{width:250px}.nav-toggle{display:none}}
+        /* Remove duplicate responsive rules - main.css handles these */
     </style>
     
     <!-- Main CSS with resource hint -->
