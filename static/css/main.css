@@ -1225,7 +1225,7 @@ body {
     }
     
     .nav-toggle {
-        display: none !important;
+        display: flex !important;
     }
 }
 
