@@ -102,7 +102,7 @@ body {
     }
     
     .nav-toggle {
-        display: none;
+        display: flex;
     }
 }
 
@@ -120,7 +120,7 @@ body {
     }
     
     .nav-toggle {
-        display: none;
+        display: flex;
     }
 }
 
