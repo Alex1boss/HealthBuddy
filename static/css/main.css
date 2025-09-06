@@ -312,12 +312,12 @@ body {
 }
 
 .nav-link:hover {
-    background: var(--neutral-50);
+    background: transparent;
     color: var(--primary-blue);
 }
 
 .nav-link.active {
-    background: rgba(30, 144, 255, 0.1);
+    background: transparent;
     color: var(--primary-blue);
     border-left-color: var(--primary-blue);
 }
@@ -363,7 +363,7 @@ body {
     .nav-link.active {
         border-left-color: var(--primary-blue);
         border-bottom: none;
-        background: rgba(30, 144, 255, 0.1);
+        background: transparent;
     }
 }
 
