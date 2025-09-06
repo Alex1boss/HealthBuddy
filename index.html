@@ -108,6 +108,32 @@
         @media (min-width: 769px) {
             /* Transitions handled by main.css */
         }
+        /* Clean Navigation Styles - No Conflicts */
+        .nav-toggle {
+            position: fixed !important;
+            top: 1rem !important;
+            left: 1rem !important;
+            z-index: 1001 !important;
+            background: #1E90FF !important;
+            border: none !important;
+            border-radius: 0.5rem !important;
+            padding: 0.5rem !important;
+            cursor: pointer !important;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1) !important;
+            transition: all 0.2s ease-in-out !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.25rem !important;
+            min-height: 40px !important;
+            min-width: 40px !important;
+        }
+        
+        .hamburger {
+            width: 20px !important;
+            height: 2px !important;
+            background: white !important;
+            transition: all 0.2s ease-in-out !important;
+        }
         
         /* Navigation - Hidden by Default */
         .side-nav {
@@ -130,13 +156,6 @@
             transform: translateX(0) !important;
         }
         
-        .nav-header{padding:1rem 1.5rem 0.75rem !important;border-bottom:1px solid #e2e8f0 !important;display:flex !important;justify-content:space-between !important;align-items:center !important;flex-shrink:0 !important}
-        
-        .nav-header h3{font-size:1.25rem !important;font-weight:600 !important;color:#1e293b !important;margin:0 !important}
-        
-        .nav-close{background:none !important;border:none !important;font-size:1.5rem !important;color:#64748b !important;cursor:pointer !important;transition:all 0.2s ease !important;padding:0.25rem !important;border-radius:0.25rem !important}
-        
-        .nav-close:hover{background:#f8fafc !important;color:#1e293b !important}
         
         .nav-menu{list-style:none !important;padding:0.5rem 0 !important;margin:0 !important;flex:1 !important;overflow-y:auto !important}
         
@@ -206,15 +225,6 @@
             overflow-y: auto !important;
         }
         
-        .side-nav .nav-header {
-            padding: 1rem 1.5rem 0.75rem !important;
-            border-bottom: 1px solid #e2e8f0 !important;
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            flex-shrink: 0 !important;
-        }
-
         /* Override external CSS for consistent footer styling */
         .footer {
             background: #1e293b !important;
@@ -257,9 +267,6 @@
             flex-direction: column !important;
         }
         
-        body .side-nav .nav-header {
-            flex-shrink: 0 !important;
-        }
         
 
         /* Overlay should cover the full viewport */
@@ -283,13 +290,15 @@
     </style>
 </head>
 <body>
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleNavigation()" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger" aria-hidden="true"></span>
+        <span class="hamburger" aria-hidden="true"></span>
+        <span class="hamburger" aria-hidden="true"></span>
+    </button>
 
     <!-- Side Navigation -->
     <nav class="side-nav" id="sideNav">
-        <div class="nav-header">
-            <h3>💧 Calculators</h3>
-            <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()">✕</button>
-        </div>
         <ul class="nav-menu">
             <li><a href="index.html" class="nav-link active">💧 Water Intake Calculator</a></li>
             <li><a href="drinks.html" class="nav-link">☕ Drinks Calculator</a></li>
