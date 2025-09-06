@@ -897,9 +897,13 @@
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
-            sideNav.classList.add('closed');
-            body.classList.add('nav-closed');
-            navToggle.classList.add('show');
+            // Only initialize as closed on desktop if screen is wide enough
+            if (window.innerWidth > 768) {
+                // Don't start closed - let the navigation be open by default on desktop like drinks page
+                navToggle.classList.remove('show');
+                body.classList.remove('nav-closed');
+                sideNav.classList.remove('closed');
+            }
             
             // Font loading optimization
             if ('fonts' in document) {
