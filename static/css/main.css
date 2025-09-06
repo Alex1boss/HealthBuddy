@@ -281,7 +281,7 @@ body {
 }
 
 .nav-close:hover {
-    background: var(--neutral-100);
+    background: transparent;
     color: var(--neutral-800);
 }
 
