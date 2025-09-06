@@ -332,7 +332,7 @@
     <nav class="side-nav" id="sideNav">
         <div class="nav-header">
             <h3>💧 Calculators</h3>
-            <button class="nav-close" id="navClose" aria-label="Close Navigation">✕</button>
+            <button class="nav-close" id="navClose" aria-label="Close Navigation" onclick="closeNavigation()">✕</button>
         </div>
         <ul class="nav-menu">
             <li><a href="index.html" class="nav-link active">💧 Water Intake Calculator</a></li>
@@ -873,10 +873,19 @@
             document.body.appendChild(overlay);
             
             // Toggle button
-            document.querySelector('.nav-toggle').addEventListener('click', openNavigation);
+            const toggleBtn = document.querySelector('.nav-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', openNavigation);
+            }
             
-            // Close button inside nav
-            document.querySelector('.nav-close').addEventListener('click', closeNavigation);
+            // Close button inside nav - check if it exists
+            const closeBtn = document.querySelector('.nav-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeNavigation);
+                console.log('Close button event listener attached');
+            } else {
+                console.error('Close button not found');
+            }
             
             // Clicking overlay closes nav
             overlay.addEventListener('click', closeNavigation);
