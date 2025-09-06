@@ -593,12 +593,12 @@
                 sideNav.classList.remove('closed');
                 sideNav.classList.add('show');
                 navToggle.style.left = '260px';
-                body.style.marginLeft = '250px';
+                // CSS handles margin-left automatically
             } else {
                 sideNav.classList.add('closed');
                 sideNav.classList.remove('show');
                 navToggle.style.left = '1rem';
-                body.style.marginLeft = '0';
+                // CSS handles margin-left automatically
             }
         }
 
@@ -613,13 +613,13 @@
                 sideNav.classList.add('closed');
                 sideNav.classList.remove('show');
                 navToggle.style.left = '1rem';
-                body.style.marginLeft = '0';
+                // CSS handles margin-left automatically
             } else {
                 // Desktop: close navigation
                 sideNav.classList.add('closed');
                 sideNav.classList.remove('show');
                 navToggle.style.left = '1rem';
-                body.style.marginLeft = '0';
+                // CSS handles margin-left automatically
             }
         }
 
@@ -630,10 +630,10 @@
             
             if (window.innerWidth <= 768) {
                 sideNav.classList.add('closed');
-                body.style.marginLeft = '0';
+                // CSS handles margin-left automatically
             } else {
                 sideNav.classList.remove('closed');
-                body.style.marginLeft = '250px';
+                // CSS handles margin-left automatically
             }
         }
 
