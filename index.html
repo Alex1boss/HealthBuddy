@@ -816,11 +816,16 @@
     <script>
         // Simple working navigation - matching drinks.html implementation
         function toggleNavigation() {
+            console.log('toggleNavigation called');
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
             
+            console.log('sideNav element:', sideNav);
+            console.log('sideNav classes before:', sideNav.className);
+            
             if (sideNav.classList.contains('open')) {
+                console.log('Navigation is open, closing it');
                 // Close navigation
                 sideNav.classList.remove('open');
                 navToggle.classList.remove('active');
@@ -832,6 +837,7 @@
                     overlay.style.display = 'none';
                 }
             } else {
+                console.log('Navigation is closed, opening it');
                 // Open navigation
                 sideNav.classList.add('open');
                 navToggle.classList.add('active');
@@ -848,13 +854,18 @@
                 }
                 overlay.style.display = 'block';
             }
+            
+            console.log('sideNav classes after:', sideNav.className);
         }
 
         // Close navigation function (for close button)
         function closeNavigation() {
+            console.log('closeNavigation called');
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
             const body = document.body;
+            
+            console.log('sideNav before close:', sideNav.className);
             
             sideNav.classList.remove('open');
             navToggle.classList.remove('active');
@@ -865,6 +876,8 @@
             if (overlay) {
                 overlay.style.display = 'none';
             }
+            
+            console.log('sideNav after close:', sideNav.className);
         }
     </script>
 </body>
