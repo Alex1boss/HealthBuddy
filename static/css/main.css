@@ -13,7 +13,7 @@
     cursor: pointer;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 0.25rem;
     min-height: 44px;
@@ -107,7 +107,7 @@ body {
     }
     
     .nav-toggle {
-        display: flex;
+        display: flex !important;
     }
 }
 
@@ -130,7 +130,7 @@ body {
     }
     
     .nav-toggle {
-        display: flex;
+        display: flex !important;
     }
 }
 
@@ -224,7 +224,7 @@ body {
 }
 
 .nav-toggle.show {
-    display: flex;
+    display: flex !important;
 }
 
 .nav-toggle:hover {
