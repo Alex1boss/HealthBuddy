@@ -977,19 +977,15 @@
         function closeNavigation() {
             const sideNav = document.getElementById('sideNav');
             const navToggle = document.getElementById('navToggle');
-            const body = document.body;
             
+            // Simple close for all screen sizes
+            sideNav.classList.remove('open');
+            navToggle.classList.remove('active');
+            
+            // Remove overlay for mobile
             if (window.innerWidth <= 768) {
-                // Mobile: close navigation
-                sideNav.classList.remove('open');
-                navToggle.classList.remove('active');
                 const overlay = document.querySelector('.nav-overlay');
                 if (overlay) overlay.style.display = 'none';
-            } else {
-                // Desktop: close navigation
-                sideNav.classList.add('closed');
-                body.classList.add('nav-closed');
-                navToggle.classList.add('show');
             }
         }
         
