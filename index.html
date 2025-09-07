@@ -858,11 +858,9 @@
             
             // Hide/show toggle button based on navigation state
             if (sideNav.classList.contains('open')) {
-                navToggle.classList.add('hidden');
-                navToggle.classList.remove('show');
+                navToggle.style.display = 'none';
             } else {
-                navToggle.classList.remove('hidden');
-                navToggle.classList.add('show');
+                navToggle.style.display = 'flex';
             }
             
             // Add overlay for mobile
@@ -898,8 +896,7 @@
             sideNav.classList.remove('open');
             
             // Show toggle button when navigation closes
-            navToggle.classList.remove('hidden');
-            navToggle.classList.add('show');
+            navToggle.style.display = 'flex';
             
             // Remove overlay for mobile
             if (window.innerWidth <= 768) {
