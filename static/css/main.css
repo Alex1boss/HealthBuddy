@@ -258,7 +258,7 @@ body {
     background: white !important;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     transition: left 0.3s ease;
     contain: layout style;
@@ -266,7 +266,7 @@ body {
 }
 
 .side-nav.open {
-    left: 0;
+    left: 0 !important;
 }
 
 .side-nav.closed {
