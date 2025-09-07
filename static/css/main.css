@@ -102,8 +102,12 @@ body {
         left: -250px;
     }
     
+    .side-nav.open {
+        left: 0;
+    }
+    
     .nav-toggle {
-        display: none;
+        display: flex;
     }
 }
 
@@ -121,8 +125,12 @@ body {
         left: -250px;
     }
     
+    .side-nav.open {
+        left: 0;
+    }
+    
     .nav-toggle {
-        display: none;
+        display: flex;
     }
 }
 
