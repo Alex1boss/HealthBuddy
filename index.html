@@ -143,40 +143,38 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
         
-        /* Side Navigation - Override main.css white background */
+        /* Side Navigation - Fixed Positioning */
         .side-nav {
             position: fixed !important;
             top: 0 !important;
-            left: 0 !important;
+            left: -250px !important;
             width: 250px !important;
             height: 100vh !important;
-            background: transparent !important;
-            box-shadow: none !important;
+            background: white !important;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
             z-index: 1000 !important;
             display: flex !important;
             flex-direction: column !important;
-            transform: translateX(-100%) !important;
-            transition: transform 0.3s ease !important;
-            pointer-events: none !important;
+            transition: left 0.3s ease !important;
         }
         
-        /* Force override of main.css background */
+        /* Force override of transparent background */
         body .side-nav {
-            background: transparent !important;
+            background: white !important;
         }
         
         html body .side-nav {
-            background: transparent !important;
+            background: white !important;
         }
         
         /* Maximum specificity override */
         html body nav.side-nav#sideNav {
-            background: transparent !important;
-            box-shadow: none !important;
+            background: white !important;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
         }
         
         .side-nav.open {
-            transform: translateX(0) !important;
+            left: 0 !important;
         }
         
         .nav-header {
@@ -185,8 +183,8 @@
             align-items: center !important;
             gap: 1rem !important;
             flex-shrink: 0 !important;
-            background: transparent !important;
-            pointer-events: auto !important;
+            background: white !important;
+            border-bottom: 1px solid #e5e7eb !important;
         }
         
         .nav-header h3 {
@@ -203,8 +201,7 @@
             margin: 0 !important;
             flex: 1 !important;
             overflow-y: auto !important;
-            background: transparent !important;
-            pointer-events: auto !important;
+            background: white !important;
         }
         
         .nav-menu li {
