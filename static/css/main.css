@@ -82,7 +82,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
-    margin-left: 200px;
+    margin-left: 250px;
     transition: margin-left 0.3s ease;
     contain: layout style;
     will-change: margin-left;
@@ -91,7 +91,7 @@ body {
 /* Navigation Responsive Breakpoints */
 @media (min-width: 769px) and (max-width: 1024px) {
     body {
-        margin-left: 200px;
+        margin-left: 250px;
     }
 
     body.nav-closed {
@@ -99,7 +99,7 @@ body {
     }
     
     .side-nav {
-        width: 200px;
+        width: 250px;
     }
     
     .nav-toggle {
@@ -109,7 +109,7 @@ body {
 
 @media (min-width: 1025px) {
     body {
-        margin-left: 200px;
+        margin-left: 250px;
     }
 
     body.nav-closed {
@@ -117,7 +117,7 @@ body {
     }
     
     .side-nav {
-        width: 200px;
+        width: 250px;
     }
     
     .nav-toggle {
@@ -244,7 +244,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 200px;
+    width: 250px;
     height: 100vh;
     background: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -261,7 +261,7 @@ body {
 }
 
 .side-nav.closed {
-    left: -200px;
+    left: -250px;
 }
 
 .nav-header {
