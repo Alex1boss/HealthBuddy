@@ -107,7 +107,7 @@
             cursor: pointer;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
-            display: none;
+            display: flex;
             flex-direction: column;
             gap: 0.25rem;
             min-height: 40px;
@@ -712,6 +712,13 @@
 
             .results-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Hide navigation toggle on desktop */
+        @media (min-width: 769px) {
+            .nav-toggle {
+                display: none;
             }
         }
     </style>
