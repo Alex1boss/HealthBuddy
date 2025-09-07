@@ -99,10 +99,11 @@ body {
     
     .side-nav {
         width: 250px;
+        left: -250px;
     }
     
     .nav-toggle {
-        display: flex;
+        display: none;
     }
 }
 
@@ -117,10 +118,11 @@ body {
     
     .side-nav {
         width: 250px;
+        left: -250px;
     }
     
     .nav-toggle {
-        display: flex;
+        display: none;
     }
 }
 
