@@ -1157,7 +1157,13 @@
             
             // Simple toggle for all screen sizes
             sideNav.classList.toggle('open');
-            navToggle.classList.toggle('active');
+            
+            // Hide/show toggle button based on navigation state
+            if (sideNav.classList.contains('open')) {
+                navToggle.style.display = 'none';
+            } else {
+                navToggle.style.display = 'flex';
+            }
             
             // Add overlay for mobile
             if (window.innerWidth <= 768) {
@@ -1190,7 +1196,9 @@
             
             // Simple close for all screen sizes
             sideNav.classList.remove('open');
-            navToggle.classList.remove('active');
+            
+            // Show toggle button when navigation closes
+            navToggle.style.display = 'flex';
             
             // Remove overlay for mobile
             if (window.innerWidth <= 768) {
