@@ -149,30 +149,23 @@
             transform: rotate(-45deg) translate(7px, -6px);
         }
 
-        /* Side Navigation */
+        /* Side Navigation - Fixed Positioning */
         .side-nav {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            height: 100vh;
-            background: white;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-            transform: translateX(-100%);
-            contain: layout style;
-            will-change: transform;
-        }
-
-        .side-nav.closed {
-            transform: translateX(-100%);
+            position: fixed !important;
+            top: 0 !important;
+            left: -250px !important;
+            width: 250px !important;
+            height: 100vh !important;
+            background: white !important;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
+            z-index: 1000 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            transition: left 0.3s ease !important;
         }
 
         .side-nav.open {
-            transform: translateX(0) !important;
+            left: 0 !important;
         }
 
         .nav-header {
@@ -1228,9 +1221,6 @@
                 body.classList.add('nav-closed');
                 navToggle.classList.add('show');
             }
-            
-            // Ensure toggle starts in proper state (not active)
-            navToggle.classList.remove('active');
         });
     </script>
 
