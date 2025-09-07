@@ -1,3 +1,16 @@
 Flask==3.1.1
 gunicorn>=23.0.0
 werkzeug>=3.1.0
+email_validator
+flask
+flask-sqlalchemy
+gunicorn
+psycopg2-binary
+email-validator
+Flask==3.1.1
+flask-dance
+flask-login
+flask-sqlalchemy
+gunicorn>=23.0.0
+psycopg2-binary
+werkzeug>=3.1.0
