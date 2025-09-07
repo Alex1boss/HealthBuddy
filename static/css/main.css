@@ -13,7 +13,7 @@
     cursor: pointer;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     gap: 0.25rem;
     min-height: 44px;
@@ -107,7 +107,7 @@ body {
     }
     
     .nav-toggle {
-        display: flex !important;
+        display: flex;
     }
 }
 
@@ -130,7 +130,7 @@ body {
     }
     
     .nav-toggle {
-        display: flex !important;
+        display: flex;
     }
 }
 
@@ -160,7 +160,7 @@ body {
     }
     
     .nav-toggle {
-        display: flex !important;
+        display: flex;
     }
     
     .footer-disclaimer {
@@ -224,7 +224,7 @@ body {
 }
 
 .nav-toggle.show {
-    display: flex !important;
+    display: flex;
 }
 
 .nav-toggle:hover {
@@ -258,7 +258,7 @@ body {
     background: white !important;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     transition: left 0.3s ease;
     contain: layout style;
@@ -276,7 +276,7 @@ body {
 .nav-header {
     padding: 1rem 1.5rem 0.75rem;
     border-bottom: 1px solid var(--neutral-200);
-    display: flex !important;
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -353,7 +353,7 @@ body {
     }
     
     .nav-menu {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
         padding: 1rem 0;
         overflow-y: auto;
@@ -369,7 +369,7 @@ body {
         border-left: 3px solid transparent;
         border-bottom: none;
         min-height: 48px;
-        display: flex !important;
+        display: flex;
         align-items: center;
     }
     
@@ -486,7 +486,7 @@ body {
 
 /* Form Styles - Responsive */
 .calculator-form {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     gap: 1.5rem;
     margin-bottom: 2rem;
@@ -506,7 +506,7 @@ body {
 }
 
 .form-group {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
 }
 
@@ -520,7 +520,7 @@ body {
 
 .input-wrapper {
     position: relative;
-    display: flex !important;
+    display: flex;
     align-items: center;
 }
 
@@ -592,7 +592,7 @@ body {
     cursor: pointer;
     transition: var(--transition);
     box-shadow: var(--shadow-md);
-    display: flex !important;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -751,7 +751,7 @@ body {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    display: flex !important;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
     line-height: 1.4;
@@ -871,7 +871,7 @@ body {
 }
 
 .action-buttons {
-    display: flex !important;
+    display: flex;
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
@@ -1234,7 +1234,7 @@ body {
     }
     
     .nav-toggle {
-        display: flex !important;
+        display: flex;
     }
 }
 
